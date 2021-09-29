@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     Dit is de home page!
+	test1
   </div>
 </template>
 
