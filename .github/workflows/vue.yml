@@ -44,6 +44,7 @@ jobs:
         working-directory: Front-end/customerapp-vue
         run: npm ci
 
-      - name: Build
+      # Runs a single command using the runners shell
+      - name: Build Vue
         working-directory: Front-end/customerapp-vue
         run: npm build
