@@ -15,9 +15,9 @@ public class ProductController {
         String[] ingredients = {""};
         return  new ArrayList<Product>(){
             {
-                add(new Product(1,"Pizza","Stinkvis",ingredients,7.00,"https://picsum.photos/400/200"));
-                add(new Product(2,"Pizza","Stinkkaas",ingredients,6.00,"https://picsum.photos/400/200"));
-                add(new Product(3,"Pizza","StinkTomaat",ingredients,8.80,"https://picsum.photos/400/200"));
+                add(new Product(1,"Pizza","Pizza Tonno",ingredients,7.00,"https://picsum.photos/400/200"));
+                add(new Product(2,"Pizza","Pizza Margherita",ingredients,6.00,"https://picsum.photos/400/200"));
+                add(new Product(3,"Pizza","Pizza Gorgonzola",ingredients,8.80,"https://picsum.photos/400/200"));
             }
         };
     }

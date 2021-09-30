@@ -1,17 +1,21 @@
 <template>
   <div class="container">
-    <ProductCard v-for="product in products" :key="product.id" :product="product"/>    
+    <ProductCard
+      v-for="product in products"
+      :key="product.id"
+      :product="product"
+    />
   </div>
 </template>
 
 <script>
 import Vue from "vue";
-import ProductCard from "../components/ProductCard.vue"
+import ProductCard from "../components/ProductCard.vue";
 
 export default {
   name: "Home",
   components: {
-    ProductCard
+    ProductCard,
   },
   data() {
     return {
@@ -22,6 +26,7 @@ export default {
     Vue.axios.get("http://localhost:8080/").then((response) => {
       this.products = response.data;
     });
+    this.$store.commit("updateCartFromLocalStorage");
   },
 };
 </script>
