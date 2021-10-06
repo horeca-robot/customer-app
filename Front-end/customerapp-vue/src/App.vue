@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <b-navbar toggleable type="dark" variant="dark">
-      <b-navbar-brand href="#">NavBar</b-navbar-brand>
+      <b-navbar-brand style="margin-left: 30px" to="/">CustomerApp</b-navbar-brand>
 
       <b-navbar-toggle target="navbar-toggle-collapse">
         <template #default="{ expanded }">
@@ -12,8 +12,8 @@
 
       <b-collapse id="navbar-toggle-collapse" is-nav>
         <b-navbar-nav class="ml-auto">
-          <b-nav-item href="/">Home</b-nav-item>
-          <b-nav-item href="/about">About</b-nav-item>
+          <b-nav-item to="/">Home</b-nav-item>
+          <b-nav-item to="/order">Bestellijst</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>

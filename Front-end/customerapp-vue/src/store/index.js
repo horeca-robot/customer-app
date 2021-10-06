@@ -1,69 +1,53 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { v4 as uuid } from "uuid"
 
 Vue.use(Vuex);
 
 function updateLocalStorage(cart) {
-    localStorage.setItem('cart', JSON.stringify(cart))
+  localStorage.setItem('cart', JSON.stringify(cart))
 }
 
 
 export default new Vuex.Store({
-    state: {
-        cart: []
+  state: {
+    cart: []
+  },
+  getters: {    
+    cartItems: state => {
+      return state.cart
     },
-    getters: {
-        productQuantity: state => product => {
-            const item = state.cart.find(i => i.id === product.id)
-
-            if (item) return item.quantity
-            else return null
-        },
-        cartItems: state => {
-            return state.cart
-        },
-        cartTotal: state =>{
-            return state.cart.reduce((a, b) => a + (b.price * b.quantity), 0)
-        }
+    cartTotal: state => {
+      return state.cart.reduce((a, b) => a + (b.price * 1), 0)
     },
-    mutations: {
-        addToCart(state, product) {
-            let item = state.cart.find(i => i.id === product.id)
+  },
+  mutations: {
+    addToCart(state, product) {
 
-            if (item) {
-                item.quantity++
-            }
-            else {
-                state.cart.push({ ...product, quantity: 1 })
-            }
+      state.cart.push({ ...product, guid: uuid() })
 
-            updateLocalStorage(state.cart)
-        },
-        removeFromCart(state, product) {
-            let item = state.cart.find(i => i.id === product.id)
-
-            if (item) {
-                if (item.quantity > 1) {
-                    item.quantity--
-                }
-                else {
-                    state.cart = state.cart.filter(i => i.id !== product.id)
-                }
-            }
-
-            updateLocalStorage(state.cart)
-        },
-        updateCartFromLocalStorage(state){
-            const cart = localStorage.getItem('cart')
-            if(cart){
-                state.cart = JSON.parse(cart)
-            }
-        }
+      updateLocalStorage(state.cart)
     },
-    actions: {
+    removeFromCart(state, product) {
+      let item = state.cart.find(i => i.guid === product.guid)
 
+      if (item) {
+        state.cart = state.cart.filter(i => i.guid !== product.guid)
+      }
+
+      updateLocalStorage(state.cart)
     },
-    modules: {
+    updateCartFromLocalStorage(state) {
+      const cart = localStorage.getItem('cart')
+      if (cart) {
+        state.cart = JSON.parse(cart)
+      }
+    },
+  },
+  actions: {
 
-    }
+  },
+  modules: {
+
+  }
 })

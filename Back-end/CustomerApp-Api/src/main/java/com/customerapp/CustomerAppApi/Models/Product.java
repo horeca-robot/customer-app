@@ -1,19 +1,18 @@
 package com.customerapp.CustomerAppApi.Models;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Product {
     private int Id;
-    private String Category;
     private String Name;
-    private String[] Ingredients;
+    private ArrayList<Ingredient> Ingredients;
     private double Price;
     private String Img;
 
-    public Product(int id,String category, String name,String[] ingredients, double price, String img)
+    public Product(int id, String name, ArrayList<Ingredient> ingredients, double price, String img)
     {
         Id = id;
-        Category = category;
         Name = name;
         Ingredients = ingredients;
         Price = price;
@@ -32,11 +31,7 @@ public class Product {
         return Price;
     }
 
-    public String getCategory() {
-        return Category;
-    }
-
-    public String[] getIngredients() {
+    public ArrayList<Ingredient> getIngredients() {
         return Ingredients;
     }
 

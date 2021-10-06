@@ -1,10 +1,13 @@
 <template>
   <div class="container">
-    <ProductCard
-      v-for="product in products"
-      :key="product.id"
-      :product="product"
-    />
+    <div v-for="category in categories" :key="category.id">
+      <h2>{{category.name}}</h2>
+      <ProductCard
+        v-for="product in category.products"
+        :key="product.id"
+        :product="product"
+      />
+    </div>
   </div>
 </template>
 
@@ -19,12 +22,12 @@ export default {
   },
   data() {
     return {
-      products: [],
+      categories: [],
     };
   },
   mounted() {
     Vue.axios.get("http://localhost:8080/").then((response) => {
-      this.products = response.data;
+      this.categories = response.data;
     });
     this.$store.commit("updateCartFromLocalStorage");
   },
