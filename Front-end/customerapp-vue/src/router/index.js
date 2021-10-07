@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Cart from "../views/Cart.vue";
+import OrderHistory from "../views/OrderHistory.vue"
 
 Vue.use(VueRouter);
 
@@ -12,9 +13,14 @@ const routes = [
     component: Home,
   },
   {
-    path: "/order",
+    path: "/cart",
     name: "Cart",    
     component: Cart,
+  },
+  {
+    path: "/orders",
+    name: "OrderHistory",    
+    component: OrderHistory,
   },
 ];
 
