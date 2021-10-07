@@ -1,7 +1,8 @@
 <template>
   <div class="container">
     <div v-for="category in categories" :key="category.id">
-      <h2>{{category.name}}</h2>
+      <h2 style="margin-top:20px">{{category.name}}</h2>
+      <hr>
       <ProductCard
         v-for="product in category.products"
         :key="product.id"
