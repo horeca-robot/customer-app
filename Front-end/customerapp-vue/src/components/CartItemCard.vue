@@ -1,19 +1,59 @@
 <template>
   <div>
-    <b-card-footer>
-      <b-card-text> {{ product.name }} </b-card-text>
-      <b-card-text> € {{ product.price.toFixed(2) }} </b-card-text>
-      <b-button-group>
-        <b-button variant="light" @click="addToCart()">+</b-button>
-        <b-button variant="light" @click="removeFromCart()">-</b-button>
-      </b-button-group>
-    </b-card-footer>
-  </div>
+        <b-card>
+        <b-row id="1" v-on:click="changeIcon" class="order-item" no-gutters>
+            <b-col cols="7">
+            <b-card-text class="heading">
+                {{product.name}}
+            </b-card-text>
+            </b-col>
+            <b-col cols="3">
+            <b-card-text class="text price">
+                1X &euro;{{product.price}}
+            </b-card-text>
+            </b-col>
+            <b-col cols="2">
+            <b-icon :icon="sortIcon"></b-icon>
+            </b-col>
+        </b-row>
+        <b-row class="order-item-info" v-show="hidden">
+            <b-col>
+            <img class="order-image" :src=product.img />
+            </b-col>
+            <b-col>
+            <b-card-text class="heading bold">
+                Ingrediënten
+            </b-card-text>
+            <b-card-text class="text">
+                <div v-for="ingredient in product.ingredients"
+                 :key="ingredient">
+                 {{ingredient.name}},
+                </div>
+            </b-card-text>
+            </b-col>
+            <b-col>
+            <b-button class="button-style heading" v-on:click="addToCart">Toevoegen</b-button>
+            <b-button class="button-style heading" v-on:click="removeFromCart">Verwijderen</b-button>
+            </b-col>
+        </b-row>
+        </b-card>
+    </div>
 </template>
 
 <script>
 export default {
   props: ["product"],
+  data () {
+      return {
+        sortDirection: 'asc',
+        hidden: false,
+      };
+    },
+  computed: {
+      sortIcon() {
+        return this.sortDirection === 'asc' ? 'arrow-down-square-fill' : 'arrow-up-square-fill';
+      }
+    },
   methods: {
     addToCart() {
       this.$store.commit("addToCart", this.product);
@@ -21,9 +61,41 @@ export default {
     removeFromCart() {
       this.$store.commit("removeFromCart", this.product);
     },
+    changeIcon() {
+        this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+        this.hidden = !this.hidden;
+      },
   },
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.card .row {
+    --bs-gutter-x: 0;
+  }
+
+ .price{
+   text-align: left !important;
+ } 
+
+.order-image {
+    margin-top: 10px;
+    height: 100px;
+    width: auto;
+  }
+
+  .order-item {
+    border-bottom: 1pt solid black;
+  }
+
+  .order-item-info {
+    background-color: #CBE1D9;
+    border-bottom: 1pt solid black;
+  }
+
+  .card-body {
+    background-color: #E0DCCC;
+    padding: 3% 0 0 0;
+  }
+  
 </style>

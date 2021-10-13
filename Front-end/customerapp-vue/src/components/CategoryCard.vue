@@ -9,7 +9,7 @@
 export default {
     props: ["category"],
     methods: {
-    GoToCategory: function (category) {
+    GoToCategory(category) {
             this.$router.push({name:'Category', params: {id: category}})
     }
   },
@@ -21,6 +21,7 @@ export default {
 .image{
     width: 100%;
     height: 125px;
+    object-fit: cover;
 }
 .categoryName{
     font-family: Baskerville Old Face;

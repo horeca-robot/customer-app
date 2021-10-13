@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <b-navbar toggleable type="dark" variant="dark">
+    <b-navbar toggleable type="light" variant="light">
       <b-navbar-brand style="margin-left: 30px" to="/"
         >CustomerApp</b-navbar-brand
       >
@@ -26,10 +26,23 @@
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
 }
+@font-face {
+    font-family: "Baskerville";
+    src: url(../public/baskvill.ttf);
+  }
+
+  .bold {
+    font-weight: bold;
+  }
+
+  .heading {
+    font-family: "Baskerville";
+    font-size: 20px;
+  }
+
+  .text {
+    font-family: Arial, Helvetica, sans-serif;
+  }
 </style>
