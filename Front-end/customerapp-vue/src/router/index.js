@@ -3,19 +3,25 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Cart from "../views/Cart.vue";
 import OrderHistory from "../views/OrderHistory.vue";
+import TableValidator from "../views/TableValidator";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    name: "Home",
+    name: "home",
     component: Home,
   },
   {
     path: "/table/:tableId",
     name: "HomeTable",
     component: Home,
+  },
+  {
+    path: "/TableValidator/:tableId",
+    name: "TableValidator",
+    component: TableValidator,
   },
   {
     path: "/cart",
