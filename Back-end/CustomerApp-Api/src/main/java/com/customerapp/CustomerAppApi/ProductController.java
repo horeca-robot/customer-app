@@ -16,6 +16,11 @@ public class ProductController {
         ArrayList<Ingredient> margherita = new ArrayList<>();
         margherita.add((new Ingredient(1,"Tomaat")));
         margherita.add((new Ingredient(2,"Mozzarella")));
+        margherita.add((new Ingredient(3,"Deeg")));
+        margherita.add((new Ingredient(4,"Kaas")));
+        margherita.add((new Ingredient(5,"Champignon")));
+        margherita.add((new Ingredient(6,"Paprika")));
+
 
         ArrayList<Ingredient> tomatensoep = new ArrayList<>();
         tomatensoep.add((new Ingredient(10,"Tomaat")));
@@ -33,8 +38,6 @@ public class ProductController {
         gorgonzola.add((new Ingredient(1000,"Tomaat")));
 
 
-        ArrayList<Ingredient> koffie = new ArrayList<>();
-        koffie.add((new Ingredient(8, "Koffiebonen")));
 
 
         ArrayList<Category> Categories = new ArrayList<>();
@@ -45,7 +48,7 @@ public class ProductController {
         mainCategory.addProduct(new Product(1,"Pizza Quattro Formaggio",formaggio,7.00,"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrzNx2-1thSmCe2JqsiTMun1yBerxXG3B2ng&usqp=CAU"));
         mainCategory.addProduct(new Product(3,"Pizza Gorgonzola",gorgonzola,8.80,"https://lekkeritaliaanskoken.nl/media/k2/items/cache/0c758c944f0062609b2677e28107bc5e_M.jpg"));
         Category postCategory = new Category(3,"Nagerecht", "https://www.rtlnieuws.nl/sites/default/files/content/images/archive/70/koffie-smiley.jpg?itok=7EiqCwOh&width=1024&height=576&impolicy=semi_dynamic");
-        postCategory.addProduct(new Product(5,"Koffie",koffie,2.00,"https://www.rtlnieuws.nl/sites/default/files/content/images/archive/70/koffie-smiley.jpg?itok=7EiqCwOh&width=1024&height=576&impolicy=semi_dynamic"));
+        postCategory.addProduct(new Product(5,"Koffie",null,2.00,"https://www.rtlnieuws.nl/sites/default/files/content/images/archive/70/koffie-smiley.jpg?itok=7EiqCwOh&width=1024&height=576&impolicy=semi_dynamic"));
 
         Categories.add(preCategory);
         Categories.add(mainCategory);

@@ -9,7 +9,7 @@
             </b-col>
             <b-col cols="3">
             <b-card-text class="text price">
-                1X &euro;{{product.price}}
+                1x &euro;{{product.price}}
             </b-card-text>
             </b-col>
             <b-col cols="2">
@@ -17,19 +17,17 @@
             </b-col>
         </b-row>
         <b-row class="order-item-info" v-show="hidden">
-            <b-col>
+            <b-col cols="5">
             <img class="order-image" :src=product.img />
             </b-col>
-            <b-col>
+            <b-col cols="7"  v-if="product.ingredients != null">
             <b-card-text class="heading bold">
                 Ingrediënten
             </b-card-text>
-            <b-card-text class="text">
-                <div v-for="ingredient in product.ingredients"
-                 :key="ingredient">
+            <p v-for="ingredient in product.ingredients" :key="ingredient" style="display: inline;">
                  {{ingredient.name}},
-                </div>
-            </b-card-text>
+            </p>
+            
             </b-col>
             <b-col>
             <b-button class="button-style heading" v-on:click="addToCart">Toevoegen</b-button>
@@ -79,9 +77,9 @@ export default {
  } 
 
 .order-image {
-    margin-top: 10px;
     height: 100px;
-    width: auto;
+    width: 100%;
+    object-fit: cover;
   }
 
   .order-item {

@@ -8,7 +8,7 @@
                     </b-input>
                 </b-col>
                 <b-col >
-                    <b-button class="shoppingCartButton justify-content-end" v-on:click="GoToMenu">
+                    <b-button class="menuButton justify-content-end" v-on:click="GoToMenu">
                         <img src="../assets/menuIcon.png" alt="Shoppingcart" width="25" height="20">
                     </b-button>
                 </b-col>
@@ -102,8 +102,8 @@ export default {
 .Searchbar{
     width: 115px;
 }
-.shoppingCartButton{
-    background-color: #BDAD89;
-    border: 2px solid #E0DCCC;
+.menuButton{
+    background-color: #BDAD89 !important;
+    border: 2px solid #E0DCCC !important;
 }
 </style>
