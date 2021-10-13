@@ -1,7 +1,9 @@
 <template>
   <div id="app">
-    <b-navbar toggleable type="dark" variant="dark">
-      <b-navbar-brand href="#">NavBar</b-navbar-brand>
+    <b-navbar toggleable type="light" variant="light">
+      <b-navbar-brand style="margin-left: 30px" to="/"
+        >CustomerApp</b-navbar-brand
+      >
 
       <b-navbar-toggle target="navbar-toggle-collapse">
         <template #default="{ expanded }">
@@ -12,8 +14,9 @@
 
       <b-collapse id="navbar-toggle-collapse" is-nav>
         <b-navbar-nav class="ml-auto">
-          <b-nav-item href="/">Home</b-nav-item>
-          <b-nav-item href="/about">About</b-nav-item>
+          <b-nav-item to="/">Home</b-nav-item>
+          <b-nav-item to="/cart">Bestellijst</b-nav-item>
+          <b-nav-item to="/orders">History</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -23,11 +26,23 @@
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
 }
+@font-face {
+    font-family: "Baskerville";
+    src: url(../public/baskvill.ttf);
+  }
 
+  .bold {
+    font-weight: bold;
+  }
+
+  .heading {
+    font-family: "Baskerville";
+    font-size: 20px;
+  }
+
+  .text {
+    font-family: Arial, Helvetica, sans-serif;
+  }
 </style>
