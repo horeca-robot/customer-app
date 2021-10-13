@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <div v-for="category in categories" :key="category.id">
-      <h2 style="margin-top:20px">{{category.name}}</h2>
-      <hr>
+      <h2 style="margin-top: 20px">{{ category.name }}</h2>
+      <hr />
       <ProductCard
         v-for="product in category.products"
         :key="product.id"
@@ -26,11 +26,14 @@ export default {
       categories: [],
     };
   },
+  beforeMount() {
+    if (!this.$route.params.tableId) return;
+    this.$store.dispatch("tableModule/setTable", this.$route.params.tableId);
+  },
   mounted() {
     Vue.axios.get("http://localhost:8080/").then((response) => {
       this.categories = response.data;
     });
-    this.$store.commit("updateCartFromLocalStorage");
   },
 };
 </script>

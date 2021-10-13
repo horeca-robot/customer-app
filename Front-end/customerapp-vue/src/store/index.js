@@ -1,53 +1,50 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import { v4 as uuid } from "uuid"
+import Vue from "vue";
+import Vuex from "vuex";
+import { v4 as uuid } from "uuid";
+import tableModule from "./tableModule";
 
 Vue.use(Vuex);
 
 function updateLocalStorage(cart) {
-  localStorage.setItem('cart', JSON.stringify(cart))
+  localStorage.setItem("cart", JSON.stringify(cart));
 }
-
 
 export default new Vuex.Store({
   state: {
-    cart: []
+    cart: [],
   },
-  getters: {    
-    cartItems: state => {
-      return state.cart
+  getters: {
+    cartItems: (state) => {
+      return state.cart;
     },
-    cartTotal: state => {
-      return state.cart.reduce((a, b) => a + (b.price * 1), 0)
+    cartTotal: (state) => {
+      return state.cart.reduce((a, b) => a + b.price * 1, 0);
     },
   },
   mutations: {
     addToCart(state, product) {
+      state.cart.push({ ...product, guid: uuid() });
 
-      state.cart.push({ ...product, guid: uuid() })
-
-      updateLocalStorage(state.cart)
+      updateLocalStorage(state.cart);
     },
     removeFromCart(state, product) {
-      let item = state.cart.find(i => i.guid === product.guid)
+      let item = state.cart.find((i) => i.guid === product.guid);
 
       if (item) {
-        state.cart = state.cart.filter(i => i.guid !== product.guid)
+        state.cart = state.cart.filter((i) => i.guid !== product.guid);
       }
 
-      updateLocalStorage(state.cart)
+      updateLocalStorage(state.cart);
     },
     updateCartFromLocalStorage(state) {
-      const cart = localStorage.getItem('cart')
+      const cart = localStorage.getItem("cart");
       if (cart) {
-        state.cart = JSON.parse(cart)
+        state.cart = JSON.parse(cart);
       }
     },
   },
-  actions: {
-
-  },
+  actions: {},
   modules: {
-
-  }
-})
+    tableModule: tableModule,
+  },
+});
