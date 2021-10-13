@@ -18,6 +18,18 @@ const routes = [
     component: Cart,
   },
   {
+    path: "/menu",
+    name: "Menu",
+    component: () => 
+      import(/* webpackChunkName: "about" */ "../views/Menu.vue"),
+  },
+  {
+    path: "/menu/:id",
+    name: "Category",
+    component: () => 
+      import(/* webpackChunkName: "about" */ "../views/Category.vue"),
+  },
+  {
     path: "/orders",
     name: "OrderHistory",    
     component: OrderHistory,
