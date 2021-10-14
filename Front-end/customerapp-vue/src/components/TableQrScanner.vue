@@ -114,7 +114,7 @@ export default {
   text-align: center;
   font-weight: bold;
   font-size: 1.4rem;
-  padding: 10px;§
+  padding: 10px;
 
   display: flex;
   flex-flow: column nowrap;
