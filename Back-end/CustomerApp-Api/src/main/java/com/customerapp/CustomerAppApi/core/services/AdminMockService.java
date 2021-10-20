@@ -1,8 +1,6 @@
 package com.customerapp.CustomerAppApi.core.services;
 
-import edu.fontys.horecarobot.databaselibrary.models.Category;
-import edu.fontys.horecarobot.databaselibrary.models.Product;
-import edu.fontys.horecarobot.databaselibrary.models.RestaurantOrder;
+import edu.fontys.horecarobot.databaselibrary.models.*;
 import edu.fontys.horecarobot.databaselibrary.repositories.CategoryRepository;
 import edu.fontys.horecarobot.databaselibrary.repositories.IngredientRepository;
 import edu.fontys.horecarobot.databaselibrary.repositories.ProductRepository;
@@ -39,6 +37,162 @@ public class AdminMockService {
         hoofdgerecht.setProducts(products);
         hoofdgerecht.setVisible(true);
         categoryRepository.save(hoofdgerecht);
+
+        var voorgerecht = new Category();
+        voorgerecht.setName("Voorgerecht");
+        voorgerecht.setImage("https://chickslovefood.com/wp-content/uploads/2018/12/voorgerecht-coquille-eindfoto2-chickslovefood-1000x640.jpg");
+        var voorgerechtproducts = new ArrayList<Product>(){{
+
+        }};
+        voorgerecht.setProducts(voorgerechtproducts);
+        voorgerecht.setVisible(true);
+        categoryRepository.save(voorgerecht);
+
+        var nagerecht = new Category();
+        nagerecht.setName("Nagerecht");
+        nagerecht.setImage("https://smulweb-infra-smulwebbackendpublicbucket7daa1a81-1um3gn7obc0l4.s3.eu-central-1.amazonaws.com/public/sites/default/files/recipe-images/Halloweentoetjes.jpg?VCMOQYMynpbVt0LJiSzQOLqqSojZnMdA");
+        var nagerechtproducts = new ArrayList<Product>(){{
+
+        }};
+        nagerecht.setProducts(nagerechtproducts);
+        nagerecht.setVisible(true);
+        categoryRepository.save(nagerecht);
+
+        var table1 = new RestaurantTable();
+        table1.setTableNumber(1);
+        table1.setYAxis(0);
+        table1.setXAxis(1);
+        tableRepository.save(table1);
+
+        var table2 = new RestaurantTable();
+        table2.setTableNumber(2);
+        table2.setYAxis(0);
+        table2.setXAxis(2);
+        tableRepository.save(table2);
+
+        var table3 = new RestaurantTable();
+        table3.setTableNumber(3);
+        table3.setYAxis(1);
+        table3.setXAxis(1);
+        tableRepository.save(table3);
+    }
+
+
+    public List<Ingredient> getIngriedientsForProduct(String ProductName){
+        var ingredients = new ArrayList<Ingredient>();
+        switch(ProductName){
+            case "Tzatziki":
+                var yoghurt = new Ingredient();
+                yoghurt.setName("yoghurt");
+                ingredients.add(yoghurt);
+
+                var komkommer = new Ingredient();
+                komkommer.setName("komkommer");
+                ingredients.add(komkommer);
+
+                var knoflook = new Ingredient();
+                knoflook.setName("knoflook");
+                ingredients.add(knoflook);
+                return ingredients;
+
+            case "Tamara":
+
+                var tomaat = new Ingredient();
+                tomaat.setName("tomaat");
+                ingredients.add(tomaat);
+
+                var zalm = new Ingredient();
+                zalm.setName("zalm");
+                ingredients.add(zalm);
+                return ingredients;
+
+            case "Tomatensoep":
+
+                var tomaatsoep = new Ingredient();
+                tomaatsoep.setName("tomaat");
+                ingredients.add(tomaatsoep);
+
+                var knoflooksoep = new Ingredient();
+                knoflooksoep.setName("knoflook");
+                ingredients.add(knoflooksoep);
+
+                var OlijfOlie = new Ingredient();
+                OlijfOlie.setName("olijf olie");
+                ingredients.add(OlijfOlie);
+                return ingredients;
+
+            case "Gorgonzola":
+
+                var Blauwekaas = new Ingredient();
+                Blauwekaas.setName("blauwe schimmelkaas");
+                ingredients.add(Blauwekaas);
+
+                var Tomatensaus = new Ingredient();
+                Tomatensaus.setName("Tomatensaus");
+                ingredients.add(Tomatensaus);
+
+                var rodeui = new Ingredient();
+                rodeui.setName("rode ui");
+                ingredients.add(rodeui);
+
+                var spek = new Ingredient();
+                spek.setName("spek");
+                ingredients.add(spek);
+
+                return ingredients;
+
+            case "Margherita":
+
+                var deeg = new Ingredient();
+                deeg.setName("deeg");
+                ingredients.add(deeg);
+
+                var Tomatensauss = new Ingredient();
+                Tomatensauss.setName("Tomatensaus");
+                ingredients.add(Tomatensauss);
+
+                var mozzeralla = new Ingredient();
+                mozzeralla.setName("mozzeralla");
+                ingredients.add(mozzeralla);
+
+                return ingredients;
+
+
+            case "Smurfenijs":
+
+                var smurfenkots = new Ingredient();
+                smurfenkots.setName("smurfen kots");
+                ingredients.add(smurfenkots);
+
+                var vanilleijs = new Ingredient();
+                vanilleijs.setName("vanille ijs");
+                ingredients.add(vanilleijs);
+                return ingredients;
+
+            case "Cappucino":
+
+                var melk = new Ingredient();
+                melk.setName("opgeklopte melk");
+                ingredients.add(melk);
+
+                var koffie = new Ingredient();
+                koffie.setName("koffie");
+                ingredients.add(koffie);
+
+                return ingredients;
+
+            case "Kwatta":
+
+                var chocolade = new Ingredient();
+                chocolade.setName("chocolade");
+                ingredients.add(chocolade);
+
+                return ingredients;
+
+
+            default:
+                return null;
+        }
     }
 
     public List<Product> getProductsOfCategory(String category)
@@ -121,6 +275,7 @@ public class AdminMockService {
         }
         return products;
     }
+
 
 
 }
