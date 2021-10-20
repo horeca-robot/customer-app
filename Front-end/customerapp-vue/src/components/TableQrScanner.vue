@@ -21,8 +21,7 @@
     ></b-card-img>
     <b-button
       href="#"
-      variant="primary"
-      class="w-100 mt-3"
+      class="w-100 mt-3 scan-button-bg"
       :disabled="!loading"
       @click="startScanning"
       >Scan QR</b-button
@@ -102,7 +101,7 @@ export default {
 
 <style scoped>
 .loading-hide {
-  height: 0px !important;
+  height: 0 !important;
 }
 .validation-failure,
 .validation-pending {
@@ -122,5 +121,11 @@ export default {
 }
 .validation-failure {
   color: red;
+}
+.scan-button-bg {
+  background: #bdad89;
+}
+.scan-button-bg:hover {
+  background: #e0dccc;
 }
 </style>
