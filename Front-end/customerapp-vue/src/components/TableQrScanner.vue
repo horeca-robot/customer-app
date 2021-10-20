@@ -66,7 +66,7 @@ export default {
           "tableModule/setTable",
           this.$route.params.tableId
         );
-        this.$router.push({ name: "home" });
+        this.$router.push({ name: "menu" });
       }
       this.turnCameraOn();
     },

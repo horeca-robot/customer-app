@@ -17,7 +17,7 @@ import Vue from "vue";
 import ProductCard from "../components/ProductCard.vue";
 
 export default {
-  name: "Home",
+  name: "Menu",
   components: {
     ProductCard,
   },

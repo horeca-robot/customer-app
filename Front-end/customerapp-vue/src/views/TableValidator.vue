@@ -14,9 +14,10 @@
 export default {
   name: "TableValidator",
   beforeCreate() {
-    if (!this.$route.params.tableId) this.$router.push({ name: "home" });
+    if (!this.$route.params.tableId)
+      this.$router.push({ name: "table-picker" });
     this.$store.dispatch("tableModule/setTable", this.$route.params.tableId);
-    this.$router.push({ name: "home" });
+    this.$router.push({ name: "menu" });
   },
 };
 </script>

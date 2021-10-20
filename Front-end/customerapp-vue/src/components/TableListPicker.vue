@@ -24,7 +24,7 @@ export default {
   methods: {
     redirectToTable(tableId) {
       this.$store.dispatch("tableModule/setTable", tableId);
-      router.push({ name: "home" });
+      router.push({ name: "menu" });
     },
   },
 };
