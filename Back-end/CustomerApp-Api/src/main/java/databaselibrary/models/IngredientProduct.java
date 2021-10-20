@@ -18,7 +18,7 @@ import java.util.UUID;
 @Table(name = "ingredient_product")
 public class IngredientProduct {
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
             name = "UUID",
