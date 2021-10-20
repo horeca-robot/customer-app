@@ -1,7 +1,7 @@
 <template>
   <div>
         <b-card>
-        <b-row id="1" v-on:click="changeIcon" class="order-item" no-gutters>
+        <b-row v-on:click="changeIcon" class="order-item" no-gutters>
             <b-col cols="7">
             <b-card-text class="heading">
                 {{product.name}}
@@ -24,7 +24,7 @@
             <b-card-text class="heading bold">
                 Ingrediënten
             </b-card-text>
-            <p v-for="ingredient in product.ingredients" :key="ingredient" style="display: inline;">
+            <p v-for="ingredient in product.ingredients" :key="ingredient.id" style="display: inline;">
                  {{ingredient.name}},
             </p>
             
