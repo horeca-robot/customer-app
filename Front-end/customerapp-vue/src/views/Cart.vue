@@ -65,7 +65,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   html {
     background-color: #CBE1D9;
   }
@@ -75,23 +75,6 @@ export default {
   .container .row .col {
     margin-left: 3%;
   }
-
-  .button-style {
-    background-color: #BDAD89 !important;
-    border: 2pt solid #E0DCCC !important;
-    height: 30px;
-    width: 120px;
-    color: black !important;
-    padding: 1px !important;
-    margin-top: 3px;
-    margin-bottom: 3px;
-  }
-
-  .btn-secondary:active, .btn-secondary:hover {
-    background-color: #E0DCCC;
-    border: 2pt solid #BDAD89;
-  }
-
   .container {
     background-color: #CBE1D9;
     margin: 0;
