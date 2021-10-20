@@ -52,9 +52,6 @@ export default {
 </script>
 
 <style>
-.Header{
-    background-color: #82C4B5;
-}
 .background{
     background-color: RGBA(203, 225, 217, 0.5);
 }
@@ -63,9 +60,5 @@ export default {
 }
 .Searchbar{
     width: 115px;
-}
-.shoppingCartButton{
-    background-color: #BDAD89;
-    border: 2px solid #E0DCCC;
 }
 </style>

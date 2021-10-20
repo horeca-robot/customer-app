@@ -42,6 +42,7 @@
                 <b-button class="button-style heading" v-on:click="addToCart">Toevoegen</b-button>
             </div>
         </div>
+        
     </div>
 </template>
 
