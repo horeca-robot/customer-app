@@ -1,7 +1,7 @@
 package com.customerapp.CustomerAppApi.core.interfaces;
 
-import edu.fontys.horecarobot.databaselibrary.models.RestaurantOrder;
-import org.springframework.web.bind.annotation.RequestBody;
+import databaselibrary.models.RestaurantOrder;
+
 
 import java.util.ArrayList;
 

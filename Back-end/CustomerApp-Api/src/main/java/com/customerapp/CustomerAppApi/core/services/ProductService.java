@@ -1,8 +1,7 @@
 package com.customerapp.CustomerAppApi.core.services;
 
 import com.customerapp.CustomerAppApi.core.interfaces.IProductService;
-import edu.fontys.horecarobot.databaselibrary.models.Product;
-import edu.fontys.horecarobot.databaselibrary.models.Tag;
+import databaselibrary.models.Product;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

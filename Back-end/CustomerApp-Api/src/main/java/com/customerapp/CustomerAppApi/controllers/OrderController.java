@@ -3,9 +3,7 @@ package com.customerapp.CustomerAppApi.controllers;
 import com.customerapp.CustomerAppApi.core.interfaces.IOrderService;
 import com.customerapp.CustomerAppApi.core.services.AdminMockService;
 import com.customerapp.CustomerAppApi.models.Result;
-import edu.fontys.horecarobot.databaselibrary.models.Product;
-import edu.fontys.horecarobot.databaselibrary.models.RestaurantOrder;
-import edu.fontys.horecarobot.databaselibrary.models.Tag;
+import databaselibrary.models.RestaurantOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

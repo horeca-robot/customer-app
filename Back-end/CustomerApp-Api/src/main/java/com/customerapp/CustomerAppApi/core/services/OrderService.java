@@ -1,8 +1,8 @@
 package com.customerapp.CustomerAppApi.core.services;
 
 import com.customerapp.CustomerAppApi.core.interfaces.IOrderService;
-import edu.fontys.horecarobot.databaselibrary.models.RestaurantOrder;
-import edu.fontys.horecarobot.databaselibrary.repositories.OrderRepository;
+import databaselibrary.models.RestaurantOrder;
+import databaselibrary.repositories.OrderRepository;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 
