@@ -77,6 +77,10 @@ html, body{
  display: flex;
  justify-content: space-evenly !important;
 }
+.backButton{
+    background-color: #BDAD89 !important;
+    border: 2px solid #E0DCCC !important;
+}
 .shoppingCartButton{
     background-color: #BDAD89 !important;
     border: 2px solid #E0DCCC !important;
