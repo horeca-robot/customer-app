@@ -3,7 +3,6 @@ package com.customerapp.CustomerAppApi.core.services;
 import com.customerapp.CustomerAppApi.core.interfaces.IOrderService;
 import edu.fontys.horecarobot.databaselibrary.models.RestaurantOrder;
 import edu.fontys.horecarobot.databaselibrary.repositories.OrderRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 
@@ -20,10 +19,10 @@ public class OrderService implements IOrderService {
         return null;
     }
 
-    public void postOrder(RestaurantOrder order) throws Exception {
-        if(order == null){
-            throw new Exception();
-        }
+    public void postOrder(RestaurantOrder order){
+
+        orderRepository.save(order);
+
     }
 
 }

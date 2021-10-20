@@ -29,18 +29,16 @@ public class OrderController {
     }
 
     @CrossOrigin(origins = "*")
-    @PostMapping()
+    @PostMapping("")
     public Result postOrder(@RequestBody RestaurantOrder restaurantOrder){
-        // todo post order to database
         try{
             orderService.postOrder(restaurantOrder);
-            return new Result(true, "Order geplaatst!");
+            return new Result(true, "Bestelling geplaatst");
         }
-        catch(Exception e){
-            return new Result(false, "Order plaatsing mislukt");
+        catch(Exception e)
+        {
+            return new Result(false, e.getMessage());
         }
-
-
     }
 
     @CrossOrigin(origins = "*")

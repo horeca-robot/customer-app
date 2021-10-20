@@ -7,5 +7,5 @@ import java.util.ArrayList;
 
 public interface IOrderService {
      ArrayList<RestaurantOrder> getAllOrders();
-     void postOrder(RestaurantOrder order) throws Exception;
+     void postOrder(RestaurantOrder order);
 }
