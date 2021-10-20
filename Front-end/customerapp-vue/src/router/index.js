@@ -4,7 +4,7 @@ import Menu from "../views/Menu.vue";
 import Cart from "../views/Cart.vue";
 import OrderHistory from "../views/OrderHistory.vue";
 import TableValidator from "../views/TableValidator";
-import Test from "../views/Test";
+import Home from "../views/Home";
 
 Vue.use(VueRouter);
 
@@ -20,9 +20,9 @@ const routes = [
     component: TableValidator,
   },
   {
-    path: "/Test",
-    name: "Test",
-    component: Test,
+    path: "/",
+    name: "Home",
+    component: Home,
   },
   {
     path: "/cart",

@@ -1,6 +1,7 @@
 <template>
   <b-list-group>
     <b-list-group-item
+      class="table-item"
       v-for="table in tables"
       :key="table.id"
       href="#"
@@ -30,4 +31,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.table-item {
+  background: #bdad89;
+}
+</style>

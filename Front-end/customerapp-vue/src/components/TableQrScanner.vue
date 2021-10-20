@@ -1,5 +1,5 @@
 <template>
-  <b-card tag="article">
+  <div>
     <qrcode-stream
       v-if="scanning"
       :camera="camera"
@@ -26,7 +26,7 @@
       @click="startScanning"
       >Scan QR</b-button
     >
-  </b-card>
+  </div>
 </template>
 
 <script>
@@ -124,8 +124,10 @@ export default {
 }
 .scan-button-bg {
   background: #bdad89;
+  color: black;
 }
 .scan-button-bg:hover {
   background: #e0dccc;
+  color: black;
 }
 </style>
