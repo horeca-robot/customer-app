@@ -6,15 +6,14 @@ import edu.fontys.horecarobot.databaselibrary.models.Product;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class CategoryService implements ICategoryService {
-    public ArrayList<Category> getAllCategory(){
-        ArrayList<Category> categories =  new ArrayList<Category>();
-        categories.add(new Category("Voorgerecht","image",null,true,new Product[0]));
-        categories.add(new Category("Hoofdgerecht","image",null,true,new Product[0]));
-        categories.add(new Category("Nagerecht","image",null,true,new Product[0]));
-        return categories;
+    public List<Category> getAllCategory(){
+        List<Category> categories =  new ArrayList<Category>();
+
+        return null;
     }
 
 

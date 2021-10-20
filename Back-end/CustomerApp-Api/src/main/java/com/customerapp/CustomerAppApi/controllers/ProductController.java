@@ -23,7 +23,7 @@ public class ProductController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("all")
-    public ArrayList<Product> getProducts(){
+    public List<Product> getProducts(){
 
         return productService.getProducts();
     }
@@ -33,7 +33,7 @@ public class ProductController {
     public Product getProductById(@RequestBody String Id){
 
         //todo implement get by id function
-        return new Product("","",0,0,"",false,new Tag[0]);
+        return null;
     }
 
 

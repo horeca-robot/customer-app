@@ -2,13 +2,14 @@ package com.customerapp.CustomerAppApi.controllers;
 
 import com.customerapp.CustomerAppApi.core.interfaces.IOrderService;
 import com.customerapp.CustomerAppApi.models.Result;
-import edu.fontys.horecarobot.databaselibrary.models.Order;
 import edu.fontys.horecarobot.databaselibrary.models.Product;
+import edu.fontys.horecarobot.databaselibrary.models.RestaurantOrder;
 import edu.fontys.horecarobot.databaselibrary.models.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/order")
@@ -23,16 +24,16 @@ public class OrderController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("all")
-    public ArrayList<Order> getAllOrders(){
+    public ArrayList<RestaurantOrder> getAllOrders(){
         return orderService.getAllOrders();
     }
 
     @CrossOrigin(origins = "*")
     @PostMapping()
-    public Result postOrder(@RequestBody Order order){
+    public Result postOrder(@RequestBody RestaurantOrder restaurantOrder){
         // todo post order to database
         try{
-            orderService.postOrder(order);
+            orderService.postOrder(restaurantOrder);
             return new Result(true, "Order geplaatst!");
         }
         catch(Exception e){
@@ -44,9 +45,9 @@ public class OrderController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("")
-    public ArrayList<Order> getOrderByTable(/*Todo add @Request parameters */){
+    public List<RestaurantOrder> getOrderByTable(/*Todo add @Request parameters */){
         // todo get orders from database
-        return new ArrayList<Order>(){
+        return new ArrayList<RestaurantOrder>(){
             {
 
             }

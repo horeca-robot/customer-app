@@ -6,6 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface IProductService {
-    public ArrayList<Product> getProducts();
+    public List<Product> getProducts();
     public Product getProductById(String id);
 }
