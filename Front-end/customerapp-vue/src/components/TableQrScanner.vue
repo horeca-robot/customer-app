@@ -12,7 +12,7 @@
       </div>
 
       <div v-if="validationPending" class="validation-pending">
-        QR code wordt gecontrolleerd
+        Aanschuiven aan een tafel
       </div>
     </qrcode-stream>
     <b-card-img
