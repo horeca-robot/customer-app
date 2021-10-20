@@ -2,6 +2,8 @@ package com.customerapp.CustomerAppApi.controllers;
 
 
 import com.customerapp.CustomerAppApi.core.interfaces.ICategoryService;
+import com.customerapp.CustomerAppApi.core.interfaces.IMockService;
+import com.customerapp.CustomerAppApi.core.services.AdminMockService;
 import edu.fontys.horecarobot.databaselibrary.models.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +16,18 @@ import java.util.List;
 public class CategoryController {
 
     private ICategoryService categoryService;
+    private IMockService mockService;
 
     @Autowired
-    public CategoryController(ICategoryService categoryService) {
+    public CategoryController(ICategoryService categoryService, IMockService mockService) {
         this.categoryService = categoryService;
+        this.mockService = mockService;
     }
 
     @GetMapping("all")
     @CrossOrigin(origins = "*")
     public List<Category> getAllCategory(){
+        mockService.Initialize();
         return categoryService.getAllCategory();
     }
 
