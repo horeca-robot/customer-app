@@ -1,13 +1,13 @@
 <template>
     <b-navbar class="navbar" toggleable type="light" variant="light">
-        <b-card-img :src="img" class="image"></b-card-img>
-        <b-navbar-brand>{{route.name}}</b-navbar-brand>
-        <div class="hamburger" @click="hamburgerOpen = !hamburgerOpen" :class="hamburgerOpen ? 'hamburger--is-open' : ''">
-            <div class="hamburger__item hamburger__item--first"></div>
-            <div class="hamburger__item hamburger__item--middle"></div>
-            <div class="hamburger__item hamburger__item--last"></div>
-        </div>
-      </b-navbar>
+      <b-card-img :src="img" class="image"></b-card-img>
+      <b-navbar-brand>{{route.name}}</b-navbar-brand>
+      <div class="hamburger" @click="hamburgerOpen = !hamburgerOpen" :class="hamburgerOpen ? 'hamburger--is-open' : ''">
+          <div class="hamburger__item hamburger__item--first"></div>
+          <div class="hamburger__item hamburger__item--middle"></div>
+          <div class="hamburger__item hamburger__item--last"></div>
+      </div>
+    </b-navbar>
 </template>
 
 <script>
