@@ -1,12 +1,24 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+import Menu from "../views/Menu.vue";
 import Cart from "../views/Cart.vue";
-import OrderHistory from "../views/OrderHistory.vue"
+import OrderHistory from "../views/OrderHistory.vue";
+import TableValidator from "../views/TableValidator";
+import Home from "../views/Home";
 
 Vue.use(VueRouter);
 
 const routes = [
+  {
+    path: "/menu",
+    name: "menu",
+    component: Menu,
+  },
+  {
+    path: "/tablevalidator/:tableId",
+    name: "TableValidator",
+    component: TableValidator,
+  },
   {
     path: "/",
     name: "Home",
@@ -14,7 +26,7 @@ const routes = [
   },
   {
     path: "/cart",
-    name: "Cart",    
+    name: "Cart",
     component: Cart,
   },
   {
@@ -37,7 +49,7 @@ const routes = [
   },
   {
     path: "/orders",
-    name: "OrderHistory",    
+    name: "OrderHistory",
     component: OrderHistory,
   },
 ];

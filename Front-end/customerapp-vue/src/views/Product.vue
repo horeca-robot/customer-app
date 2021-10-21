@@ -3,12 +3,12 @@
         <div class="Header">
         <b-container>
             <b-row class="SearchandStore">
-                <b-col>
+                <b-col cols="6">
                     <b-button class="backButton justify-content-end" v-on:click="GoToCategory">
                         <b-icon icon="reply" flip-h variant="dark"/>
                     </b-button>
                 </b-col>
-                <b-col >
+                <b-col cols="6">
                     <b-button class="shoppingCartButton justify-content-end" v-on:click="GoToCart">
                         <b-icon icon="cart4" variant="dark"/>
                     </b-button>
@@ -42,6 +42,7 @@
                 <b-button class="button-style heading" v-on:click="addToCart">Toevoegen</b-button>
             </div>
         </div>
+        
     </div>
 </template>
 
@@ -116,5 +117,8 @@ export default {
 .place-order{
     background-color: #CBE1D9;
     padding-top: 30px;
+}
+.SearchandStore{
+    padding: 10px;
 }
 </style>

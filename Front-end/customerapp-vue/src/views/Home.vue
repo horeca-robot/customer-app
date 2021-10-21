@@ -1,36 +1,41 @@
 <template>
   <div class="container">
-    <div v-for="category in categories" :key="category.id">
-      <h2 style="margin-top:20px">{{category.name}}</h2>
-      <hr>
-      <Test
-        v-for="product in category.products"
-        :key="product.id"
-        :product="product"
-      />
+    <div class="row mb-3 mt-3">
+      <div class="col">
+        <b-card class="card-bg">
+          <TableQrScanner />
+        </b-card>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <b-card class="card-bg">
+          <table-list-picker
+            :tables="[
+              { id: 'CODES', number: 1 },
+              { id: 'CODES', number: 2 },
+              { id: 'CODES', number: 3 },
+              { id: 'CODES', number: 4 },
+            ]"
+          />
+        </b-card>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import Vue from "vue";
-import Test from "../components/Test.vue";
+import TableQrScanner from "../components/TableQrScanner";
+import TableListPicker from "../components/TableListPicker";
 
 export default {
   name: "Home",
-  components: {
-    Test,
-  },
-  data() {
-    return {
-      categories: [],
-    };
-  },
-  mounted() {
-    Vue.axios.get("http://localhost:8080/category").then((response) => {
-      this.categories = response.data;
-    });
-    this.$store.commit("updateCartFromLocalStorage");
-  },
+  components: { TableListPicker, TableQrScanner },
 };
 </script>
+
+<style scoped>
+.card-bg {
+  background: #e0dccc;
+}
+</style>
