@@ -32,19 +32,19 @@ const routes = [
   {
     path: "/menu",
     name: "Menu",
-    component: () => 
+    component: () =>
       import(/* webpackChunkName: "about" */ "../views/Menu.vue"),
   },
   {
     path: "/menu/:id",
     name: "Category",
-    component: () => 
+    component: () =>
       import(/* webpackChunkName: "about" */ "../views/Category.vue"),
   },
   {
     path: "/menu/:categoryId/:id",
     name: "Product",
-    component: () => 
+    component: () =>
       import(/* webpackChunkName: "about" */ "../views/Product.vue"),
   },
   {

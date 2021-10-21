@@ -9,9 +9,7 @@
     >
       <p>Bestelling geplaatst!</p>
     </b-alert>
-    <div>
-        
-    </div>
+    <div></div>
   </div>
 </template>
 

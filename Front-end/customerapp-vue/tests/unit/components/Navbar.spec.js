@@ -3,8 +3,8 @@ import Navbar from "@/components/Navbar.vue";
 
 describe("Navbar.vue", () => {
   it("Test the changing text in navbar.", () => {
-    var route = { name: "Menu" };
-    var wrapper = shallowMount(Navbar, {
+    let route = { name: "Menu" };
+    let wrapper = shallowMount(Navbar, {
       propsData: { route },
     });
     expect(wrapper.text()).toMatch(route.name);
