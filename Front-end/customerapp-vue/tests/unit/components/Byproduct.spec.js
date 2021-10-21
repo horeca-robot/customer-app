@@ -21,4 +21,14 @@ describe("Byproduct.vue", () => {
     wrapper.vm.RemoveFromAmount();
     expect(wrapper.vm.amount.toString()).toMatch("0");
   });
+
+  it("Test amount not below 0.", async () => {
+    let byproduct = { name: "Tomaat" };
+    let wrapper = shallowMount(Byproduct, {
+      propsData: { byproduct },
+    });
+    expect(wrapper.vm.amount.toString()).toMatch("0");
+    wrapper.vm.RemoveFromAmount();
+    expect(wrapper.vm.amount.toString()).toMatch("0");
+  });
 });
