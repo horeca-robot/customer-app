@@ -58,6 +58,9 @@ export default {
       GoToMenu: function (){
           this.$router.push("/menu")
       },
+      Search(){
+        //TODO: Add function.
+      }
   },
   mounted() {
     this.$store.commit("updateCartFromLocalStorage");
