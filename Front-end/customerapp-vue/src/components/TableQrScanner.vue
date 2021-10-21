@@ -15,10 +15,7 @@
         Aanschuiven aan een tafel
       </div>
     </qrcode-stream>
-    <b-card-img
-      v-if="!scanning || loading"
-      :src="require('../assets/qr-code-horeca.webp')"
-    ></b-card-img>
+    <b-card-img v-if="!scanning || loading" :src="img"></b-card-img>
     <b-button
       href="#"
       class="w-100 mt-3 scan-button-bg"
@@ -30,10 +27,13 @@
 </template>
 
 <script>
+import Image from "../assets/qr-code-horeca.png";
+
 export default {
   name: "TableQrScanner",
   data() {
     return {
+      img: Image,
       scanning: false,
       loading: true,
       isValid: undefined,
@@ -62,10 +62,7 @@ export default {
         this.isValid = false;
         await this.timeout(2000);
       } else {
-        this.$store.dispatch(
-          "tableModule/setTable",
-          this.$route.params.tableId
-        );
+        this.$store.dispatch("tableModule/setTable", match[1]);
         this.$router.push({ name: "menu" });
       }
       this.turnCameraOn();
