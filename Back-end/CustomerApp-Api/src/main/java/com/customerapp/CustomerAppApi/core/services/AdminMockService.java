@@ -29,6 +29,7 @@ public class AdminMockService implements IMockService {
     public void Initialize() {
 
         setIngredients();
+
         var hoofdgerecht = new Category();
         hoofdgerecht.setName("Hoofdgerecht");
         hoofdgerecht.setImage("https://www.dehoutenklaas.nl/wp-content/uploads/2016/12/hoofdgerecht.jpg");
@@ -38,21 +39,23 @@ public class AdminMockService implements IMockService {
         categoryRepository.saveAndFlush(hoofdgerecht);
         MakeRelation_Product_And_Ingredient(products);
 
-//        var voorgerecht = new Category();
-//        voorgerecht.setName("Voorgerecht");
-//        voorgerecht.setImage("https://chickslovefood.com/wp-content/uploads/2018/12/voorgerecht-coquille-eindfoto2-chickslovefood-1000x640.jpg");
-//        var voorgerechtproducts= getProductsOfCategory(voorgerecht.getName());
-//        voorgerecht.setProducts(voorgerechtproducts);
-//        voorgerecht.setVisible(true);
-//        categoryRepository.saveAndFlush(voorgerecht);
-//
-//        var nagerecht = new Category();
-//        nagerecht.setName("Nagerecht");
-//        nagerecht.setImage("https://smulweb-infra-smulwebbackendpublicbucket7daa1a81-1um3gn7obc0l4.s3.eu-central-1.amazonaws.com/public/sites/default/files/recipe-images/Halloweentoetjes.jpg?VCMOQYMynpbVt0LJiSzQOLqqSojZnMdA");
-//        var nagerechtproducts = getProductsOfCategory(nagerecht.getName());
-//        nagerecht.setProducts(nagerechtproducts);
-//        nagerecht.setVisible(true);
-//        categoryRepository.saveAndFlush(nagerecht);
+        var voorgerecht = new Category();
+        voorgerecht.setName("Voorgerecht");
+        voorgerecht.setImage("https://chickslovefood.com/wp-content/uploads/2018/12/voorgerecht-coquille-eindfoto2-chickslovefood-1000x640.jpg");
+        var voorgerechtproducts= getProductsOfCategory(voorgerecht.getName());
+        voorgerecht.setProducts(voorgerechtproducts);
+        voorgerecht.setVisible(true);
+        categoryRepository.saveAndFlush(voorgerecht);
+        MakeRelation_Product_And_Ingredient(voorgerechtproducts);
+
+        var nagerecht = new Category();
+        nagerecht.setName("Nagerecht");
+        nagerecht.setImage("https://smulweb-infra-smulwebbackendpublicbucket7daa1a81-1um3gn7obc0l4.s3.eu-central-1.amazonaws.com/public/sites/default/files/recipe-images/Halloweentoetjes.jpg?VCMOQYMynpbVt0LJiSzQOLqqSojZnMdA");
+        var nagerechtproducts = getProductsOfCategory(nagerecht.getName());
+        nagerecht.setProducts(nagerechtproducts);
+        nagerecht.setVisible(true);
+        categoryRepository.saveAndFlush(nagerecht);
+        MakeRelation_Product_And_Ingredient(nagerechtproducts);
 
         var table1 = new RestaurantTable();
         table1.setTableNumber(1);
@@ -224,6 +227,14 @@ public class AdminMockService implements IMockService {
                 smurfijs.setContainsAlcohol(false);
                 products.add(smurfijs);
 
+                Product VanilleIjs = new Product();
+                VanilleIjs.setName("Vanille Ijs");
+                VanilleIjs.setImage("https://www.funfoodshop.nl/image/smurfijs_1.jpg?w=1200&h=1000&r=1");
+                VanilleIjs.setPrice(2.00);
+                VanilleIjs.setDescription("Voor de saaie mensen");
+                VanilleIjs.setContainsAlcohol(false);
+                products.add(VanilleIjs);
+
                 Product cappuccino = new Product();
                 cappuccino.setName("Cappuccino");
                 cappuccino.setImage("https://www.jacobsdouweegbertsprofessional.nl/globalassets/cappuccino-maken/cappuccino-maken6v1.jpg?preset=two-halves-image-mobile");
@@ -269,6 +280,26 @@ public class AdminMockService implements IMockService {
                 ingredients.add(ingredientRepository.getIngredientByName("Tomatensaus"));
                 ingredients.add(ingredientRepository.getIngredientByName("rode ui"));
                 break;
+            case "Margherita":
+                ingredients.add(ingredientRepository.getIngredientByName("deeg"));
+                ingredients.add(ingredientRepository.getIngredientByName("Tomatensaus"));
+                ingredients.add(ingredientRepository.getIngredientByName("mozzeralla"));
+                break;
+            case "Gyros":
+                ingredients.add(ingredientRepository.getIngredientByName("Varkens vlees"));
+                break;
+            case "Smurfenijs":
+                ingredients.add(ingredientRepository.getIngredientByName("smurfen kots"));
+                ingredients.add(ingredientRepository.getIngredientByName("vanille ijs"));
+                break;
+            case "Cappucino":
+                ingredients.add(ingredientRepository.getIngredientByName("opgeklopte melk"));
+                ingredients.add(ingredientRepository.getIngredientByName("koffie"));
+                break;
+            case "Kwatta":
+                ingredients.add(ingredientRepository.getIngredientByName("chocolade"));
+                break;
+
         }
         return ingredients;
     }
@@ -290,15 +321,16 @@ public class AdminMockService implements IMockService {
     private void MakeRelation_Product_And_Ingredient(List<Product> products) {
         for (Product product : products) {
             List<Ingredient> ingredients = getIngredientsForProduct(product.getName());
-            for (Ingredient ingredient : ingredients) {
-                IngredientProduct ingredientProduct = new IngredientProduct();
-                ingredientProduct.setIngredient(ingredient);
-                ingredientProduct.setProduct(product);
-                ingredientProduct.setRequired(true);
-                ingredientProductRepository.saveAndFlush(ingredientProduct);
+            if(ingredients.size() > 0){
+                for (Ingredient ingredient : ingredients) {
+                    IngredientProduct ingredientProduct = new IngredientProduct();
+                    ingredientProduct.setIngredient(ingredient);
+                    ingredientProduct.setProduct(product);
+                    ingredientProduct.setRequired(true);
+                    ingredientProductRepository.saveAndFlush(ingredientProduct);
+                }
             }
         }
     }
-
 
 }
