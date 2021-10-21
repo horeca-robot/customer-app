@@ -1,11 +1,11 @@
 <template>
   <div>
     <b-card class="productCard" v-on:click="GoToProduct(product.id)">
-      <h1 class="productName">{{product.name}}</h1>
+      <h1 class="productName">{{ product.name }}</h1>
       <div class="productImage">
         <b-card-img :src="product.img" class="Image"></b-card-img>
         <div class="productPrice">
-          <p class="textPrice">€ {{product.price.toFixed(2)}}</p>
+          <p class="textPrice">€ {{ product.price.toFixed(2) }}</p>
         </div>
       </div>
     </b-card>
@@ -18,46 +18,48 @@ export default {
   methods: {
     addToCart() {
       this.$store.commit("addToCart", this.product);
-      this.$bvModal.hide(this.product.id.toString())	
+      this.$bvModal.hide(this.product.id.toString());
     },
-    GoToProduct(product){
-        this.$router.push({name:'Product', params: {categoryId: this.$route.params.id, id: product}})
-    }
+    GoToProduct(product) {
+      this.$router.push({
+        name: "Product",
+        params: { categoryId: this.$route.params.id, id: product },
+      });
+    },
   },
 };
 </script>
 
 <style>
-.productName{
+.productName {
   font-family: Baskerville Old Face;
   font-size: 40px;
   font-weight: bold;
 }
-.productPrice{
+.productPrice {
   position: absolute;
   bottom: 0;
   right: 0;
-  background-color: #BDAD89;
+  background-color: #bdad89;
   height: max-content;
   padding-left: 2px;
   padding-right: 2px;
-  
 }
-.productImage{
+.productImage {
   position: relative;
 }
-.textPrice{
+.textPrice {
   font-family: Baskerville Old Face;
   font-size: 25px;
-  margin:auto;
+  margin: auto;
 }
-.productCard{
-  background-color: #E0DCCC !important;
+.productCard {
+  background-color: #e0dccc !important;
   margin-bottom: 20px;
   width: 100% !important;
   border-radius: 0px !;
 }
-.Image{
+.Image {
   height: 150px;
   object-fit: cover;
 }
