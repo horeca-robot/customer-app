@@ -2,10 +2,7 @@ package com.customerapp.CustomerAppApi.core.services;
 
 import com.customerapp.CustomerAppApi.core.interfaces.IMockService;
 import databaselibrary.models.*;
-import databaselibrary.repositories.CategoryRepository;
-import databaselibrary.repositories.IngredientRepository;
-import databaselibrary.repositories.ProductRepository;
-import databaselibrary.repositories.RestaurantTableRepository;
+import databaselibrary.repositories.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,16 +16,19 @@ public class AdminMockService implements IMockService {
     private final CategoryRepository categoryRepository;
     private final IngredientRepository ingredientRepository;
     private final RestaurantTableRepository tableRepository;
+    private final IngredientProductRepository ingredientProductRepository;
 
-    public AdminMockService(ProductRepository productRepository, CategoryRepository categoryRepository, IngredientRepository ingredientRepository, RestaurantTableRepository tableRepository){
+    public AdminMockService(ProductRepository productRepository, CategoryRepository categoryRepository, IngredientRepository ingredientRepository, RestaurantTableRepository tableRepository, IngredientProductRepository ingredientProductRepository) {
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
         this.ingredientRepository = ingredientRepository;
         this.tableRepository = tableRepository;
+        this.ingredientProductRepository = ingredientProductRepository;
     }
 
-    public void Initialize(){
+    public void Initialize() {
 
+        setIngredients();
         var hoofdgerecht = new Category();
         hoofdgerecht.setName("Hoofdgerecht");
         hoofdgerecht.setImage("https://www.dehoutenklaas.nl/wp-content/uploads/2016/12/hoofdgerecht.jpg");
@@ -36,6 +36,7 @@ public class AdminMockService implements IMockService {
         hoofdgerecht.setProducts(products);
         hoofdgerecht.setVisible(true);
         categoryRepository.saveAndFlush(hoofdgerecht);
+        MakeRelation_Product_And_Ingredient(products);
 
 //        var voorgerecht = new Category();
 //        voorgerecht.setName("Voorgerecht");
@@ -72,132 +73,96 @@ public class AdminMockService implements IMockService {
         tableRepository.saveAndFlush(table3);
     }
 
-    private List<Ingredient> getIngriedientsForProduct(String ProductName){
+    private void setIngredients() {
         var ingredients = new ArrayList<Ingredient>();
-        switch(ProductName){
-            case "Tzatziki":
-                var yoghurt = new Ingredient();
-                yoghurt.setName("yoghurt");
-                ingredients.add(yoghurt);
+        var yoghurt = new Ingredient();
+        yoghurt.setName("yoghurt");
+        ingredients.add(yoghurt);
 
-                var komkommer = new Ingredient();
-                komkommer.setName("komkommer");
-                ingredients.add(komkommer);
-
-                var knoflook = new Ingredient();
-                knoflook.setName("knoflook");
-                ingredients.add(knoflook);
-
-            case "Tamara":
-
-                var tomaat = new Ingredient();
-                tomaat.setName("tomaat");
-                ingredients.add(tomaat);
-
-                var zalm = new Ingredient();
-                zalm.setName("zalm");
-                ingredients.add(zalm);
-
-            case "Tomatensoep":
-
-                var tomaatsoep = new Ingredient();
-                tomaatsoep.setName("tomaat");
-                ingredients.add(tomaatsoep);
-
-                var knoflooksoep = new Ingredient();
-                knoflooksoep.setName("knoflook");
-                ingredients.add(knoflooksoep);
-
-                var OlijfOlie = new Ingredient();
-                OlijfOlie.setName("olijf olie");
-                ingredients.add(OlijfOlie);
-
-            case "Gorgonzola":
-
-                var Blauwekaas = new Ingredient();
-                Blauwekaas.setName("blauwe schimmelkaas");
-                ingredients.add(Blauwekaas);
-
-                var Tomatensaus = new Ingredient();
-                Tomatensaus.setName("Tomatensaus");
-                ingredients.add(Tomatensaus);
-
-                var rodeui = new Ingredient();
-                rodeui.setName("rode ui");
-                ingredients.add(rodeui);
-
-                var spek = new Ingredient();
-                spek.setName("spek");
-                ingredients.add(spek);
-
-            case "Margherita":
-
-                var deeg = new Ingredient();
-                deeg.setName("deeg");
-                ingredients.add(deeg);
-
-                var Tomatensauss = new Ingredient();
-                Tomatensauss.setName("Tomatensaus");
-                ingredients.add(Tomatensauss);
-
-                var mozzeralla = new Ingredient();
-                mozzeralla.setName("mozzeralla");
-                ingredients.add(mozzeralla);
+        var komkommer = new Ingredient();
+        komkommer.setName("komkommer");
+        ingredients.add(komkommer);
 
 
-            case "Gyros":
-                var varkensvlees = new Ingredient();
-                varkensvlees.setName("Varkens vlees");
-                ingredients.add(varkensvlees);
+        var tomaat = new Ingredient();
+        tomaat.setName("tomaat");
+        ingredients.add(tomaat);
 
-            case "Smurfenijs":
+        var zalm = new Ingredient();
+        zalm.setName("zalm");
+        ingredients.add(zalm);
 
-                var smurfenkots = new Ingredient();
-                smurfenkots.setName("smurfen kots");
-                ingredients.add(smurfenkots);
+        var knoflooksoep = new Ingredient();
+        knoflooksoep.setName("knoflook");
+        ingredients.add(knoflooksoep);
 
-                var vanilleijs = new Ingredient();
-                vanilleijs.setName("vanille ijs");
-                ingredients.add(vanilleijs);
+        var OlijfOlie = new Ingredient();
+        OlijfOlie.setName("olijf olie");
+        ingredients.add(OlijfOlie);
 
-            case "Cappucino":
+        var Blauwekaas = new Ingredient();
+        Blauwekaas.setName("blauwe schimmelkaas");
+        ingredients.add(Blauwekaas);
 
-                var melk = new Ingredient();
-                melk.setName("opgeklopte melk");
-                ingredients.add(melk);
+        var rodeui = new Ingredient();
+        rodeui.setName("rode ui");
+        ingredients.add(rodeui);
 
-                var koffie = new Ingredient();
-                koffie.setName("koffie");
-                ingredients.add(koffie);
-
-
-            case "Kwatta":
-
-                var chocolade = new Ingredient();
-                chocolade.setName("chocolade");
-                ingredients.add(chocolade);
+        var spek = new Ingredient();
+        spek.setName("spek");
+        ingredients.add(spek);
 
 
+        var deeg = new Ingredient();
+        deeg.setName("deeg");
+        ingredients.add(deeg);
 
-            default:
-             var defaultingredient = new Ingredient();
-                defaultingredient.setName("defaultingredient");
-            ingredients.add(defaultingredient);
+        var Tomatensauss = new Ingredient();
+        Tomatensauss.setName("Tomatensaus");
+        ingredients.add(Tomatensauss);
 
-        }
-        for(Ingredient ingredient : ingredients)
+        var mozzeralla = new Ingredient();
+        mozzeralla.setName("mozzeralla");
+        ingredients.add(mozzeralla);
+
+
+        var varkensvlees = new Ingredient();
+        varkensvlees.setName("Varkens vlees");
+        ingredients.add(varkensvlees);
+
+
+        var smurfenkots = new Ingredient();
+        smurfenkots.setName("smurfen kots");
+        ingredients.add(smurfenkots);
+
+        var vanilleijs = new Ingredient();
+        vanilleijs.setName("vanille ijs");
+        ingredients.add(vanilleijs);
+
+
+        var melk = new Ingredient();
+        melk.setName("opgeklopte melk");
+        ingredients.add(melk);
+
+        var koffie = new Ingredient();
+        koffie.setName("koffie");
+        ingredients.add(koffie);
+
+
+        var chocolade = new Ingredient();
+        chocolade.setName("chocolade");
+        ingredients.add(chocolade);
+
+        for(Ingredient ingredient: ingredients)
         {
             ingredientRepository.saveAndFlush(ingredient);
         }
-        return ingredients;
     }
 
-    private List<Product> getProductsOfCategory(String category)
-    {
+    private List<Product> getProductsOfCategory(String category) {
         List<Product> products = new ArrayList<>();
         var tag = new ArrayList<Tag>();
-        switch (category)
-        {
+        switch (category) {
             case "Voorgerecht":
                 Product tzatziki = new Product();
                 tzatziki.setName("Tzatziki");
@@ -205,7 +170,6 @@ public class AdminMockService implements IMockService {
                 tzatziki.setPrice(4.50);
                 tzatziki.setDescription("Griekse yoghurt met knoflook en komkommer");
                 tzatziki.setContainsAlcohol(false);
-                tzatziki.setIngredients(getIngredientProducts(tzatziki,getIngriedientsForProduct(tzatziki.getName())));
                 tzatziki.setTags(tag);
                 products.add(tzatziki);
 
@@ -216,7 +180,6 @@ public class AdminMockService implements IMockService {
                 tamara.setPrice(5.00);
                 tamara.setDescription("Viskruidsalade");
                 tamara.setContainsAlcohol(false);
-                tamara.setIngredients(getIngredientProducts(tamara,getIngriedientsForProduct(tamara.getName())));
                 products.add(tamara);
 
                 Product tomatensoep = new Product();
@@ -225,8 +188,8 @@ public class AdminMockService implements IMockService {
                 tomatensoep.setPrice(4.75);
                 tomatensoep.setDescription("lekker man");
                 tomatensoep.setContainsAlcohol(false);
-                tomatensoep.setIngredients(getIngredientProducts(tomatensoep,getIngriedientsForProduct(tomatensoep.getName())));
                 products.add(tomatensoep);
+                break;
             case "Hoofdgerecht":
                 Product gyros = new Product();
                 gyros.setName("Gyros");
@@ -234,7 +197,6 @@ public class AdminMockService implements IMockService {
                 gyros.setPrice(15.50);
                 gyros.setDescription("Gesneden varkensvlees met tzatziki, mayonaise, frites en koolsalade");
                 gyros.setContainsAlcohol(false);
-                gyros.setIngredients(getIngredientProducts(gyros,getIngriedientsForProduct(gyros.getName())));
                 products.add(gyros);
 
                 Product margherita = new Product();
@@ -243,7 +205,6 @@ public class AdminMockService implements IMockService {
                 margherita.setPrice(5.00);
                 margherita.setDescription("Pizza met tomaat en kaas");
                 margherita.setContainsAlcohol(false);
-                margherita.setIngredients(getIngredientProducts(margherita,getIngriedientsForProduct(margherita.getName())));
                 products.add(margherita);
 
                 Product gorgonzola = new Product();
@@ -252,8 +213,8 @@ public class AdminMockService implements IMockService {
                 gorgonzola.setPrice(8.50);
                 gorgonzola.setDescription("Pizza met tomaten, kaas en gorgonzola");
                 gorgonzola.setContainsAlcohol(false);
-                gorgonzola.setIngredients(getIngredientProducts(gorgonzola,getIngriedientsForProduct(gorgonzola.getName())));
                 products.add(gorgonzola);
+                break;
             case "Nagerecht":
                 Product smurfijs = new Product();
                 smurfijs.setName("Smurfijs");
@@ -261,7 +222,6 @@ public class AdminMockService implements IMockService {
                 smurfijs.setPrice(2.00);
                 smurfijs.setDescription("Blauw ijs en das mooi");
                 smurfijs.setContainsAlcohol(false);
-                smurfijs.setIngredients(getIngredientProducts(smurfijs,getIngriedientsForProduct(smurfijs.getName())));
                 products.add(smurfijs);
 
                 Product cappuccino = new Product();
@@ -270,7 +230,6 @@ public class AdminMockService implements IMockService {
                 cappuccino.setPrice(2.75);
                 cappuccino.setDescription("Koffie met créme laagje witte wel");
                 cappuccino.setContainsAlcohol(false);
-                cappuccino.setIngredients(getIngredientProducts(cappuccino,getIngriedientsForProduct(cappuccino.getName())));
                 products.add(cappuccino);
 
                 Product kwatta = new Product();
@@ -279,30 +238,66 @@ public class AdminMockService implements IMockService {
                 kwatta.setPrice(3.00);
                 kwatta.setDescription("Heerlijke chocolade blokjes");
                 kwatta.setContainsAlcohol(false);
-                kwatta.setIngredients(getIngredientProducts(kwatta,getIngriedientsForProduct(kwatta.getName())));
                 products.add(kwatta);
+                break;
         }
-        for(Product product : products)
-        {
+        for (Product product : products) {
             productRepository.saveAndFlush(product);
         }
         return products;
     }
 
-    private List<IngredientProduct> getIngredientProducts(Product product, List<Ingredient> ingredients)
+    private List<Ingredient> getIngredientsForProduct(String name)
     {
-        List<IngredientProduct> ingredientProducts = new ArrayList<>();
-        for(Ingredient ingredient : ingredients)
-        {
-            IngredientProduct ingredientProduct = new IngredientProduct();
-            ingredientProduct.setIngredient(ingredient);
-            ingredientProduct.setProduct(product);
-            ingredientProduct.setRequired(true);
-            ingredientProducts.add(ingredientProduct);
+        List<Ingredient> ingredients = new ArrayList<>();
+        switch (name){
+            case "Tzatziki":
+                ingredients.add(ingredientRepository.getIngredientByName("komkommer"));
+                ingredients.add(ingredientRepository.getIngredientByName("yoghurt"));
+                break;
+            case "Tamara":
+                ingredients.add(ingredientRepository.getIngredientByName("tomaat"));
+                ingredients.add(ingredientRepository.getIngredientByName("zalm"));
+                break;
+            case "Tomatensoep":
+                ingredients.add(ingredientRepository.getIngredientByName("knoflook"));
+                ingredients.add(ingredientRepository.getIngredientByName("tomaat"));
+                ingredients.add(ingredientRepository.getIngredientByName("olijf olie"));
+                break;
+            case "Gorgonzola":
+                ingredients.add(ingredientRepository.getIngredientByName("blauwe schimmelkaas"));
+                ingredients.add(ingredientRepository.getIngredientByName("Tomatensaus"));
+                ingredients.add(ingredientRepository.getIngredientByName("rode ui"));
+                break;
         }
+        return ingredients;
+    }
 
+//    private List<IngredientProduct> getIngredientProducts(Product product, List<Ingredient> ingredients)
+//    {
+//        List<IngredientProduct> ingredientProducts = new ArrayList<>();
+//        for(Ingredient ingredient : ingredients)
+//        {
+//            IngredientProduct ingredientProduct = new IngredientProduct();
+//            ingredientProduct.setIngredient(ingredient);
+//            ingredientProduct.setProduct(product);
+//            ingredientProduct.setRequired(true);
+//            ingredientProducts.add(ingredientProduct);
+//        }
+//        return ingredientProducts;
+//    }
 
-        return ingredientProducts;
+    private void MakeRelation_Product_And_Ingredient(List<Product> products) {
+        for (Product product : products) {
+            List<Ingredient> ingredients = getIngredientsForProduct(product.getName());
+            for (Ingredient ingredient : ingredients) {
+                IngredientProduct ingredientProduct = new IngredientProduct();
+                ingredientProduct.setIngredient(ingredient);
+                ingredientProduct.setProduct(product);
+                ingredientProduct.setRequired(true);
+                ingredientProductRepository.saveAndFlush(ingredientProduct);
+            }
+        }
     }
 
 

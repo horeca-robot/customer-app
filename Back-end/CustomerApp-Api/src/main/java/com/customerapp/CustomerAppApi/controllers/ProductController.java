@@ -1,6 +1,7 @@
 package com.customerapp.CustomerAppApi.controllers;
 
 import com.customerapp.CustomerAppApi.core.interfaces.IProductService;
+import databaselibrary.models.IngredientProduct;
 import databaselibrary.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

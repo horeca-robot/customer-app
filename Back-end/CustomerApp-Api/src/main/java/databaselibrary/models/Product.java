@@ -56,8 +56,4 @@ public class Product {
     )
     private List<Tag> tags = new ArrayList<>();
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
-    private List<IngredientProduct> ingredients;
-
 }
