@@ -1,14 +1,14 @@
 <template>
   <div>
-    <b-card v-b-modal="product.id.toString()" class="card" :img-src="product.img" img-top>
-      <b-card-text> € {{ product.price.toFixed(2) }} </b-card-text>
-    </b-card>
-    <b-modal :id="product.id.toString()">
-      <div style="margin-bottom: 20px" v-for="ingredient in product.ingredients" :key="ingredient.id">
-        <li>{{ingredient.name}}</li>
+    <b-card class="productCard" v-on:click="GoToProduct(product.id)">
+      <h1 class="productName">{{product.name}}</h1>
+      <div class="productImage">
+        <b-card-img :src="product.img" class="Image"></b-card-img>
+        <div class="productPrice">
+          <p class="textPrice">€ {{product.price.toFixed(2)}}</p>
+        </div>
       </div>
-      <b-button pill variant="success" @click="addToCart()">Add</b-button>
-    </b-modal>
+    </b-card>
   </div>
 </template>
 
@@ -20,17 +20,45 @@ export default {
       this.$store.commit("addToCart", this.product);
       this.$bvModal.hide(this.product.id.toString())	
     },
+    GoToProduct(product){
+        this.$router.push({name:'Product', params: {categoryId: this.$route.params.id, id: product}})
+    }
   },
 };
 </script>
 
-<style scoped>
-.card {
-  margin: 0 auto; /* Added */
-  float: none; /* Added */
-  margin-top: 10px;
-  margin-bottom: 10px; /* Added */
-  max-width: 400px;
-  background-color: rgba(0, 0, 0, 0.062);
+<style>
+.productName{
+  font-family: Baskerville Old Face;
+  font-size: 40px;
+  font-weight: bold;
+}
+.productPrice{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: #BDAD89;
+  height: max-content;
+  padding-left: 2px;
+  padding-right: 2px;
+  
+}
+.productImage{
+  position: relative;
+}
+.textPrice{
+  font-family: Baskerville Old Face;
+  font-size: 25px;
+  margin:auto;
+}
+.productCard{
+  background-color: #E0DCCC !important;
+  margin-bottom: 20px;
+  width: 100% !important;
+  border-radius: 0px !;
+}
+.Image{
+  height: 150px;
+  object-fit: cover;
 }
 </style>
