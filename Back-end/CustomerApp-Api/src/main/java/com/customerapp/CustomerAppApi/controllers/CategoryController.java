@@ -10,31 +10,34 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/category/")
 public class CategoryController {
 
     private ICategoryService categoryService;
-    private IMockService mockService;
 
     @Autowired
-    public CategoryController(ICategoryService categoryService, IMockService mockService) {
+    public CategoryController(ICategoryService categoryService) {
         this.categoryService = categoryService;
-        this.mockService = mockService;
     }
 
     @GetMapping("all")
     @CrossOrigin(origins = "*")
     public List<Category> getAllCategory(){
-        mockService.Initialize();
-        return categoryService.getAllCategory();
+        return categoryService.getAllCategories();
     }
 
     @GetMapping("byid")
     @CrossOrigin(origins = "*")
-    public Category getCategoryById(@RequestBody String Id){
-        //todo implement get all category by id func
-        return null;
+    public Category getCategoryById(@RequestBody UUID id){
+        return categoryService.getCategoryById(id);
+    }
+
+    @GetMapping("byname")
+    @CrossOrigin(origins = "*")
+    public Category getCategoryByName(@RequestBody String name){
+        return categoryService.getCategoryByName(name);
     }
 }

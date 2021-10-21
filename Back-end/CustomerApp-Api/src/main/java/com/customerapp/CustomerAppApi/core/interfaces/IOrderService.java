@@ -3,9 +3,13 @@ package com.customerapp.CustomerAppApi.core.interfaces;
 import databaselibrary.models.RestaurantOrder;
 
 
-import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 public interface IOrderService {
-     ArrayList<RestaurantOrder> getAllOrders();
+     List<RestaurantOrder> getAllOrders();
+     Optional<RestaurantOrder> getOrderById(UUID id);
+     List<RestaurantOrder> getAllOrdersFromTable(int restaurantTable_number);
      void postOrder(RestaurantOrder order);
 }

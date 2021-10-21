@@ -17,22 +17,19 @@ public class ProductService implements IProductService {
 
     private final ProductRepository productRepository;
 
-    public ProductService(ProductRepository productRepository){
+    public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 
-    public List<Product> getProducts() {
-        List<Product> products =  new ArrayList<Product>();
-
-
-
-        return null;
+    public List<Product> getAllProducts() {
+        return productRepository.findAll();
     }
 
-    public Product getProductById(UUID id)
-    {
-        return productRepository.getProductById(id);
+    public Product getProductById(UUID id) {
+        return productRepository.getById(id);
     }
+
+    public Product getProductByName(String name){return productRepository.getProductByName(name);}
 
 }
 

@@ -42,7 +42,7 @@ public class AdminMockService implements IMockService {
         var voorgerecht = new Category();
         voorgerecht.setName("Voorgerecht");
         voorgerecht.setImage("https://chickslovefood.com/wp-content/uploads/2018/12/voorgerecht-coquille-eindfoto2-chickslovefood-1000x640.jpg");
-        var voorgerechtproducts= getProductsOfCategory(voorgerecht.getName());
+        var voorgerechtproducts = getProductsOfCategory(voorgerecht.getName());
         voorgerecht.setProducts(voorgerechtproducts);
         voorgerecht.setVisible(true);
         categoryRepository.saveAndFlush(voorgerecht);
@@ -156,8 +156,7 @@ public class AdminMockService implements IMockService {
         chocolade.setName("chocolade");
         ingredients.add(chocolade);
 
-        for(Ingredient ingredient: ingredients)
-        {
+        for (Ingredient ingredient : ingredients) {
             ingredientRepository.saveAndFlush(ingredient);
         }
     }
@@ -258,10 +257,9 @@ public class AdminMockService implements IMockService {
         return products;
     }
 
-    private List<Ingredient> getIngredientsForProduct(String name)
-    {
+    private List<Ingredient> getIngredientsForProduct(String name) {
         List<Ingredient> ingredients = new ArrayList<>();
-        switch (name){
+        switch (name) {
             case "Tzatziki":
                 ingredients.add(ingredientRepository.getIngredientByName("komkommer"));
                 ingredients.add(ingredientRepository.getIngredientByName("yoghurt"));
@@ -288,7 +286,7 @@ public class AdminMockService implements IMockService {
             case "Gyros":
                 ingredients.add(ingredientRepository.getIngredientByName("Varkens vlees"));
                 break;
-            case "Smurfenijs":
+            case "Smurfijs":
                 ingredients.add(ingredientRepository.getIngredientByName("smurfen kots"));
                 ingredients.add(ingredientRepository.getIngredientByName("vanille ijs"));
                 break;
@@ -304,24 +302,10 @@ public class AdminMockService implements IMockService {
         return ingredients;
     }
 
-//    private List<IngredientProduct> getIngredientProducts(Product product, List<Ingredient> ingredients)
-//    {
-//        List<IngredientProduct> ingredientProducts = new ArrayList<>();
-//        for(Ingredient ingredient : ingredients)
-//        {
-//            IngredientProduct ingredientProduct = new IngredientProduct();
-//            ingredientProduct.setIngredient(ingredient);
-//            ingredientProduct.setProduct(product);
-//            ingredientProduct.setRequired(true);
-//            ingredientProducts.add(ingredientProduct);
-//        }
-//        return ingredientProducts;
-//    }
-
     private void MakeRelation_Product_And_Ingredient(List<Product> products) {
         for (Product product : products) {
             List<Ingredient> ingredients = getIngredientsForProduct(product.getName());
-            if(ingredients.size() > 0){
+            if (ingredients.size() > 0) {
                 for (Ingredient ingredient : ingredients) {
                     IngredientProduct ingredientProduct = new IngredientProduct();
                     ingredientProduct.setIngredient(ingredient);

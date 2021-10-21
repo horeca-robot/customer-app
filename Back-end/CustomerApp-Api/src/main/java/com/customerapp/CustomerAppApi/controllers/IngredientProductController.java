@@ -2,6 +2,7 @@ package com.customerapp.CustomerAppApi.controllers;
 
 import com.customerapp.CustomerAppApi.core.interfaces.IIngredientProductService;
 import com.customerapp.CustomerAppApi.core.interfaces.IProductService;
+import databaselibrary.models.Ingredient;
 import databaselibrary.models.IngredientProduct;
 import databaselibrary.models.Product;
 import databaselibrary.models.RestaurantOrder;
@@ -20,20 +21,26 @@ public class IngredientProductController {
     private final IIngredientProductService ingredientProductService;
 
     @Autowired
-    public IngredientProductController(IIngredientProductService ingredientProductService){
+    public IngredientProductController(IIngredientProductService ingredientProductService) {
         this.ingredientProductService = ingredientProductService;
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping("all")
-    public List<IngredientProduct> getAllIngredientProducts(){
+    public List<IngredientProduct> getAllIngredientProducts() {
         return ingredientProductService.getAllIngredientProducts();
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping("product")
-    public Optional<IngredientProduct> getIngredientProductById(@RequestParam String name){
-        return ingredientProductService.getAllIngredientProducts().stream().filter(i->i.getProduct().getName().equals(name)).findFirst();
+    @GetMapping("byname")
+    public List<Ingredient> getIngredientsOfProduct(@RequestBody String name) {
+        return ingredientProductService.getIngredientsByProductName(name);
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("byid")
+    public Optional<IngredientProduct> getIngredientProductById(@RequestBody UUID id) {
+        return ingredientProductService.getIngredientProductById(id);
     }
 
 }
