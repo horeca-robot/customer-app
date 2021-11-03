@@ -79,6 +79,7 @@ body {
 }
 .Header .container {
   background-color: #82c4b5 !important;
+  max-width: 100% !important;
 }
 .button-style {
   background-color: #bdad89 !important;

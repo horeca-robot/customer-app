@@ -71,7 +71,6 @@
 </template>
 
 <script>
-import Vue from "vue";
 import Byproduct from "../components/Byproduct.vue";
 export default {
   components: {
@@ -108,7 +107,7 @@ export default {
     },
   },
   mounted() {
-    Vue.axios
+    this.axios
       .get("http://localhost:8080/category/product/id", {
         params: { categoryId: this.categoryId, productId: this.productId },
       })
