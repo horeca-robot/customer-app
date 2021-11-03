@@ -1,6 +1,11 @@
-import { mount, shallowMount } from "@vue/test-utils";
+import { mount, shallowMount, createLocalVue } from "@vue/test-utils";
 import Productview from "@/views/Product.vue";
 import { axios } from "axios";
+import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
+
+const localVue = createLocalVue();  
+localVue.use(BootstrapVue);
+localVue.use(IconsPlugin);
 
 describe("Product.vue", () => {
     it("Test if correct amount of byproducts are made", async () =>{
@@ -25,7 +30,8 @@ describe("Product.vue", () => {
               axios,
               $store,
               $route,
-            }
+            },
+            localVue,
         });
         await wrapper.setData({product: Product});
         expect(wrapper.vm.product.byproducts).toEqual(Byproducts);
@@ -50,7 +56,8 @@ describe("Product.vue", () => {
             $route,
             axios,
             $store,
-        }
+        },
+        localVue,
         });
         await wrapper.trigger('click', { button: 0 });
         expect(wrapper.vm.$route.params.route).toBe("/menu/1");

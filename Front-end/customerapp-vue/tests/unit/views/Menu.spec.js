@@ -1,6 +1,11 @@
-import { mount, shallowMount } from "@vue/test-utils";
+import { mount, shallowMount, createLocalVue } from "@vue/test-utils";
 import Menu from "@/views/Menu.vue";
 import { axios } from "axios";
+import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
+
+const localVue = createLocalVue();  
+localVue.use(BootstrapVue);
+localVue.use(IconsPlugin);
 
 describe("Menu.vue", () => {
     it("Test if correct amount of cards are made.", async() => {
@@ -17,7 +22,8 @@ describe("Menu.vue", () => {
           mocks: {
             axios,
             $store,
-          }
+          },
+          localVue,
       });
       await wrapper.setData({categories: categories});
       expect(wrapper.vm.categories).toEqual(categories);

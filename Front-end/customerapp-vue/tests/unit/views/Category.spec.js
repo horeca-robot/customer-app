@@ -1,5 +1,10 @@
-import { mount, shallowMount } from "@vue/test-utils";
+import { mount, shallowMount, createLocalVue } from "@vue/test-utils";
 import Categoryview from "@/views/Category.vue";
+import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
+
+const localVue = createLocalVue();  
+localVue.use(BootstrapVue);
+localVue.use(IconsPlugin);
 
 describe("Category.vue", ()=>{
     it("Test if correct amount of products are made", async() => {
@@ -10,7 +15,6 @@ describe("Category.vue", ()=>{
         const axios =  {
             get: ()=> Promise.resolve({data: category}), 
         };
-        console.log(category);
         const $store = {
             commit: jest.fn(),
         }
@@ -24,7 +28,8 @@ describe("Category.vue", ()=>{
             axios,
             $store,
             $route,
-            }
+            },
+            localVue,
         });
         await wrapper.setData({category: category});
         expect(wrapper.vm.category.products).toEqual(Products)

@@ -1,5 +1,9 @@
-import { shallowMount } from "@vue/test-utils";
+import { shallowMount, createLocalVue } from "@vue/test-utils";
 import TableValidator from "../../../src/views/TableValidator";
+import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
+
+const localVue = createLocalVue();  
+localVue.use(BootstrapVue);
 
 describe("TableValidator.vue", () => {
   it("Test table validator by url success.", async () => {
@@ -20,6 +24,7 @@ describe("TableValidator.vue", () => {
         $route,
         $store,
       },
+      localVue,
     });
 
     expect($store.dispatch).toHaveBeenCalledWith(
@@ -37,6 +42,7 @@ describe("TableValidator.vue", () => {
       mocks: {
         $router,
       },
+      localVue,
     });
 
     expect($router.push).toHaveBeenCalledWith({ name: "table-picker" });

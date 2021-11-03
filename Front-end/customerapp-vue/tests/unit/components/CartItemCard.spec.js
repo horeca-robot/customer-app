@@ -1,11 +1,17 @@
-import { shallowMount } from "@vue/test-utils";
+import { shallowMount, createLocalVue } from "@vue/test-utils";
 import CartItemCard from "@/components/CartItemCard.vue";
+import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
+
+const localVue = createLocalVue();  
+localVue.use(BootstrapVue);
+localVue.use(IconsPlugin);
 
 describe("CartItemCard.vue", () => {
   it("Test inserting a product.", () => {
     let product = { name: "Hamburger", price: 15.95, img: "url", ingredients: { id: 1, name: "kaas" } };
     let wrapper = shallowMount(CartItemCard, {
         propsData: { product },
+        localVue,
     });
     expect(wrapper.text()).toMatch(product.name);
   });
@@ -21,7 +27,8 @@ describe("CartItemCard.vue", () => {
         propsData: { product },
         mocks: {
             $store,
-        }
+        },
+        localVue,
     });
     
     wrapper.vm.$store.commit("addToCart", product);
@@ -39,7 +46,8 @@ describe("CartItemCard.vue", () => {
         propsData: { product },
         mocks: {
             $store,
-        }
+        },
+        localVue,
     });
     
     wrapper.vm.$store.commit("addToCart", product);
@@ -58,7 +66,8 @@ describe("CartItemCard.vue", () => {
             sortDirection: "asc",
             hidden: false,
           }
-        }
+        },
+        localVue,
     });
 
     wrapper.vm.changeIcon();

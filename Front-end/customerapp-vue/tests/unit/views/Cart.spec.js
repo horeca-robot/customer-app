@@ -1,5 +1,10 @@
-import { shallowMount } from "@vue/test-utils";
+import { shallowMount, createLocalVue } from "@vue/test-utils";
 import Cart from "@/views/Cart.vue";
+import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
+
+const localVue = createLocalVue();  
+localVue.use(BootstrapVue);
+localVue.use(IconsPlugin);
 
 describe("Cart.vue", () => {
   it("Test gotomenu method.", async () => {
@@ -12,7 +17,8 @@ describe("Cart.vue", () => {
       mocks: {
           $route: "/menu",
           $store,
-      }
+      },
+      localVue,
     });
     await wrapper.trigger('click', { button: 2 });
     expect(wrapper.vm.$route).toBe("/menu");
@@ -28,6 +34,7 @@ describe("Cart.vue", () => {
       mocks: {
         $store,
       },
+      localVue,
     });
 
     wrapper.vm.$store.commit("updateCartFromLocalStorage");
