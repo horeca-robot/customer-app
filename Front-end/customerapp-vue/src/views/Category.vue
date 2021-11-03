@@ -47,11 +47,10 @@
 </template>
 
 <script>
-import Vue from "vue";
 import ProductCard from "../components/ProductCard.vue";
 
 export default {
-  name: "Home",
+  name: "Category",
   components: {
     ProductCard,
   },
@@ -73,8 +72,7 @@ export default {
     };
   },
   mounted() {
-    Vue.axios
-      .get("http://localhost:8080/category/id", {
+    this.axios.get("http://localhost:8080/category/id", {
         params: { categoryId: this.categoryId },
       })
       .then((response) => {
