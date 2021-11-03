@@ -6,6 +6,8 @@ import databaselibrary.models.Product;
 import databaselibrary.repositories.IngredientProductRepository;
 import databaselibrary.repositories.OrderRepository;
 import databaselibrary.repositories.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

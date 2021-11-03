@@ -3,6 +3,7 @@ package com.customerapp.CustomerAppApi.core.services;
 import com.customerapp.CustomerAppApi.core.interfaces.IMockService;
 import databaselibrary.models.*;
 import databaselibrary.repositories.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
