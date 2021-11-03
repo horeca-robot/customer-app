@@ -47,4 +47,22 @@ describe("CartItemCard.vue", () => {
     wrapper.vm.$store.commit("removeFromCart", product);
     expect(wrapper.vm.$store).toEqual($store);
   });
+
+  it("Test changing icon.", () => {
+    let product = { name: "Hamburger", price: 15.95, img: "url", ingredients: { id: 1, name: "kaas" } };
+
+    let wrapper = shallowMount(CartItemCard, {
+        propsData: { product },
+        data() {
+          return {
+            sortDirection: "asc",
+            hidden: false,
+          }
+        }
+    });
+
+    wrapper.vm.changeIcon();
+    expect(wrapper.vm.sortDirection).toEqual("desc");
+    expect(wrapper.vm.hidden).toEqual(true);
+  });
 });
