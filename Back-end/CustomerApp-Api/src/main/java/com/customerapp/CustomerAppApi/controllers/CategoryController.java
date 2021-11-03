@@ -2,13 +2,10 @@ package com.customerapp.CustomerAppApi.controllers;
 
 
 import com.customerapp.CustomerAppApi.core.interfaces.ICategoryService;
-import com.customerapp.CustomerAppApi.core.interfaces.IMockService;
-import com.customerapp.CustomerAppApi.core.services.AdminMockService;
-import databaselibrary.models.Category;
+import com.customerapp.CustomerAppApi.databaselibrary.models.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,8 +28,8 @@ public class CategoryController {
 
     @GetMapping("byid")
     @CrossOrigin(origins = "*")
-    public Category getCategoryById(@RequestBody UUID id){
-        return categoryService.getCategoryById(id);
+    public Category getCategoryById(@RequestParam String id){
+        return categoryService.getCategoryById(UUID.fromString(id));
     }
 
     @GetMapping("byname")

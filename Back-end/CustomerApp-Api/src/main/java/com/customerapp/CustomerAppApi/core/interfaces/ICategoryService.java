@@ -1,6 +1,6 @@
 package com.customerapp.CustomerAppApi.core.interfaces;
 
-import databaselibrary.models.Category;
+import com.customerapp.CustomerAppApi.databaselibrary.models.Category;
 
 import java.util.List;
 import java.util.UUID;

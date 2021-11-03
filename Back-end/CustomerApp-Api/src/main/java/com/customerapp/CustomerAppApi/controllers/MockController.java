@@ -1,9 +1,8 @@
 package com.customerapp.CustomerAppApi.controllers;
 
 import com.customerapp.CustomerAppApi.core.interfaces.ICategoryService;
-import com.customerapp.CustomerAppApi.core.interfaces.IIngredientProductService;
 import com.customerapp.CustomerAppApi.core.interfaces.IMockService;
-import databaselibrary.models.Category;
+import com.customerapp.CustomerAppApi.databaselibrary.models.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

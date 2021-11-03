@@ -1,4 +1,4 @@
-package databaselibrary.models;
+package com.customerapp.CustomerAppApi.databaselibrary.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,9 +15,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "ingredient")
-public class Ingredient {
-
+@Table(name = "ingredient_product")
+public class IngredientProduct {
     @Id
     @Column(updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
     @GeneratedValue(generator = "UUID")
@@ -28,10 +27,15 @@ public class Ingredient {
     @Type(type = "uuid-char")
     private UUID id;
 
-    @Column(nullable = false)
-    private String name;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "product_id")
+    private Product product;
 
-    @Column(columnDefinition="TEXT")
-    private String description;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "ingredient_id")
+    private Ingredient ingredient;
+
+    @Column
+    private boolean required;
 
 }

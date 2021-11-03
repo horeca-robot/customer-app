@@ -1,10 +1,9 @@
 package com.customerapp.CustomerAppApi.core.services;
 
 import com.customerapp.CustomerAppApi.core.interfaces.IIngredientProductService;
-import databaselibrary.models.Ingredient;
-import databaselibrary.models.IngredientProduct;
-import databaselibrary.models.Product;
-import databaselibrary.repositories.IngredientProductRepository;
+import com.customerapp.CustomerAppApi.databaselibrary.models.Ingredient;
+import com.customerapp.CustomerAppApi.databaselibrary.models.IngredientProduct;
+import com.customerapp.CustomerAppApi.databaselibrary.repositories.IngredientProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

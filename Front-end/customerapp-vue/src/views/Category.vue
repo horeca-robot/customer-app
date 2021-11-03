@@ -55,8 +55,10 @@ export default {
       categoryId: this.$route.params.id,
     };
   },
+
+  // get all products per category
   mounted() {
-    Vue.axios.get("http://localhost:8080/category/id", {params: {"categoryId": this.categoryId}}).then((response) => {
+    Vue.axios.get("http://localhost:8080/api/v1/category/byid?id=" + this.categoryId).then((response) => {
       this.category = response.data;
     });
     this.$store.commit("updateCartFromLocalStorage");

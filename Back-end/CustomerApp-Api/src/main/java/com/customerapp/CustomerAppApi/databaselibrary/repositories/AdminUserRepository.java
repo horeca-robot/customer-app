@@ -1,6 +1,6 @@
-package databaselibrary.repositories;
+package com.customerapp.CustomerAppApi.databaselibrary.repositories;
 
-import databaselibrary.models.AdminUser;
+import com.customerapp.CustomerAppApi.databaselibrary.models.AdminUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

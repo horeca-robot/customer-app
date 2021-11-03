@@ -1,8 +1,7 @@
 package com.customerapp.CustomerAppApi.controllers;
 
 import com.customerapp.CustomerAppApi.core.interfaces.IProductService;
-import databaselibrary.models.IngredientProduct;
-import databaselibrary.models.Product;
+import com.customerapp.CustomerAppApi.databaselibrary.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,8 +28,8 @@ public class ProductController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("byid")
-    public Product getProductById(@RequestBody UUID id) {
-        return productService.getProductById(id);
+    public Product getProductById(@RequestParam String id) {
+        return productService.getProductById(UUID.fromString(id));
     }
 
     @CrossOrigin(origins = "*")
@@ -38,6 +37,5 @@ public class ProductController {
     public Product getProductByName(@RequestBody String name) {
         return productService.getProductByName(name);
     }
-
 
 }

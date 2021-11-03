@@ -1,6 +1,7 @@
 package com.customerapp.CustomerAppApi.core.interfaces;
 
-import databaselibrary.models.RestaurantOrder;
+import com.customerapp.CustomerAppApi.databaselibrary.models.RestaurantOrder;
+import com.customerapp.CustomerAppApi.models.OrderDto;
 
 
 import java.util.List;
@@ -11,5 +12,5 @@ public interface IOrderService {
      List<RestaurantOrder> getAllOrders();
      Optional<RestaurantOrder> getOrderById(UUID id);
      List<RestaurantOrder> getAllOrdersFromTable(int restaurantTable_number);
-     void postOrder(RestaurantOrder order);
+     void postOrder(OrderDto order);
 }

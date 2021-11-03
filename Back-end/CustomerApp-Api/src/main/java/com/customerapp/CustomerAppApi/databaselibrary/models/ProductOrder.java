@@ -1,5 +1,6 @@
-package databaselibrary.models;
+package com.customerapp.CustomerAppApi.databaselibrary.models;
 
+import com.customerapp.CustomerAppApi.databaselibrary.enums.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,17 +31,10 @@ public class ProductOrder {
     @Type(type = "uuid-char")
     private UUID id;
 
-    @Column
-    private boolean delivered;
+    @Column(name = "order_status")
+    private OrderStatus orderStatus;
 
-    @Column
-    private boolean deliverLater;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_id", nullable = false)
-    private RestaurantOrder order;
-
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 

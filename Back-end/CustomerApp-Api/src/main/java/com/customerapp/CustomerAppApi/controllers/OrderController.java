@@ -2,8 +2,9 @@ package com.customerapp.CustomerAppApi.controllers;
 
 import com.customerapp.CustomerAppApi.core.interfaces.IOrderService;
 import com.customerapp.CustomerAppApi.core.services.AdminMockService;
+import com.customerapp.CustomerAppApi.databaselibrary.models.RestaurantOrder;
+import com.customerapp.CustomerAppApi.models.OrderDto;
 import com.customerapp.CustomerAppApi.models.Result;
-import databaselibrary.models.RestaurantOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,9 +38,9 @@ public class OrderController {
 
     @CrossOrigin(origins = "*")
     @PostMapping("")
-    public Result postOrder(@RequestBody RestaurantOrder restaurantOrder) {
+    public Result postOrder(@RequestBody OrderDto order) {
         try {
-            orderService.postOrder(restaurantOrder);
+            orderService.postOrder(order);
             return new Result(true, "Bestelling geplaatst");
         } catch (Exception e) {
             return new Result(false, e.getMessage());

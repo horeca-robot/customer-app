@@ -6,10 +6,9 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EntityScan("databaselibrary.models")
-@EnableJpaRepositories("databaselibrary.repositories")
+@EntityScan("com.customerapp.CustomerAppApi.databaselibrary.models")
+@EnableJpaRepositories("com.customerapp.CustomerAppApi.databaselibrary")
 public class CustomerAppApiApplication {
-
 
 	public static void main(String[] args) {
 		SpringApplication.run(CustomerAppApiApplication.class, args);

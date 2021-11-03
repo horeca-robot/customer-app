@@ -40,7 +40,7 @@ export default {
     };
   },
   mounted() {
-    Vue.axios.get("http://localhost:8080/category").then((response) => {
+    Vue.axios.get("http://localhost:8080/api/v1/category/all").then((response) => {
       this.categories = response.data;
     });
     this.$store.commit("updateCartFromLocalStorage");

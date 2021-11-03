@@ -18,7 +18,7 @@
         </b-row>
         <b-row class="order-item-info" v-show="hidden">
             <b-col cols="5">
-            <img class="order-image" :src=product.img />
+            <img class="order-image" :src=product.image />
             </b-col>
             <b-col cols="7"  v-if="product.ingredients != null">
             <b-card-text class="heading bold">

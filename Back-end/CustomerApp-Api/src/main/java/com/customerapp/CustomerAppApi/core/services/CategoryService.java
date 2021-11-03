@@ -1,12 +1,10 @@
 package com.customerapp.CustomerAppApi.core.services;
 
 import com.customerapp.CustomerAppApi.core.interfaces.ICategoryService;
-import databaselibrary.models.Category;
-
-import databaselibrary.repositories.CategoryRepository;
+import com.customerapp.CustomerAppApi.databaselibrary.models.Category;
+import com.customerapp.CustomerAppApi.databaselibrary.repositories.CategoryRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,7 +21,7 @@ public class CategoryService implements ICategoryService {
 
     public Category getCategoryById(UUID id)
     {
-        return categoryRepository.getById(id);
+        return categoryRepository.findById(id).get();
     }
 
     public Category getCategoryByName(String name)

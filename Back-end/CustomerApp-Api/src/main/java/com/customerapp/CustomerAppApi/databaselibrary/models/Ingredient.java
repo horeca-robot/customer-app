@@ -1,4 +1,4 @@
-package databaselibrary.models;
+package com.customerapp.CustomerAppApi.databaselibrary.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,23 +15,23 @@ import java.util.UUID;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "employee")
-public class EmployeeUser {
+@Table(name = "ingredient")
+public class Ingredient {
 
     @Id
     @Column(updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
-        name = "UUID",
-        strategy = "org.hibernate.id.UUIDGenerator"
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
     )
     @Type(type = "uuid-char")
     private UUID id;
 
     @Column(nullable = false)
-    private String username;
+    private String name;
 
-    @Column(nullable = false)
-    private short pincode;
+    @Column(columnDefinition="TEXT")
+    private String description;
 
 }

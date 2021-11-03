@@ -17,9 +17,11 @@
         </b-container>
         </div>  
         <div>
-            <b-img :src="product.img" class="image"></b-img>
+            <b-img :src="product.image" class="image"></b-img>
+            <h1 class="product-name">{{this.product.name}}</h1>           
             <div class="ingrediënten">
-                <h1 class="heading"><b>Ingrediënten</b></h1>
+                
+                <h1 v-if="product.ingredients.length != 0" class="heading"><b>Ingrediënten</b></h1>
                 <p class="text" v-for="ingredient in product.ingredients" :key="ingredient.id" style="display: inline;">
                  {{ingredient.name}},
                 </p><br/>
@@ -32,13 +34,13 @@
             <div class="bijgerechten">
                 <h1 class="heading"><b>Bijgerechten</b></h1>
                 <Byproduct
-                v-for="byproduct in product.ingredients"
+                v-for="byproduct in product.byproduct"
                 :key="byproduct.id"
                 :byproduct="byproduct"
                 />
             </div>
             <div class="place-order">
-                <h3 class="heading">Totale prijs: &euro; 20,34</h3>
+                <h3 class="heading">Totale prijs: &euro; {{(product.price * this.amount).toFixed(2)}}</h3>
                 <b-button class="button-style heading" v-on:click="addToCart">Toevoegen</b-button>
             </div>
         </div>
@@ -72,30 +74,35 @@ export default {
             this.amount++;
         },
         RemoveFromAmount(){
-            if(this.amount != 0){
+            if(this.amount != 1){
                 this.amount--;
             }
         },
         addToCart() {
-            this.$store.commit("addToCart", this.product);
+            for (let i = 0; i < this.amount; i++) {
+                this.$store.commit("addToCart", this.product);
+            }
             this.$bvModal.hide(this.product.id.toString());
             alert("Uw bestelling is toegevoegd.");
             this.$router.go();
         },
     },
+    // get specific product.
     mounted() {
-        Vue.axios.get("http://localhost:8080/category/product/id", {params: {"categoryId": this.categoryId, "productId": this.productId}}).then((response) => {
+        Vue.axios.get("http://localhost:8080/api/v1/product/byid", {params: {"id": this.productId}}).then((response) => {
         this.product = response.data;
         });
+        Vue.axios.get("http://localhost:8080/api/v1/ingredient/byproductid",{params:{"id": this.productId}}).then(response =>{
+            this.product.ingredients = response.data;
+            this.product.byproduct = response.data;
+        })
         this.$store.commit("updateCartFromLocalStorage");
     },
 }
 </script>
 
 <style scoped>
-.image{
-    height: 200px;
-}
+
 .ingrediënten{
     background-color: #E0DCCC;
 }
@@ -121,4 +128,8 @@ export default {
 .SearchandStore{
     padding: 10px;
 }
+.image{
+    height: 200px;
+}
+
 </style>

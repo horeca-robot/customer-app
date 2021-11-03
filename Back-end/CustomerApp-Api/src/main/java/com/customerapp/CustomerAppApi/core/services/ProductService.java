@@ -1,11 +1,8 @@
 package com.customerapp.CustomerAppApi.core.services;
 
 import com.customerapp.CustomerAppApi.core.interfaces.IProductService;
-import databaselibrary.models.IngredientProduct;
-import databaselibrary.models.Product;
-import databaselibrary.repositories.IngredientProductRepository;
-import databaselibrary.repositories.OrderRepository;
-import databaselibrary.repositories.ProductRepository;
+import com.customerapp.CustomerAppApi.databaselibrary.models.Product;
+import com.customerapp.CustomerAppApi.databaselibrary.repositories.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -26,7 +23,7 @@ public class ProductService implements IProductService {
     }
 
     public Product getProductById(UUID id) {
-        return productRepository.getById(id);
+        return productRepository.findById(id).get();
     }
 
     public Product getProductByName(String name){return productRepository.getProductByName(name);}

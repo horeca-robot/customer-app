@@ -1,7 +1,7 @@
 package com.customerapp.CustomerAppApi.core.interfaces;
 
-import databaselibrary.models.IngredientProduct;
-import databaselibrary.models.Product;
+import com.customerapp.CustomerAppApi.databaselibrary.models.Product;
+
 
 import java.util.List;
 import java.util.UUID;

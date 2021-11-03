@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-card v-b-modal="product.id.toString()" class="card" :img-src="product.img" img-top>
+    <b-card v-b-modal="product.id.toString()" class="card" :img-src="product.image" img-top>
       <b-card-text> € {{ product.price.toFixed(2) }} </b-card-text>
     </b-card>
     <b-modal :id="product.id.toString()">

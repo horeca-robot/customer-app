@@ -1,4 +1,4 @@
-package databaselibrary.models;
+package com.customerapp.CustomerAppApi.databaselibrary.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,6 +33,7 @@ public class Product {
     @Column(nullable = false)
     private String name;
 
+    @Lob
     @Column
     private String image;
 
@@ -50,10 +51,14 @@ public class Product {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-        name = "products_tags",
+        name = "product_tag",
         joinColumns = { @JoinColumn(table = "tag", referencedColumnName = "id", name = "tag_id") },
         inverseJoinColumns = { @JoinColumn(table = "product", referencedColumnName = "id", name = "product_id") }
     )
     private List<Tag> tags = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL)
+    //@JoinColumn(name = "ingredient_id")
+    private List<IngredientProduct> ingredients;
 
 }

@@ -1,8 +1,8 @@
 package com.customerapp.CustomerAppApi.core.services;
 
 import com.customerapp.CustomerAppApi.core.interfaces.IMockService;
-import databaselibrary.models.*;
-import databaselibrary.repositories.*;
+import com.customerapp.CustomerAppApi.databaselibrary.models.*;
+import com.customerapp.CustomerAppApi.databaselibrary.repositories.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
