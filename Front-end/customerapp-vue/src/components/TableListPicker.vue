@@ -12,8 +12,6 @@
 </template>
 
 <script>
-import router from "../router";
-
 export default {
   name: "TableListPicker",
   props: {
@@ -25,7 +23,7 @@ export default {
   methods: {
     redirectToTable(tableId) {
       this.$store.dispatch("tableModule/setTable", tableId);
-      router.push({ name: "menu" });
+      this.$router.push({ name: "menu" });
     },
   },
 };
