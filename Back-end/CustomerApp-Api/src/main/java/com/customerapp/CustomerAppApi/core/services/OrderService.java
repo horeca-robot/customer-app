@@ -9,6 +9,7 @@ import com.customerapp.CustomerAppApi.databaselibrary.repositories.OrderReposito
 import com.customerapp.CustomerAppApi.databaselibrary.repositories.ProductOrderRepository;
 import com.customerapp.CustomerAppApi.databaselibrary.repositories.RestaurantTableRepository;
 import com.customerapp.CustomerAppApi.models.OrderDto;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -44,7 +45,7 @@ public class OrderService implements IOrderService {
     }
 
     //POST
-    public void postOrder(OrderDto order) {
+    public void postOrder(@NotNull OrderDto order) {
         var restaurantOrder = new RestaurantOrder();
         restaurantOrder.setTable(tableRepository.findRestaurantTableByTableNumber(order.getTableNumber()));
         restaurantOrder.setPayed(false);

@@ -2,11 +2,12 @@ package com.customerapp.CustomerAppApi.models;
 
 import com.customerapp.CustomerAppApi.databaselibrary.models.Product;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDto {
 
-    private List<Product> products;
+    private List<Product> products = new ArrayList<>();
     private int tableNumber;
     private String notes;
 
