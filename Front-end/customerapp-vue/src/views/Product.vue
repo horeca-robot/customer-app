@@ -27,7 +27,7 @@
                 </p><br/>
                 <div>
                     <b-icon icon="dash" font-scale="3" v-on:click="RemoveFromAmount"></b-icon>
-                    <b-input class="numberSelected" type="number" v-model.number="amount" placeholder="0" min="0">amount</b-input>
+                    <b-input @change="checkAmount" class="numberSelected" type="number" v-model.number="amount" placeholder="0" min="0">amount</b-input>
                     <b-icon icon="plus" font-scale="3" v-on:click="AddToAmount"></b-icon>
                 </div>
             </div>
@@ -60,7 +60,7 @@ export default {
         product: [],
         categoryId: this.$route.params.categoryId,
         productId: this.$route.params.id,
-        amount: 0,
+        amount: 1,
         };
     },
     methods: {
@@ -72,11 +72,11 @@ export default {
         },
         AddToAmount(){
             this.amount++;
+            this.checkAmount();
         },
         RemoveFromAmount(){
-            if(this.amount != 1){
-                this.amount--;
-            }
+            this.amount--;
+            this.checkAmount()
         },
         addToCart() {
             for (let i = 0; i < this.amount; i++) {
@@ -86,6 +86,16 @@ export default {
             alert("Uw bestelling is toegevoegd.");
             this.$router.go();
         },
+        checkAmount(){
+            if(this.amount < 1)
+            {
+                this.amount = 1;
+            }
+            else if(this.amount > 100)
+            {
+                this.amount = 100;
+            }
+        }
     },
     // get specific product.
     mounted() {
