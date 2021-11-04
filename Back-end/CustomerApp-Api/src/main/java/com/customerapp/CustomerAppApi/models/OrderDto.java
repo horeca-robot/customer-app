@@ -7,7 +7,6 @@ import java.util.List;
 public class OrderDto {
 
     private List<Product> products;
-    private double subTotal;
     private int tableNumber;
     private String notes;
 
@@ -19,13 +18,6 @@ public class OrderDto {
         this.products = products;
     }
 
-    public double getSubTotal() {
-        return subTotal;
-    }
-
-    public void setSubTotal(double subTotal) {
-        this.subTotal = subTotal;
-    }
 
     public int getTableNumber() {
         return tableNumber;

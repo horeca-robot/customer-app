@@ -39,9 +39,8 @@ public class OrderService implements IOrderService {
         return orderRepository.findById(id);
     }
 
-    public List<RestaurantOrder> getAllOrdersFromTable(int restaurantTable_number)
-    {
-        return orderRepository.findAll().stream().filter(i->i.getTable().getTableNumber() == restaurantTable_number).collect(Collectors.toList());
+    public List<RestaurantOrder> getAllOrdersFromTable(int restaurantTable_number) {
+        return orderRepository.findAll().stream().filter(i -> i.getTable().getTableNumber() == restaurantTable_number).collect(Collectors.toList());
     }
 
     //POST
@@ -49,21 +48,22 @@ public class OrderService implements IOrderService {
         var restaurantOrder = new RestaurantOrder();
         restaurantOrder.setTable(tableRepository.findRestaurantTableByTableNumber(order.getTableNumber()));
         restaurantOrder.setPayed(false);
-        restaurantOrder.setSubTotal(order.getSubTotal());
-        orderRepository.saveAndFlush(restaurantOrder);
+        double subTotal = 0;
+        for (var product : order.getProducts()) {
+            subTotal += product.getPrice();
+        }
+        restaurantOrder.setSubTotal(subTotal);
         List<ProductOrder> productOrders = new ArrayList<>();
 
-        for(var product : order.getProducts()){
+        for (var product : order.getProducts()) {
             var productOrder = new ProductOrder();
             productOrder.setProduct(product);
             productOrder.setOrderStatus(OrderStatus.OPEN_FOR_DELIVERY);
             productOrders.add(productOrder);
-            productOrderRepository.saveAndFlush(productOrder);
         }
 
         restaurantOrder.setProductOrders(productOrders);
-
-
+        orderRepository.saveAndFlush(restaurantOrder);
 
     }
 

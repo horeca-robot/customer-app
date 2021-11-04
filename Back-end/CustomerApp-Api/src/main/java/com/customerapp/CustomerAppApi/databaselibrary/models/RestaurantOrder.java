@@ -46,7 +46,7 @@ public class RestaurantOrder {
     @JoinColumn(name = "table_id")
     private RestaurantTable table;
 
-    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant_order_id")
     private List<ProductOrder> productOrders = new ArrayList<>();
 }
