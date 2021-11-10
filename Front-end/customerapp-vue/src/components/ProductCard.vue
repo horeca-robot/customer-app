@@ -3,7 +3,7 @@
     <b-card class="productCard" v-on:click="GoToProduct(product.id)">
       <h1 class="productName">{{ product.name }}</h1>
       <div class="productImage">
-        <b-card-img :src="product.img" class="Image"></b-card-img>
+        <b-card-img :src="product.image" class="Image"></b-card-img>
         <div class="productPrice">
           <p class="textPrice">€ {{ product.price.toFixed(2) }}</p>
         </div>

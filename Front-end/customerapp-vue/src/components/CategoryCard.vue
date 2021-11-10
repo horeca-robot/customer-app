@@ -1,7 +1,7 @@
 <template>
   <div class="categoryCard" v-on:click="GoToCategory(category.id)">
-    <b-img :src="category.img" class="image"></b-img>
-    <h1 class="categoryName">{{ category.name }}</h1>
+      <b-img :src="category.image" class="image"></b-img>
+      <h1 class="categoryName">{{category.name}}</h1>  
   </div>
 </template>
 

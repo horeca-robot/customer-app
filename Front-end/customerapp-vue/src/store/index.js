@@ -42,6 +42,12 @@ export default new Vuex.Store({
         state.cart = JSON.parse(cart);
       }
     },
+    removeCartFromLocalStorage(){
+      const cart = localStorage.getItem("cart");
+      if (cart) {
+        localStorage.removeItem("cart");
+      }
+    }
   },
   actions: {},
   modules: {
