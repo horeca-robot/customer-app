@@ -12,10 +12,7 @@ import com.customerapp.CustomerAppApi.models.OrderDto;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -49,6 +46,7 @@ public class OrderService implements IOrderService {
         var restaurantOrder = new RestaurantOrder();
         restaurantOrder.setTable(tableRepository.findRestaurantTableByTableNumber(order.getTableNumber()));
         restaurantOrder.setPayed(false);
+        restaurantOrder.setCreatedAt(new Date());
         double subTotal = 0;
         for (var product : order.getProducts()) {
             subTotal += product.getPrice();
