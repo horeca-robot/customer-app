@@ -13,7 +13,7 @@ import java.util.UUID;
 @RequestMapping("/api/v1/category/")
 public class CategoryController {
 
-    private ICategoryService categoryService;
+    private final ICategoryService categoryService;
 
     @Autowired
     public CategoryController(ICategoryService categoryService) {
