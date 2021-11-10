@@ -1,7 +1,8 @@
 package com.customerapp.CustomerAppApi.core.services;
 
-import databaselibrary.models.Product;
-import databaselibrary.repositories.ProductRepository;
+
+import com.customerapp.CustomerAppApi.databaselibrary.models.Product;
+import com.customerapp.CustomerAppApi.databaselibrary.repositories.ProductRepository;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
