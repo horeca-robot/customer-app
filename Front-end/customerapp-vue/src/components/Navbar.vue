@@ -34,6 +34,11 @@ export default {
       if (this.hamburgerOpen) this.$refs.modalComponent.show();
       else this.$refs.modalComponent.hide();
     }
+  },
+  watch: {
+    $route () {
+      this.hamburgerOpen = false;
+    }
   }
 };
 </script>
