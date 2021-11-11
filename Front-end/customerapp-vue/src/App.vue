@@ -30,7 +30,7 @@ export default {
     GetHelp() {
       //change method.
     },
-  },
+  }
 };
 </script>
 <style lang="scss">

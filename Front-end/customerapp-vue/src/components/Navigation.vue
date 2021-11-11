@@ -1,9 +1,5 @@
 <template>
-    <div>
-  <b-button v-b-modal.modal1>Launch demo modal</b-button>
-
-  <!-- Modal Component -->
-  <b-modal id="modal1" title="BootstrapVue" :cancel-disable="true">
+  <b-modal id="modal1" ref="modal1">
       <template v-slot:modal-header>
         <h1></h1>
       </template>
@@ -11,7 +7,7 @@
         <h1></h1>
       </template>
       <b-container class="text-center" >
-          <b-row >
+          <b-row>
               <b-col>
                 <b-button class="button-style heading-2" v-on:click="GoToMenu">Menu</b-button>
               </b-col>
@@ -53,38 +49,53 @@
           </b-row>
       </b-container>
   </b-modal>
-</div>
 </template>
 
 <script>
 import Image from "../assets/logo.png";
 export default {
-    data() {
+  data() {
     return {
-      img: Image,
+      img: Image
     };
   },
   methods: {
-      GoToMenu(){
+      GoToMenu() {
         this.$router.push("/menu");
+        this.hide();
       },
-      GoToCart(){
+      GoToCart() {
         this.$router.push("/cart");
+        this.hide();
       },
-      GoToYourOrders(){
+      GoToYourOrders() {
 
       },
-      GoToHelp(){
+      GoToHelp() {
 
       },
-      ChangeTable(){
+      ChangeTable() {
 
+      },
+      show() {
+        this.$refs.modal1.show();
+      },
+      hide() {
+        this.$refs.modal1.hide();
       }
-  },
+  }
 }
 </script>
 
 <style>
+#modal1 {
+    z-index: 10000;
+}
+
+#modal1 .modal-open {
+  overflow: hidden;
+}
+
 #modal1 .modal-dialog {
     max-width: 100%;
     margin: 0;
@@ -95,7 +106,6 @@ export default {
     height: 100vh;
     display: flex;
     position: fixed;
-    z-index: 100000;
     padding: 0;
 }
 #modal1 .modal-dialog .modal-content{
