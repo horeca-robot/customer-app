@@ -10,4 +10,4 @@ RUN mvn -f /Back-end/CustomerApp-Api/pom.xml clean package
 FROM openjdk:11-jre-slim
 COPY --from=build /Back-end/CustomerApp-Api/target/CustomerApp-Api-0.0.1-SNAPSHOT.jar /usr/local/lib/CustomerApp-Api.jar
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","/usr/local/lib/api.jar"]
+ENTRYPOINT ["java","-jar","/usr/local/lib/CustomerApp-Api.jar"]
