@@ -6,10 +6,12 @@
           <b-col cols="8">
             <input
               id="search-input"
-              type="search"
               class="form-control"
               placeholder="Search"
-            />
+              v-on:input="Search"
+              v-on:keyup.enter="Search"
+              v-bind="find"
+            >
             <b-button
               id="search-button"
               type="button"
@@ -49,6 +51,7 @@ export default {
   data() {
     return {
       categories: [],
+      find: "dd",
     };
   },
   mounted() {
@@ -62,7 +65,7 @@ export default {
       this.$router.push("/cart");
     },
     Search() {
-      //change this method
+      console.log(this.find);
     },
   },
 };

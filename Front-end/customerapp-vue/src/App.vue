@@ -28,7 +28,7 @@ export default {
       this.$router.push("/cart");
     },
     GetHelp() {
-      //change method.
+      alert("Er komt zo snel mogelijk een medewerker aan.");
     },
   },
 };
