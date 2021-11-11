@@ -6,8 +6,8 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=horeca_robot_db
-      - MYSQL_USER=group1
-      - MYSQL_PASSWORD=group1
+      - MYSQL_USER=rigs
+      - MYSQL_PASSWORD=rigs
     ports:
       - 3307:3306
 
