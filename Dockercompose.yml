@@ -19,3 +19,9 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://docker-mariadb:3306/horeca_robot_db?allowPublicKeyRetrieval=true&useSSL=false
     depends_on:
        - docker-mariadb
+  customerapp-web:
+    image: 435914/customerapp-web:latest
+    ports:
+       - 8081:8081
+    depends_on:
+       - customerapp-api
