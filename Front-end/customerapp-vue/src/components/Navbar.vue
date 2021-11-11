@@ -3,6 +3,7 @@
     <b-card-img :src="img" class="image"></b-card-img>
     <b-navbar-brand>{{ route.name }}</b-navbar-brand>
     <div
+    v-b-toggle.sidebar-1
       class="hamburger"
       @click="hamburgerOpen = !hamburgerOpen"
       :class="hamburgerOpen ? 'hamburger--is-open' : ''"
@@ -11,13 +12,18 @@
       <div class="hamburger__item hamburger__item--middle"></div>
       <div class="hamburger__item hamburger__item--last"></div>
     </div>
+    <Navigation/>
   </b-navbar>
 </template>
 
 <script>
 import Image from "../assets/logo.png";
+import Navigation from "./Navigation.vue";
 export default {
   props: ["route"],
+  components: {
+    Navigation,
+  },
   data() {
     return {
       img: Image,

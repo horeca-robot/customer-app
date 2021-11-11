@@ -57,6 +57,10 @@ body {
   font-family: "Baskerville";
   font-size: 20px;
 }
+.heading-2 {
+  font-family: "Baskerville";
+  font-size: 50px;
+}
 .text {
   font-family: Arial, Helvetica, sans-serif;
 }
