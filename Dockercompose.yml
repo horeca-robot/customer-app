@@ -22,6 +22,6 @@ services:
   customerapp-web:
     image: 435914/customerapp-web:latest
     ports:
-       - 8081:8081
+       - 8081:80
     depends_on:
        - customerapp-api
