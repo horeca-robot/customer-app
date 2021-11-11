@@ -44,25 +44,31 @@
       <p>Aantal items: {{ items.length }}</p>
       <h3>Totaal: € {{ cart_total.toFixed(2) }}</h3>
       <b-container>
-        <p>Er zijn geen notities toegevoegd...</p>
-        <b-row>
-          <b-col>
-            <b-button class="button-style heading">Notitie +</b-button>
-          </b-col>
-          <b-col>
-            <b-button class="button-style heading">Bestellen</b-button>
-          </b-col>
-        </b-row>
+          <p>Er zijn geen notities toegevoegd...</p>
+          <b-row>
+            <b-col>
+              <b-button class="button-style heading">Notitie +</b-button>
+            </b-col>
+            <b-col>
+              <b-button @click="PlaceOrder" class="button-style heading">Bestellen</b-button>
+            </b-col>
+          </b-row>
       </b-container>
     </div>
   </div>
 </template>
 
 <script>
+import Vue from 'vue';
 import CartItemCard from "../components/CartItemCard.vue";
 export default {
   components: {
     CartItemCard,
+  },
+  data(){
+    return {
+      response: {}
+    }
   },
   computed: {
     items() {
@@ -73,12 +79,25 @@ export default {
     },
   },
   methods: {
-    GoToMenu: function () {
-      this.$router.push("/menu");
-    },
-    Search() {
-      //TODO: Add function.
-    },
+      GoToMenu: function (){
+          this.$router.push("/menu")
+      },
+      Search(){
+        //TODO: Add function.
+      },
+      PlaceOrder()
+      {
+        const order = {          
+            products: this.items,
+            tableNumber: 1,
+            notes: ""          
+        };
+        Vue.axios.post("http://localhost:8080/api/v1/order/", order).then(response=>{
+          this.response = response.data;
+          this.$store.commit("removeCartFromLocalStorage");
+          this.$router.go();
+        });
+      }
   },
   mounted() {
     this.$store.commit("updateCartFromLocalStorage");
