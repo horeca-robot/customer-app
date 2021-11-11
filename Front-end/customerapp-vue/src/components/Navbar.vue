@@ -4,29 +4,42 @@
     <b-navbar-brand>{{ route.name }}</b-navbar-brand>
     <div
       class="hamburger"
-      @click="hamburgerOpen = !hamburgerOpen"
-      :class="hamburgerOpen ? 'hamburger--is-open' : ''"
+      @click="hamburgerOpen = !hamburgerOpen; showModal();"
+      :class="[hamburgerOpen ? 'hamburger--is-open' : '']"
     >
       <div class="hamburger__item hamburger__item--first"></div>
       <div class="hamburger__item hamburger__item--middle"></div>
       <div class="hamburger__item hamburger__item--last"></div>
     </div>
+    <Navigation ref="modalComponent"/>
   </b-navbar>
 </template>
 
 <script>
 import Image from "../assets/logo.png";
+import Navigation from "./Navigation.vue";
 export default {
   props: ["route"],
+  components: {
+    Navigation,
+  },
   data() {
     return {
       img: Image,
-      hamburgerOpen: false,
+      hamburgerOpen: false
     };
   },
   methods: {
-    //TODO:Need to add page specific name filter.
+    showModal() {
+      if (this.hamburgerOpen) this.$refs.modalComponent.show();
+      else this.$refs.modalComponent.hide();
+    }
   },
+  watch: {
+    $route () {
+      this.hamburgerOpen = false;
+    }
+  }
 };
 </script>
 
@@ -51,6 +64,7 @@ export default {
   margin-right: 5px;
   flex-direction: column;
   justify-content: space-between;
+  z-index: 10001;
 
   &:hover {
     cursor: pointer;
@@ -61,7 +75,7 @@ export default {
     width: 100%;
     background: black;
     transition: transform 300ms cubic-bezier(0.445, 0.05, 0.55, 0.95),
-      opacity 300ms linear;
+    opacity 300ms linear;
 
     &--first {
       .hamburger--is-open & {
