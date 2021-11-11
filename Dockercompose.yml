@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  docker-mariadb:
+    image: mariadb:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=horeca_robot_db
+      - MYSQL_USER=group1
+      - MYSQL_PASSWORD=group1
+    ports:
+      - 3307:3306
+
+  customerapp-api:
+    image: 435914/customerapp-api:latest
+    ports:
+       - 8080:8080
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://docker-mariadb:3306/horeca_robot_db?allowPublicKeyRetrieval=true&useSSL=false
+    depends_on:
+       - docker-mariadb
+       
+  customerapp-web:
+    image: 435914/customerapp-web:latest
+    ports:
+       - 8081:8081
+    depends_on:
+       - customerapp-api
