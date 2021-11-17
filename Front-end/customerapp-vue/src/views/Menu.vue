@@ -10,7 +10,7 @@
               placeholder="Search"
               v-on:input="Search"
               v-on:keyup.enter="Search"
-              v-bind="find"
+              ref="searchInput"
             >
             <b-button
               id="search-button"
@@ -51,13 +51,16 @@ export default {
   data() {
     return {
       categories: [],
-      find: "dd",
+      products: [],
     };
   },
   mounted() {
     this.axios.get("http://localhost:8080/api/v1/category/all").then((response) => {
       this.categories = response.data;
     });
+    this.axios.get("http://localhost:8080/api/v1/product/all").then((response) => {
+      this.products = response.data;
+    })
     this.$store.commit("updateCartFromLocalStorage");
   },
   methods: {
@@ -65,7 +68,11 @@ export default {
       this.$router.push("/cart");
     },
     Search() {
-      console.log(this.find);
+      this.products.forEach(product => {
+        if(product.name.toLowerCase().includes(this.$refs.searchInput.value.toLowerCase()) && this.$refs.searchInput.value != "") {
+          console.log(product.name);
+        }       
+      });
     },
   },
 };
