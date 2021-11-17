@@ -104,13 +104,9 @@ export default {
       }
   },
   mounted() {
-      this.axios.get("http://localhost:8080/api/v1/product/byid", {params: {"id": this.productId}}).then((response) => {
-      this.product = response.data;
-      });
-      this.axios.get("http://localhost:8080/api/v1/ingredient/byproductid",{params:{"id": this.productId}}).then(response =>{
-          this.product.ingredients = response.data;
-          this.product.byproduct = response.data;
-      })
+      this.product = this.$axios.get("/api/v1/product/byid", {params: {"id": this.productId}});
+      this.product.ingredients = this.$axios.get("/api/v1/ingredient/byproductid",{params:{"id": this.productId}});
+      this.product.byproduct = this.product.ingredients;
       this.$store.commit("updateCartFromLocalStorage");
   }    
 };

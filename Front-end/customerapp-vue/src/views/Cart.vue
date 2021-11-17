@@ -92,11 +92,11 @@ export default {
             tableNumber: 1,
             notes: ""          
         };
-        Vue.axios.post("http://localhost:8080/api/v1/order/", order).then(response=>{
-          this.response = response.data;
+        this.response = this.axios.post("/api/v1/order/", order);
+        if (this.response != null) {
           this.$store.commit("removeCartFromLocalStorage");
           this.$router.go();
-        });
+        }
       }
   },
   mounted() {
