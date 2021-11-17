@@ -74,7 +74,10 @@ export default {
 
   // get all products per category
   mounted() {
-    this.category = this.$axios.get("/api/v1/category/byid?id=" + this.categoryId);
+    this.$axios.get(this.$path.CATEGORY_BY_ID + this.categoryId)
+    .then(response => {
+      this.category = response.data
+    });
     this.$store.commit("updateCartFromLocalStorage");
   },
 };

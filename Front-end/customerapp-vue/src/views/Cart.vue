@@ -59,7 +59,6 @@
 </template>
 
 <script>
-import Vue from 'vue';
 import CartItemCard from "../components/CartItemCard.vue";
 export default {
   components: {
@@ -92,7 +91,10 @@ export default {
             tableNumber: 1,
             notes: ""          
         };
-        this.response = this.axios.post("/api/v1/order/", order);
+        this.$axios.post(this.$path.ORDER, order)
+        .then(response => {
+          this.response = response.data
+        })
         if (this.response != null) {
           this.$store.commit("removeCartFromLocalStorage");
           this.$router.go();

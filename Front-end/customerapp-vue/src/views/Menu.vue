@@ -52,7 +52,10 @@ export default {
     };
   },
   mounted() {
-    this.categories = this.$axios.get("/api/v1/category/all");
+    this.$axios.get(this.$path.CATEGORIES)
+    .then(response => {
+      this.categories = response.data
+    })
     this.$store.commit("updateCartFromLocalStorage");
   },
   methods: {
