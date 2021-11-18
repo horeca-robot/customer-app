@@ -11,12 +11,7 @@
       <div class="col">
         <b-card class="card-bg">
           <table-list-picker
-            :tables="[
-              { id: 'CODES', number: 1 },
-              { id: 'CODES', number: 2 },
-              { id: 'CODES', number: 3 },
-              { id: 'CODES', number: 4 },
-            ]"
+            :tables="tables"
           />
         </b-card>
       </div>
@@ -27,10 +22,30 @@
 <script>
 import TableQrScanner from "../components/TableQrScanner";
 import TableListPicker from "../components/TableListPicker";
+import AxiosService from '../services/axios.service';
 
 export default {
   name: "Home",
   components: { TableListPicker, TableQrScanner },
+  data()
+  {
+    return {
+      tables: [],
+    };
+  },
+  mounted() {    
+    AxiosService.getRestaurantTables().then(
+      (response) => {
+        this.tables = response.data;
+      },
+      (error) => {
+        this.content =
+          (error.response && error.response.data) ||
+          error.message ||
+          error.toString();
+      }
+    );
+  },
 };
 </script>
 
