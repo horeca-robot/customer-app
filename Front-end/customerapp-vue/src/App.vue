@@ -100,4 +100,15 @@ body {
   background-color: #e0dccc;
   border: 2pt solid #bdad89;
 }
+.Header .container {
+    background-color: #82c4b5 !important;
+    max-width: 100% !important;
+}
+.menuButton {
+    background-color: #bdad89 !important;
+    border: 2px solid #e0dccc !important;
+}
+.SearchandStore {
+  padding: 10px;
+}
 </style>
