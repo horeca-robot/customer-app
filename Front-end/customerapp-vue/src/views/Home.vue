@@ -22,7 +22,7 @@
 <script>
 import TableQrScanner from "../components/TableQrScanner";
 import TableListPicker from "../components/TableListPicker";
-import AxiosService from '../services/axios.service';
+import AxiosRouterService from '../services/axios.service';
 
 export default {
   name: "Home",
@@ -34,7 +34,7 @@ export default {
     };
   },
   mounted() {    
-    AxiosService.getRestaurantTables().then(
+    AxiosRouterService.getRestaurantTables().then(
       (response) => {
         this.tables = response.data;
       },

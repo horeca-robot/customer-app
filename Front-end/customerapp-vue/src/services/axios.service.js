@@ -1,12 +1,13 @@
 import axios from 'axios';
+import pathEnum from '../enum/index'
 
-const API_URL = 'http://localhost:8080/api/v1/';
+const API_URL = 'http://localhost:8080/';
 
-class AxiosService{
+class AxiosRouterService{
     //Table
     getRestaurantTables(){
-        return axios.get(API_URL + 'table/all');
+        return axios.get(API_URL + pathEnum.TABLES);
     }
 }
 
-export default new AxiosService();
+export default new AxiosRouterService();
