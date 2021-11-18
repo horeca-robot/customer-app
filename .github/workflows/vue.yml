@@ -24,6 +24,10 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+            
+      - name: Install Dependencies
+        working-directory: Front-end/customerapp-vue
+        run: npm ci
 
       # Runs a single command using the runners shell
       - name: Build Vue
