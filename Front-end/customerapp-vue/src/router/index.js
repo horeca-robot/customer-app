@@ -69,7 +69,10 @@ router.beforeEach((to, from, next) => {
   // redirect to login page
   if (authRequired && !tableSelected) {
     next('/');
-  } else {
+  } else if(!authRequired && tableSelected) {
+    next('/menu');
+  }
+  else{
     next();
   }
 });
