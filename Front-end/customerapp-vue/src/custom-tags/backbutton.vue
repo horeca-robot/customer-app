@@ -17,7 +17,7 @@
         },    
         methods: {
             GoToCategory(){
-                this.$router.push({name:'Category', params: {id: this.categoryId}})
+              this.$router.back();
             }
         }
     };

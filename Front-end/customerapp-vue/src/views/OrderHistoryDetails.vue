@@ -3,47 +3,40 @@
     <div class="Header">
       <b-container>
         <b-row class="SearchandStore">
-          <b-col offset="6" cols="6">
-            <b-button
-              class="shoppingCartButton justify-content-end"
-              v-on:click="goToCart"
-            >
-              <b-icon icon="cart4" variant="dark" />
-            </b-button>
-          </b-col>
+          <back-button :col="4" />
+          <menu-button :col="4" />
+          <cart-button :col="4" />
         </b-row>
       </b-container>
     </div>
     <div>
-      <CartItemCard :product="product" />
+      <CartItemCard v-for="productOrder in order.productOrders" :key="productOrder.id" :product="productOrder.product" />
     </div>
   </div>
 </template>
 
 <script>
 import CartItemCard from "../components/OrderItem";
+import MenuButton from "../custom-tags/menubutton";
+import CartButton from "../custom-tags/cartbutton";
+import BackButton from "../custom-tags/backbutton";
+
 export default {
   name: "OrderHistory",
-  components: { CartItemCard },
-  methods: {
-    goToCart() {
-      this.$router.push({ name: "Cart" });
-    },
-  },
+  components: { MenuButton, CartButton, CartItemCard, BackButton },
   data() {
     return {
-      product: {
-        id: "d257fd08-781e-4c16-b76a-cec5686d3b55",
-        name: "Tzatziki",
-        image:
-          "https://img.static-rmg.be/a/food/image/q75/w640/h400/1086911/tzatziki.jpg%22,%22price%22:4.5,%22discountPrice%22:0.0,%22description%22:%22Griekse yoghurt met knoflook en komkommer",
-        containsAlcohol: false,
-        tags: [],
-        ingredients: [],
-      },
+      order: {},
     };
   },
-  mounted() {},
+  mounted() {
+    this.$APIService
+      .getOrderDetails({ params: { id: this.$route.params.id } })
+      .then((response) => {
+        console.log(response.data)
+        this.order = response.data;
+      });
+  },
 };
 </script>
 

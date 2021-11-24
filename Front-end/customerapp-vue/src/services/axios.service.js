@@ -32,6 +32,14 @@ class APIService{
         return this.post(pathEnum.ORDER, order)
     }
 
+    getOrders() {
+        return this.get(pathEnum.ORDERS)
+    }
+
+    getOrderDetails(params) {
+        return this.getWithParams(pathEnum.ORDER_BY_ID, params);
+    }
+
     get(path) {
         return axios.get(path);
     }

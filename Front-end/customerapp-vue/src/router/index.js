@@ -14,7 +14,7 @@ const routes = [
     path: "/menu",
     name: "Menu",
     meta: {
-      title: "Menu"
+      title: "Menu",
     },
     component: Menu,
   },
@@ -27,7 +27,7 @@ const routes = [
     path: "/",
     name: "Home",
     meta: {
-      title: "Home"
+      title: "Home",
     },
     component: Home,
   },
@@ -35,7 +35,7 @@ const routes = [
     path: "/bestelling",
     name: "Cart",
     meta: {
-      title: "Jouw bestelling"
+      title: "Jouw bestelling",
     },
     component: Cart,
   },
@@ -43,7 +43,7 @@ const routes = [
     path: "/menu/:id",
     name: "Category",
     meta: {
-      title: "Categorie"
+      title: "Categorie",
     },
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/Category.vue"),
@@ -52,7 +52,7 @@ const routes = [
     path: "/menu/:categoryId/:id",
     name: "Product",
     meta: {
-      title: "Product"
+      title: "Product",
     },
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/Product.vue"),
@@ -61,13 +61,16 @@ const routes = [
     path: "/bestellingen",
     name: "OrderHistory",
     meta: {
-      title: "Bestellingen"
+      title: "Bestellingen",
     },
     component: OrderHistory,
   },
   {
     path: "/orders/:id",
     name: "OrderHistoryDetails",
+    meta: {
+      title: "Bestelling info",
+    },
     component: OrderHistoryDetails,
   },
 ];

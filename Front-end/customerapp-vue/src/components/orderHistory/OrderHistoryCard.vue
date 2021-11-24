@@ -12,9 +12,6 @@ export default {
   props: {
     orders: Array,
   },
-  created() {
-    console.log("AAA");
-  },
 };
 </script>
 
