@@ -18,6 +18,7 @@
 import OrderCard from "../components/orderHistory/OrderHistoryCard";
 import CartButton from "../custom-tags/cartbutton.vue";
 import MenuButton from "../custom-tags/menubutton.vue";
+import localStorageHelper from "../helpers/localStorageHelper";
 
 export default {
   name: "OrderHistory",
@@ -28,7 +29,7 @@ export default {
     };
   },
   mounted() {
-    this.$APIService.getOrders().then((response) => {
+    this.$APIService.getOrdersById(localStorageHelper.load('table').tableId).then((response) => {
       this.list = response.data;
     });
   },

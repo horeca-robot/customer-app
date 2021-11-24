@@ -32,8 +32,8 @@ class APIService{
         return this.post(pathEnum.ORDER, order)
     }
 
-    getOrders() {
-        return this.get(pathEnum.ORDERS)
+    getOrdersById(id) {
+        return this.get(pathEnum.ORDERS + id)
     }
 
     getOrderDetails(params) {

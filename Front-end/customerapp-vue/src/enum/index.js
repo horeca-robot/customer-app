@@ -1,6 +1,6 @@
 const pathEnum = Object.freeze({
     ORDER: "/api/v1/order/",
-    ORDERS: "/api/v1/order/all",
+    ORDERS: "/api/v1/order/bytable?restaurantTableId=",
     ORDER_BY_ID: "/api/v1/order/byid",
     CATEGORY_BY_ID: "/api/v1/category/byid?id=",
     CATEGORIES: "/api/v1/category/all",
