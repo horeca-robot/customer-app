@@ -5,13 +5,15 @@
 </template>
 
 <script>
-import OrderItem from "./OrderItem";
-
+import OrderItem from "./OrderHistoryItem";
 export default {
-  name: "OrderCard",
+  name: "OrderHistoryCard",
   components: { OrderItem },
   props: {
     orders: Array,
+  },
+  created() {
+    console.log("AAA");
   },
 };
 </script>

@@ -5,6 +5,7 @@ import Cart from "../views/Cart.vue";
 import OrderHistory from "../views/OrderHistory.vue";
 import TableValidator from "../views/TableValidator";
 import Home from "../views/Home";
+import OrderHistoryDetails from "../views/OrderHistoryDetails";
 
 Vue.use(VueRouter);
 
@@ -52,6 +53,11 @@ const routes = [
     name: "OrderHistory",
     component: OrderHistory,
   },
+  {
+    path: "/orders/:id",
+    name: "OrderHistoryDetails",
+    component: OrderHistoryDetails,
+  },
 ];
 
 const router = new VueRouter({
@@ -61,16 +67,15 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const publicPages = ['/'];
+  const publicPages = ["/"];
   const authRequired = !publicPages.includes(to.path);
-  const tableSelected = localStorage.getItem('table');
+  const tableSelected = localStorage.getItem("table");
 
   if (authRequired && !tableSelected) {
-    next('/');
-  } else if(!authRequired && tableSelected) {
-    next('/menu');
-  }
-  else{
+    next("/");
+  } else if (!authRequired && tableSelected) {
+    next("/menu");
+  } else {
     next();
   }
 });

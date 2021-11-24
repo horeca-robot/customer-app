@@ -15,17 +15,16 @@
       </b-container>
     </div>
     <div>
-      <OrderCard :orders="list" />
+      <CartItemCard :product="product" />
     </div>
   </div>
 </template>
 
 <script>
-import OrderCard from "../components/orderHistory/OrderHistoryCard";
-
+import CartItemCard from "../components/OrderItem";
 export default {
   name: "OrderHistory",
-  components: { OrderCard },
+  components: { CartItemCard },
   methods: {
     goToCart() {
       this.$router.push({ name: "Cart" });
@@ -33,13 +32,18 @@ export default {
   },
   data() {
     return {
-      list: [
-        { id: 1, name: "Poggers", price: "17.35", totalProducts: 11 },
-        { id: 2, name: "Poggers", price: "43.35", totalProducts: 5 },
-        { id: 3, name: "Poggers", price: "173.35", totalProducts: 78 },
-      ],
+      product: {
+        id: "d257fd08-781e-4c16-b76a-cec5686d3b55",
+        name: "Tzatziki",
+        image:
+          "https://img.static-rmg.be/a/food/image/q75/w640/h400/1086911/tzatziki.jpg%22,%22price%22:4.5,%22discountPrice%22:0.0,%22description%22:%22Griekse yoghurt met knoflook en komkommer",
+        containsAlcohol: false,
+        tags: [],
+        ingredients: [],
+      },
     };
   },
+  mounted() {},
 };
 </script>
 

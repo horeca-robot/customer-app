@@ -1,16 +1,17 @@
 <template>
-  <b-row class="border-bottom border-secondary border-large pt-3">
+  <b-row
+    class="border-bottom border-secondary border-large pt-3"
+    @click="goToOrderDetail(order.id)"
+  >
     <b-col class="horizontal-center-text">{{ order.name }}</b-col>
-    <b-col class="horizontal-center-text"
-      >{{ order.totalProducts }} Producten</b-col
-    >
+    <b-col class="horizontal-center-text">
+      {{ order.totalProducts }} Producten
+    </b-col>
     <b-col>
       <b-row>
         <b-col class="horizontal-center-text">€{{ order.price }}</b-col>
         <b-col class="text-right">
-          <span class="h3"
-            ><b-icon-eye-fill @click="goToOrderDetail(order.id)" />
-          </span>
+          <span class="h3"><b-icon-eye-fill /> </span>
         </b-col>
       </b-row>
     </b-col>
@@ -19,7 +20,7 @@
 
 <script>
 export default {
-  name: "OrderItem",
+  name: "OrderHistoryItem",
   props: {
     order: Object,
   },
@@ -38,6 +39,7 @@ export default {
 .horizontal-center-text {
   margin: auto;
 }
+
 .border-large {
   border-bottom-width: 0.15em !important;
   border-bottom-color: black !important;
