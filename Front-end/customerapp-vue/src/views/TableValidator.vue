@@ -18,7 +18,7 @@ export default {
       this.$router.push({ name: "table-picker" });
     } else {
       this.$store.dispatch("tableModule/setTable", this.$route.params.tableId);
-      this.$router.push({ name: "menu" });
+      this.$router.push({ name: "Menu" });
     }
   },
 };

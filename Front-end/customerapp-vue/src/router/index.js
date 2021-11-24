@@ -13,6 +13,9 @@ const routes = [
   {
     path: "/menu",
     name: "Menu",
+    meta: {
+      title: "Menu"
+    },
     component: Menu,
   },
   {
@@ -23,28 +26,43 @@ const routes = [
   {
     path: "/",
     name: "Home",
+    meta: {
+      title: "Home"
+    },
     component: Home,
   },
   {
     path: "/bestelling",
-    name: "Bestelling",
+    name: "Cart",
+    meta: {
+      title: "Jouw bestelling"
+    },
     component: Cart,
   },
   {
     path: "/menu/:id",
-    name: "Categorie",
+    name: "Category",
+    meta: {
+      title: "Categorie"
+    },
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/Category.vue"),
   },
   {
     path: "/menu/:categoryId/:id",
     name: "Product",
+    meta: {
+      title: "Product"
+    },
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/Product.vue"),
   },
   {
     path: "/bestellingen",
-    name: "Bestellingen",
+    name: "OrderHistory",
+    meta: {
+      title: "Bestellingen"
+    },
     component: OrderHistory,
   },
   {

@@ -62,7 +62,7 @@ export default {
         await this.timeout(2000);
       } else {
         this.$store.dispatch("tableModule/setTable", match[1]);
-        this.$router.push({ name: "menu" });
+        this.$router.push({ name: "Menu" });
       }
       this.turnCameraOn();
     },

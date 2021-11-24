@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     GoToCart() {
-      this.$router.push("/cart");
+      this.$router.push({name:'Cart'});
     },
     GetHelp() {
       //change method.

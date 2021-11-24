@@ -35,7 +35,7 @@ export default {
   methods: {
     redirectToTable(tableId) {
       this.$store.dispatch("tableModule/setTable", tableId);
-      this.$router.push({ name: "menu" });
+      this.$router.push({ name: "Menu" });
     },
     ShowConfirmModal(tableId){
       this.selectedTableNumber = tableId;
