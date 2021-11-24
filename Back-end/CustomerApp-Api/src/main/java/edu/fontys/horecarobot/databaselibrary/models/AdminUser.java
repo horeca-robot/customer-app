@@ -1,4 +1,4 @@
-package com.customerapp.CustomerAppApi.databaselibrary.models;
+package edu.fontys.horecarobot.databaselibrary.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,8 +15,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "employee")
-public class EmployeeUser {
+@Table(name = "admin")
+public class AdminUser {
 
     @Id
     @Column(updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
@@ -29,9 +29,9 @@ public class EmployeeUser {
     private UUID id;
 
     @Column(nullable = false)
-    private String username;
+    private String email;
 
     @Column(nullable = false)
-    private short pincode;
+    private String password;
 
 }

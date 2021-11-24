@@ -1,6 +1,6 @@
 package com.customerapp.CustomerAppApi.core.interfaces;
 
-import com.customerapp.CustomerAppApi.databaselibrary.models.RestaurantOrder;
+import edu.fontys.horecarobot.databaselibrary.models.RestaurantOrder;
 import com.customerapp.CustomerAppApi.models.OrderDto;
 
 

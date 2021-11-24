@@ -1,4 +1,4 @@
-package com.customerapp.CustomerAppApi.databaselibrary.models;
+package edu.fontys.horecarobot.databaselibrary.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -49,7 +49,7 @@ public class Product {
     @Column(name = "contains_alcohol")
     private boolean containsAlcohol;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
         name = "product_tag",
         joinColumns = { @JoinColumn(table = "tag", referencedColumnName = "id", name = "tag_id") },
@@ -57,8 +57,16 @@ public class Product {
     )
     private List<Tag> tags = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL)
-    //@JoinColumn(name = "ingredient_id")
+    @OneToMany
+    //@JoinColumn(name = "product_id")
     private List<IngredientProduct> ingredients;
+
+    @ManyToMany
+    @JoinTable(
+            name = "category_product",
+            joinColumns = { @JoinColumn(name = "product_id") },
+            inverseJoinColumns = { @JoinColumn(name = "category_id") }
+    )
+    private List<Category> categories = new ArrayList<>();
 
 }

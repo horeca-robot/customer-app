@@ -1,8 +1,8 @@
 package com.customerapp.CustomerAppApi.core.services;
 
 import com.customerapp.CustomerAppApi.core.interfaces.ICategoryService;
-import com.customerapp.CustomerAppApi.databaselibrary.models.Category;
-import com.customerapp.CustomerAppApi.databaselibrary.repositories.CategoryRepository;
+import edu.fontys.horecarobot.databaselibrary.models.Category;
+import edu.fontys.horecarobot.databaselibrary.repositories.CategoryRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

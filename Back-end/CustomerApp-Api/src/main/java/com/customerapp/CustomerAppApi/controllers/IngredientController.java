@@ -2,7 +2,7 @@ package com.customerapp.CustomerAppApi.controllers;
 
 import com.customerapp.CustomerAppApi.core.interfaces.IIngredientProductService;
 import com.customerapp.CustomerAppApi.core.services.IngredientProductService;
-import com.customerapp.CustomerAppApi.databaselibrary.models.Ingredient;
+import edu.fontys.horecarobot.databaselibrary.models.Ingredient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
