@@ -12,7 +12,7 @@
         name: "cartbutton",
         methods: {
             GoToCart() {
-                this.$router.push({name:'Cart'});
+                this.$router.push({name:'Winkelwagen'});
             }
         }
     };
