@@ -48,9 +48,9 @@ public class OrderController {
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping("")
-    public List<RestaurantOrder> getAllOrdersFromTable(@RequestBody int restaurantTable_id) {
-        return orderService.getAllOrdersFromTable(restaurantTable_id);
+    @GetMapping("bytable")
+    public List<RestaurantOrder> getAllOrdersFromTable(@RequestParam UUID restaurantTableId) {
+        return orderService.getAllOrdersFromTable(restaurantTableId);
     }
 
 }

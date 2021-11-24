@@ -38,8 +38,9 @@ public class OrderService implements IOrderService {
         return orderRepository.findById(id);
     }
 
-    public List<RestaurantOrder> getAllOrdersFromTable(int restaurantTable_number) {
-        return orderRepository.findAll().stream().filter(i -> i.getTable().getTableNumber() == restaurantTable_number).collect(Collectors.toList());
+    @Override
+    public List<RestaurantOrder> getAllOrdersFromTable(UUID restaurantTableId) {
+        return orderRepository.findAll().stream().filter(order -> order.getTable().getId().equals(restaurantTableId)).collect(Collectors.toList());
     }
 
     //POST
