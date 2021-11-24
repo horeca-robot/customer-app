@@ -1,4 +1,4 @@
-package com.customerapp.CustomerAppApi.databaselibrary.enums;
+package edu.fontys.horecarobot.databaselibrary.enums;
 
 public enum OrderStatus {
     DELIVERED,

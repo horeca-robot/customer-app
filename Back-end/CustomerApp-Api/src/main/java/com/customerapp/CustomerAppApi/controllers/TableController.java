@@ -1,7 +1,7 @@
 package com.customerapp.CustomerAppApi.controllers;
 
 import com.customerapp.CustomerAppApi.core.interfaces.ITableService;
-import com.customerapp.CustomerAppApi.databaselibrary.models.RestaurantTable;
+import edu.fontys.horecarobot.databaselibrary.models.RestaurantTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

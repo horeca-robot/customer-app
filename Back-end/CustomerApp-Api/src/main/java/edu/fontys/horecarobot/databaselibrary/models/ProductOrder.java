@@ -1,6 +1,6 @@
-package com.customerapp.CustomerAppApi.databaselibrary.models;
+package edu.fontys.horecarobot.databaselibrary.models;
 
-import com.customerapp.CustomerAppApi.databaselibrary.enums.OrderStatus;
+import edu.fontys.horecarobot.databaselibrary.enums.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,7 +34,7 @@ public class ProductOrder {
     @Column(name = "order_status")
     private OrderStatus orderStatus;
 
-    @ManyToOne(cascade = CascadeType.MERGE, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "product_order_id", nullable = false)
     private Product product;
 

@@ -1,4 +1,4 @@
-package com.customerapp.CustomerAppApi.databaselibrary.models;
+package edu.fontys.horecarobot.databaselibrary.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

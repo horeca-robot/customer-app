@@ -1,4 +1,4 @@
-package com.customerapp.CustomerAppApi.databaselibrary.models;
+package edu.fontys.horecarobot.databaselibrary.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,26 +15,23 @@ import java.util.UUID;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "restaurant_table")
-public class RestaurantTable {
+@Table(name = "employee")
+public class EmployeeUser {
 
     @Id
     @Column(updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
+        name = "UUID",
+        strategy = "org.hibernate.id.UUIDGenerator"
     )
     @Type(type = "uuid-char")
     private UUID id;
 
-    @Column(name = "table_number", unique = true)
-    private int tableNumber;
+    @Column(nullable = false)
+    private String username;
 
-    @Column(name = "x_axis")
-    private int xAxis;
-
-    @Column(name = "y_axis")
-    private int yAxis;
+    @Column(nullable = false)
+    private short pincode;
 
 }

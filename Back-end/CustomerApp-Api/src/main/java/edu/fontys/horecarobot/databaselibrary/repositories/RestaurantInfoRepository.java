@@ -1,6 +1,6 @@
-package com.customerapp.CustomerAppApi.databaselibrary.repositories;
+package edu.fontys.horecarobot.databaselibrary.repositories;
 
-import com.customerapp.CustomerAppApi.databaselibrary.models.RestaurantInfo;
+import edu.fontys.horecarobot.databaselibrary.models.RestaurantInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
