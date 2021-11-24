@@ -1,6 +1,6 @@
 package com.customerapp.CustomerAppApi.core.interfaces;
 
-import com.customerapp.CustomerAppApi.databaselibrary.models.Product;
+import edu.fontys.horecarobot.databaselibrary.models.Product;
 
 
 import java.util.List;

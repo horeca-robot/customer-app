@@ -1,6 +1,6 @@
 package com.customerapp.CustomerAppApi.core.services;
 
-import com.customerapp.CustomerAppApi.databaselibrary.repositories.OrderRepository;
+import edu.fontys.horecarobot.databaselibrary.repositories.RestaurantOrderRepository;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -15,7 +15,7 @@ public class OrderServiceTest {
     private OrderService orderService;
 
     @Mock
-    private OrderRepository orderRepository;
+    private RestaurantOrderRepository orderRepository;
 
 
 

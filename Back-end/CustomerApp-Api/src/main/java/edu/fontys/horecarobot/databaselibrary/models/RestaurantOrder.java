@@ -1,11 +1,10 @@
-package com.customerapp.CustomerAppApi.databaselibrary.models;
+package edu.fontys.horecarobot.databaselibrary.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.JoinFormula;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -37,12 +36,12 @@ public class RestaurantOrder {
     private double subTotal;
 
     @Column
-    private boolean payed;
+    private boolean paid;
 
     @Column(name = "created_at")
     private Date createdAt;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "table_id")
     private RestaurantTable table;
 

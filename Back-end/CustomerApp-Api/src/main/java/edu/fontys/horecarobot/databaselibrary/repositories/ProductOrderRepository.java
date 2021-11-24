@@ -1,6 +1,6 @@
-package com.customerapp.CustomerAppApi.databaselibrary.repositories;
+package edu.fontys.horecarobot.databaselibrary.repositories;
 
-import com.customerapp.CustomerAppApi.databaselibrary.models.Ingredient;
+import edu.fontys.horecarobot.databaselibrary.models.ProductOrder;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,7 +11,5 @@ import java.util.UUID;
  * See <a href="https://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html">https://docs.spring.io</a>
  */
 @Repository
-public interface IngredientRepository extends JpaRepository<Ingredient, UUID> {
-    Ingredient getIngredientByName(String name);
-
+public interface ProductOrderRepository extends JpaRepository<ProductOrder, UUID> {
 }

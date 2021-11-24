@@ -1,4 +1,4 @@
-package com.customerapp.CustomerAppApi.databaselibrary.models;
+package edu.fontys.horecarobot.databaselibrary.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,9 +32,11 @@ public class RestaurantInfo {
     @Column(nullable = false)
     private String name;
 
+    @Lob
     @Column(name = "restaurant_logo")
     private String restaurantLogo;
 
+    @Lob
     @Column(name = "background_image")
     private String backgroundImage;
 

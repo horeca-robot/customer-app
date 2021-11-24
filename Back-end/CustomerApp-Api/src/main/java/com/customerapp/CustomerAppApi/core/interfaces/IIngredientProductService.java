@@ -1,7 +1,7 @@
 package com.customerapp.CustomerAppApi.core.interfaces;
 
-import com.customerapp.CustomerAppApi.databaselibrary.models.Ingredient;
-import com.customerapp.CustomerAppApi.databaselibrary.models.IngredientProduct;
+import edu.fontys.horecarobot.databaselibrary.models.Ingredient;
+import edu.fontys.horecarobot.databaselibrary.models.IngredientProduct;
 
 import java.util.List;
 import java.util.Optional;
