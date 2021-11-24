@@ -7,8 +7,8 @@
             <input
               id="search-input"
               class="form-control"
-              placeholder="Search"
-              v-on:input="Search"
+              placeholder="Zoeken"
+              v-on:input="ContinuousSearch"
               v-on:keyup.enter="Search"
               ref="searchInput"
             >
@@ -30,6 +30,11 @@
             </b-button>
           </b-col>
         </b-row>
+        <SearchResult v-if="input != '' " ref="Searchresults"
+        :products="products"
+        :input="input"
+        :nothingFound="nothingFound"
+        :categories="categories"/>
       </b-container>
     </div>
     <CategoryCard
@@ -42,16 +47,21 @@
 
 <script>
 import CategoryCard from "../components/CategoryCard.vue";
+import SearchResult from "../components/SearchResults.vue";
 
 export default {
   name: "Menu",
   components: {
     CategoryCard,
+    SearchResult,
   },
   data() {
     return {
       categories: [],
       products: [],
+      number: 0,
+      input: "",
+      nothingFound: "",
     };
   },
   mounted() {
@@ -68,11 +78,38 @@ export default {
       this.$router.push("/cart");
     },
     Search() {
-      this.products.forEach(product => {
-        if(product.name.toLowerCase().includes(this.$refs.searchInput.value.toLowerCase()) && this.$refs.searchInput.value != "") {
-          console.log(product.name);
-        }       
-      });
+      this.input = this.$refs.searchInput.value;
+      this.CheckProducts()
+      if(this.$refs.searchInput.value == ""){
+        alert("U moet eerst iets invullen voordat u kunt zoeken.")
+      }
+    },
+    ContinuousSearch(){
+      this.input = this.$refs.searchInput.value;
+      this.CheckProducts();
+      if(this.$refs.searchInput.value == " "){
+        this.$refs.searchInput.value = "";
+        alert("U mag niet beginnen met een spatie.")
+        this.input = this.$refs.searchInput.value;
+      }
+      else if(this.$refs.searchInput.value != ""){
+        document.documentElement.style.overflow = 'hidden';
+      }
+      else{
+        document.documentElement.style.overflow = 'auto';
+      }
+    },
+    CheckProducts(){
+      this.number = 0;
+      this.nothingFound = "";
+        this.products.forEach(product => {
+          if(product.name.includes(this.$refs.searchInput.value)){
+            this.number++;
+          }
+        })
+        if(this.number == 0){
+            this.nothingFound = "Er zijn geen resultaten gevonden";
+        }
     },
   },
 };
