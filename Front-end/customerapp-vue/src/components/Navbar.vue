@@ -1,7 +1,7 @@
 <template>
   <b-navbar class="navbar" toggleable type="light" variant="light">
     <b-card-img :src="img" class="image"></b-card-img>
-    <b-navbar-brand>{{ route.name }}</b-navbar-brand>
+    <b-navbar-brand>{{ route.meta.title }}</b-navbar-brand>
     <div
       class="hamburger"
       @click="hamburgerOpen = !hamburgerOpen; showModal();"

@@ -22,12 +22,12 @@ describe("App.vue", () => {
     it("Test the gotocart method.", async () => {
         const wrapper = shallowMount(App, {
             mocks: {
-                $route: "/cart"
+                $route: "/bestelling"
             },
             stubs: ['router-link', 'router-view'],
             localVue,
         });
         await wrapper.trigger('click', { button: 1 });
-        expect(wrapper.vm.$route).toBe("/cart");
+        expect(wrapper.vm.$route).toBe("/bestelling");
     });
 });
