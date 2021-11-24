@@ -2,7 +2,7 @@
     <b-container id="results" ref="results" class="text-center" >
         <div v-on:change="CheckProducts(products, input)" v-for="product in products "
         :key="product.name" >
-        <p v-if="product.name.toLowerCase().includes(input.toLowerCase()) && input != empty" v-on:click="GoToProduct(product.id)">{{product.name}}</p>
+        <p v-if="product.name.toLowerCase().includes(input.toLowerCase()) && input != empty" v-on:click="GoToProduct(product.id, product.categories[0].id)">{{product.name}}</p>
         </div>
         <p v-if="nothingFound != empty ">{{nothingFound}}</p>
     </b-container>
@@ -13,25 +13,14 @@ export default {
     props: ["products", "input", "categories", "nothingFound"],
     data() {
         return {
-            category: "",
             empty: ""
         };
   },
   
   methods:{
-    GoToProduct(product){
-        this.GetCategory(product)
+    GoToProduct(product, category){
         document.documentElement.style.overflow = 'auto';
-        this.$router.push({name: "Product", params: { categoryId: this.category, id: product },});
-    },
-    GetCategory(productId){
-        this.categories.forEach(category => {
-            category.products.forEach(product =>{
-                if(product.id == productId){
-                this.category =  category.id;
-                }
-            })
-        });
+        this.$router.push({name: "Product", params: { categoryId: category, id: product },});
     },
   }
 }

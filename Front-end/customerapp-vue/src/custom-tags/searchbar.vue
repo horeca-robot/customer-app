@@ -70,7 +70,7 @@ export default {
                 this.number++;
             }
             })
-            if(this.number == 0 && this.$refs.searchInput.value != ""){
+            if(this.number === 0 && this.$refs.searchInput.value != ""){
                 this.nothingFound = "Er zijn geen resultaten gevonden";
             }
         }
