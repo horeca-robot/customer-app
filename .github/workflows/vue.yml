@@ -29,3 +29,23 @@ jobs:
       - name: Build Vue
         working-directory: Front-end/customerapp-vue
         run: npm build
+
+      - name: Docker Build & Push Action
+      # You may pin to the exact commit or the version.
+      # uses: mr-smithers-excellent/docker-build-push@a7fe6652db5c7274374844e81692992f5a2befb9
+        uses: mr-smithers-excellent/docker-build-push@v5.6
+        with:
+          # Name of the Docker image
+          image: 435914/customerapp-web
+          # Tags override for Docker image
+          tags: latest
+          # Target Docker registry
+          registry: docker.io
+          # Location of Dockerfile, if not Dockerfile in root directory
+          dockerfile: Front-end/customerapp-vue/Dockerfile
+          # Directory to run `docker build` from, if not project root
+          directory: Front-end/customerapp-vue                    
+          # Docker registry username
+          username: ${{ secrets.DOCKER_USERNAME }}
+          # Docker registry password
+          password: ${{ secrets.DOCKER_PASSWORD }}
