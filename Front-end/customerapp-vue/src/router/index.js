@@ -60,4 +60,19 @@ const router = new VueRouter({
   routes,
 });
 
+router.beforeEach((to, from, next) => {
+  const publicPages = ['/'];
+  const authRequired = !publicPages.includes(to.path);
+  const tableSelected = localStorage.getItem('table');
+
+  if (authRequired && !tableSelected) {
+    next('/');
+  } else if(!authRequired && tableSelected) {
+    next('/menu');
+  }
+  else{
+    next();
+  }
+});
+
 export default router;

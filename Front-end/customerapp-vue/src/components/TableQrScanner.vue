@@ -17,7 +17,6 @@
     </qrcode-stream>
     <b-card-img v-if="!scanning || loading" :src="img"></b-card-img>
     <b-button
-      href="#"
       class="w-100 mt-3 scan-button-bg"
       :disabled="!loading"
       @click="startScanning"

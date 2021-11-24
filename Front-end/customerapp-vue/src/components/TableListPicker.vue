@@ -4,9 +4,8 @@
       class="table-item"
       v-for="table in tables"
       :key="table.id"
-      href="#"
       @click="redirectToTable(table.id)"
-      >Tafel {{ table.number }}</b-list-group-item
+      >Tafel {{ table.tableNumber }}</b-list-group-item
     >
   </b-list-group>
 </template>

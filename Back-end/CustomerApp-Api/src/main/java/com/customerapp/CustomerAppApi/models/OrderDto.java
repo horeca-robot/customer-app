@@ -4,11 +4,12 @@ import com.customerapp.CustomerAppApi.databaselibrary.models.Product;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class OrderDto {
 
     private List<Product> products = new ArrayList<>();
-    private int tableNumber;
+    private UUID tableId;
     private String notes;
 
     public List<Product> getProducts() {
@@ -20,12 +21,12 @@ public class OrderDto {
     }
 
 
-    public int getTableNumber() {
-        return tableNumber;
+    public UUID getTableId() {
+        return tableId;
     }
 
-    public void setTableNumber(int tableNumber) {
-        this.tableNumber = tableNumber;
+    public void setTableId(UUID tableNumber) {
+        this.tableId = tableNumber;
     }
 
     public String getNotes() {

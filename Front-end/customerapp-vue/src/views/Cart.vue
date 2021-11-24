@@ -3,35 +3,8 @@
     <div class="Header">
       <b-container>
         <b-row class="SearchandStore">
-          <b-col cols="8">
-            <input
-              id="search-input"
-              type="search"
-              class="form-control"
-              placeholder="Search"
-            />
-            <b-button
-              id="search-button"
-              type="button"
-              class="button-style button-style-search"
-              v-on:click="Search"
-            >
-              <b-icon icon="search" />
-            </b-button>
-          </b-col>
-          <b-col cols="4">
-            <b-button
-              class="menuButton justify-content-end"
-              v-on:click="GoToMenu"
-            >
-              <img
-                src="../assets/menuIcon.png"
-                alt="Shoppingcart"
-                width="25"
-                height="20"
-              />
-            </b-button>
-          </b-col>
+          <search-bar />
+          <menu-button :col="4" />
         </b-row>
       </b-container>
     </div>
@@ -43,32 +16,49 @@
       />
       <p>Aantal items: {{ items.length }}</p>
       <h3>Totaal: € {{ cart_total.toFixed(2) }}</h3>
-      <b-container>
-          <p>Er zijn geen notities toegevoegd...</p>
-          <b-row>
-            <b-col>
-              <b-button class="button-style heading">Notitie +</b-button>
-            </b-col>
-            <b-col>
-              <b-button @click="PlaceOrder" class="button-style heading">Bestellen</b-button>
-            </b-col>
-          </b-row>
+      <b-container v-if="items.length">
+        <p>Er zijn geen notities toegevoegd...</p>
+        <b-row>
+          <b-col>
+            <b-button class="button-style heading">Notitie +</b-button>
+          </b-col>
+          <b-col>
+            <b-button @click="PlaceOrder" class="button-style heading"
+              >Bestellen</b-button
+            >
+          </b-col>
+        </b-row>
+        <b-alert
+          :show="dismissCountDown"
+          fade
+          variant="success"
+          @dismiss-count-down="countDownChanged"
+        >
+          Bestelling met succes geplaatst.
+        </b-alert>
       </b-container>
     </div>
   </div>
 </template>
 
 <script>
-import Vue from 'vue';
 import CartItemCard from "../components/CartItemCard.vue";
+import SearchBar from "../custom-tags/searchbar.vue";
+import MenuButton from "../custom-tags/menubutton.vue";
+
 export default {
   components: {
     CartItemCard,
+    SearchBar,
+    MenuButton,
   },
-  data(){
+  data() {
     return {
-      response: {}
-    }
+      response: {},
+      dismissSecs: 4,
+      dismissCountDown: 0,
+      showDismissibleAlert: false,
+    };
   },
   computed: {
     items() {
@@ -79,25 +69,32 @@ export default {
     },
   },
   methods: {
-      GoToMenu: function (){
-          this.$router.push("/menu")
-      },
-      Search(){
-        //TODO: Add function.
-      },
-      PlaceOrder()
-      {
-        const order = {          
-            products: this.items,
-            tableNumber: 1,
-            notes: ""          
-        };
-        Vue.axios.post("http://localhost:8080/api/v1/order/", order).then(response=>{
+    PlaceOrder() {
+      const order = {
+        products: this.items,
+        tableId: JSON.parse(localStorage.getItem('table')).tableId,
+        notes: "",
+      };
+      console.log(order.tableNumber);
+      if (this.items.length > 0) {
+        this.$axios.post(this.$path.ORDER, order).then((response) => {
           this.response = response.data;
-          this.$store.commit("removeCartFromLocalStorage");
-          this.$router.go();
         });
+        if (this.response != null) {
+          this.$store.commit("removeCartFromLocalStorage");
+          this.showAlert();
+          setTimeout(() => {
+            this.$router.go();
+          }, this.dismissSecs * 1000);
+        }
       }
+    },
+    countDownChanged(dismissCountDown) {
+      this.dismissCountDown = dismissCountDown;
+    },
+    showAlert() {
+      this.dismissCountDown = this.dismissSecs;
+    },
   },
   mounted() {
     this.$store.commit("updateCartFromLocalStorage");
@@ -119,32 +116,5 @@ html {
   background-color: #cbe1d9;
   margin: 0;
   max-width: 100% !important;
-}
-
-.SearchandStore {
-  padding: 10px;
-}
-.Searchbar {
-  width: 115px;
-}
-.menuButton {
-  background-color: #bdad89 !important;
-  border: 2px solid #e0dccc !important;
-}
-.form-control {
-  width: 70% !important;
-  display: inline !important;
-}
-.search {
-  position: absolute;
-  margin-top: -7%;
-  margin-left: 5%;
-}
-.button-style-search {
-  width: 30%;
-  padding: 0.375rem 0.75rem;
-  height: 38px;
-  display: inline;
-  vertical-align: baseline !important;
 }
 </style>
