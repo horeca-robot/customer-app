@@ -3,15 +3,18 @@
     <div class="row mb-3 mt-3">
       <div class="col">
         <b-card class="card-bg">
-          <TableQrScanner />
+          <TableQrScanner v-if="usingQR"/>
+          <br v-if="usingQR"/>
+          <b-button class="button-style w-100 border" @click="(usingQR = !usingQR)">{{this.switchbuttontext}}</b-button>
         </b-card>
       </div>
     </div>
     <div class="row">
       <div class="col">
-        <b-card class="card-bg">
+        <b-card v-if="!usingQR" class="card-bg">
           <table-list-picker
             :tables="tables"
+            
           />
         </b-card>
       </div>
@@ -30,8 +33,20 @@ export default {
   data()
   {
     return {
-      tables: [],
+      tables: [
+      ],
+      usingQR: true,
     };
+  },
+  computed:{
+    switchbuttontext: function () {
+      if(this.usingQR){
+        return "Geen camera? klik hier"
+      }
+      else{
+        return "Terug naar QR scannen"
+      }
+    }
   },
   mounted() {    
     APIService.getRestaurantTables().then(
@@ -53,4 +68,5 @@ export default {
 .card-bg {
   background: #e0dccc;
 }
+
 </style>
