@@ -9,7 +9,7 @@ import java.util.UUID;
 public class OrderDto {
 
     private List<Product> products = new ArrayList<>();
-    private UUID tableNumber;
+    private UUID tableId;
     private String notes;
 
     public List<Product> getProducts() {
@@ -21,12 +21,12 @@ public class OrderDto {
     }
 
 
-    public UUID getTableNumber() {
-        return tableNumber;
+    public UUID getTableId() {
+        return tableId;
     }
 
-    public void setTableNumber(UUID tableNumber) {
-        this.tableNumber = tableNumber;
+    public void setTableId(UUID tableNumber) {
+        this.tableId = tableNumber;
     }
 
     public String getNotes() {
