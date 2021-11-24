@@ -21,11 +21,11 @@ class APIService{
     }
 
     getProductById(params) {
-        return this.get2(pathEnum.PRODUCT_BY_ID, params)
+        return this.getWithParams(pathEnum.PRODUCT_BY_ID, params)
     }
 
     getByProductId(params) {
-        return this.get2(pathEnum.BYPRODUCT_ID, params)
+        return this.getWithParams(pathEnum.BYPRODUCT_ID, params)
     }
 
     placeOrder(order) {
@@ -36,7 +36,7 @@ class APIService{
         return axios.get(path);
     }
 
-    get2(path, params) {
+    getWithParams(path, params) {
         return axios.get(path, params);
     }
 
