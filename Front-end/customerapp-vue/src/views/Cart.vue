@@ -72,7 +72,7 @@ export default {
     PlaceOrder() {
       const order = {
         products: this.items,
-        tableNumber: JSON.parse(localStorage.getItem('table')).tableId,
+        tableId: JSON.parse(localStorage.getItem('table')).tableId,
         notes: "",
       };
       console.log(order.tableNumber);
