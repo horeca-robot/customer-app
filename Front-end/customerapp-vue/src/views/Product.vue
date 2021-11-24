@@ -69,7 +69,7 @@
           variant="success"
           @dismiss-count-down="countDownChanged"
         >
-          {{this.orderAmount}}x {{ product.name }} met succes toegevoegd aan de <a class="alert-link" href="/cart">bestelling.</a>
+          {{this.orderAmount}}x {{ product.name }} met succes toegevoegd aan de <router-link class="alert-link" :to="{name:'Cart'}">bestelling.</router-link>
         </b-alert>
       </div>
     </div>
