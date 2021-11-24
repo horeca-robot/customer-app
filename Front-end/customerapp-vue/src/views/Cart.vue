@@ -75,9 +75,8 @@ export default {
         tableId: JSON.parse(localStorage.getItem('table')).tableId,
         notes: "",
       };
-      console.log(order.tableNumber);
       if (this.items.length > 0) {
-        this.$axios.post(this.$path.ORDER, order).then((response) => {
+        this.$APIService.placeOrder(order).then((response) => {
           this.response = response.data;
         });
         if (this.response != null) {
