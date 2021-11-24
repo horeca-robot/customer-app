@@ -1,5 +1,5 @@
-import axios from 'axios';
-import pathEnum from '../enum/index'
+import axios from "axios";
+import pathEnum from "../enum/index"
 
 axios.defaults.baseURL = "http://localhost:8080"
 
@@ -21,11 +21,11 @@ class APIService{
     }
 
     getProductById(params) {
-        return this.get(pathEnum.PRODUCT_BY_ID, params)
+        return this.get2(pathEnum.PRODUCT_BY_ID, params)
     }
 
     getByProductId(params) {
-        return this.get(pathEnum.BYPRODUCT_ID, params)
+        return this.get2(pathEnum.BYPRODUCT_ID, params)
     }
 
     placeOrder(order) {
@@ -36,7 +36,7 @@ class APIService{
         return axios.get(path);
     }
 
-    get(path, params) {
+    get2(path, params) {
         return axios.get(path, params);
     }
 

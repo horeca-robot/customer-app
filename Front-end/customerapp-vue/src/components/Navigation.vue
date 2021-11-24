@@ -61,11 +61,11 @@ export default {
   },
   methods: {
       GoToMenu() {
-        this.$router.push("/menu");
+                this.$router.push({name:'Menu'});
         this.hide();
       },
       GoToCart() {
-        this.$router.push("/cart");
+                this.$router.push({name:'Cart'});
         this.hide();
       },
       GoToYourOrders() {

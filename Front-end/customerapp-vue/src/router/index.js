@@ -11,7 +11,7 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/menu",
-    name: "menu",
+    name: "Menu",
     component: Menu,
   },
   {
@@ -25,15 +25,9 @@ const routes = [
     component: Home,
   },
   {
-    path: "/cart",
+    path: "/winkelwagen",
     name: "Cart",
     component: Cart,
-  },
-  {
-    path: "/menu",
-    name: "Menu",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Menu.vue"),
   },
   {
     path: "/menu/:id",
@@ -48,7 +42,7 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/Product.vue"),
   },
   {
-    path: "/orders",
+    path: "/bestellingen",
     name: "OrderHistory",
     component: OrderHistory,
   },
