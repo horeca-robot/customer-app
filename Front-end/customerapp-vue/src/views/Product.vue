@@ -112,10 +112,7 @@ export default {
         this.$store.commit("addToCart", this.product);
       }
       this.$bvModal.hide(this.product.id.toString());
-      this.showAlert(this.amount);
-      // setTimeout(() => {
-      //   this.$router.go();
-      // }, this.dismissSecs * 1000);
+      this.showAlert(this.amount);      
     },
     checkAmount() {
       if (this.amount < 1) {

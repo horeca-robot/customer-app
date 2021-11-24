@@ -44,7 +44,7 @@ public class OrderService implements IOrderService {
     //POST
     public void postOrder(@NotNull OrderDto order) {
         var restaurantOrder = new RestaurantOrder();
-        restaurantOrder.setTable(tableRepository.findRestaurantTableByTableNumber(order.getTableNumber()));
+        restaurantOrder.setTable(tableRepository.findById(order.getTableNumber()).get());
         restaurantOrder.setPayed(false);
         restaurantOrder.setCreatedAt(new Date());
         double subTotal = 0;
