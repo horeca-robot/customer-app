@@ -1,15 +1,47 @@
-import axios from 'axios';
-import pathEnum from '../enum/index'
+import axios from "axios";
+import pathEnum from "../enum/index"
 
-const API_URL = 'http://localhost:8080/';
+axios.defaults.baseURL = "http://localhost:8080"
 
 class APIService{
-    //Table
     getRestaurantTables(){
-        return axios.get(API_URL + pathEnum.TABLES);
+        return this.get(pathEnum.TABLES);
     }
+
     getRestaurantTableNumberById(id){
-        return axios.get(API_URL + pathEnum.TABLE_NUMBER_BY_ID + id);
+        return this.get(pathEnum.TABLE_NUMBER_BY_ID + id);
+    }
+
+    getCategoryById(id) {
+        return this.get(pathEnum.CATEGORY_BY_ID + id)
+    }
+
+    getAllCategories() {
+        return this.get(pathEnum.CATEGORIES)
+    }
+
+    getProductById(params) {
+        return this.getWithParams(pathEnum.PRODUCT_BY_ID, params)
+    }
+
+    getByProductId(params) {
+        return this.getWithParams(pathEnum.BYPRODUCT_ID, params)
+    }
+
+    placeOrder(order) {
+        return this.post(pathEnum.ORDER, order)
+    }
+
+    get(path) {
+        return axios.get(path);
+    }
+
+    getWithParams(path, params) {
+        return axios.get(path, params);
+    }
+
+    post(path, data) {
+        return axios.post(path, data)
     }
 }
 

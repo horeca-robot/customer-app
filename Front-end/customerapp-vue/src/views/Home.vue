@@ -22,7 +22,6 @@
 <script>
 import TableQrScanner from "../components/TableQrScanner";
 import TableListPicker from "../components/TableListPicker";
-import APIService from '../services/axios.service';
 
 export default {
   name: "Home",
@@ -34,7 +33,7 @@ export default {
     };
   },
   mounted() {    
-    APIService.getRestaurantTables().then(
+    this.$APIService.getRestaurantTables().then(
       (response) => {
         this.tables = response.data;
       },

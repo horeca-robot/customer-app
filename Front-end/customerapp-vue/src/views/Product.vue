@@ -134,17 +134,16 @@ export default {
     },
   },
   mounted() {
-    this.$axios
-      .get(this.$path.PRODUCT_BY_ID, { params: { id: this.productId } })
-      .then((response) => {
-        this.product = response.data;
-      });
-    this.$axios
-      .get(this.$path.BYPRODUCT_ID, { params: { id: this.productId } })
-      .then((response) => {
-        this.product.ingredients = response.data;
-        this.product.byproduct = response.data;
-      });
+
+    this.$APIService.getProductById({ params: { id: this.productId } })
+    .then((response) => {
+      this.product = response.data;
+    });
+    this.$APIService.getByProductId({ params: { id: this.productId } })
+    .then((response) => {
+      this.product.ingredients = response.data;
+      this.product.byproduct = response.data;
+    });
     this.$store.commit("updateCartFromLocalStorage");
   },
 };

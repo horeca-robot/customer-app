@@ -78,7 +78,7 @@ export default {
         notes: "",
       };
       if (this.items.length > 0) {
-        this.$axios.post(this.$path.ORDER, order).then((response) => {
+        this.$APIService.placeOrder(order).then((response) => {
           this.response = response.data;
         });
         if (this.response != null) {
