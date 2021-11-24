@@ -6,14 +6,14 @@
       class="table-item"
       v-for="table in tables"
       :key="table.id"
-      @click="ShowConfirmModal(table.tableNumber)"
+      @click="ShowConfirmModal(table)"
       >Tafel {{ table.tableNumber }}
       </b-list-group-item>
   </b-list-group>
 
   <b-modal class="confirmtable" centered="true" hide-header hide-footer ref="confirmtable" id="confirmtable">
-    <p>U heeft tafel {{this.selectedTableNumber}} geselecteerd</p>
-    <b-button class="button-style" @click="redirectToTable(selectedTableNumber)">Bevestigen</b-button>
+    <p>U heeft tafel {{selectedTable.tableNumber}} geselecteerd</p>
+    <b-button class="button-style" @click="redirectToTable(selectedTable)">Bevestigen</b-button>
   </b-modal>
   </div>
 </template>
@@ -29,16 +29,16 @@ export default {
   },
   data(){
     return{
-      selectedTableNumber: null,
+      selectedTable: {},
     }
   },
   methods: {
-    redirectToTable(tableId) {
-      this.$store.dispatch("tableModule/setTable", tableId);
-      this.$router.push({ name: "menu" });
+    redirectToTable(table) {
+      this.$store.dispatch("tableModule/setTable", table.id);
+      this.$router.push({ name: "Menu" });
     },
-    ShowConfirmModal(tableId){
-      this.selectedTableNumber = tableId;
+    ShowConfirmModal(table){
+      this.selectedTable = table;
       this.$refs['confirmtable'].show();
     }
   },
