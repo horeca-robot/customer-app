@@ -12,7 +12,7 @@
         name: "menubutton",
         methods: {
             GoToMenu() {
-                this.$router.push("/menu");
+                this.$router.push({name:'Menu'});
             }
         }
     };

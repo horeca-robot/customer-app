@@ -39,7 +39,7 @@
     },
     // get all products per category
     mounted() {
-      this.$axios.get(this.$path.CATEGORY_BY_ID + this.categoryId)
+      this.$APIService.getCategoryById(this.categoryId)
       .then(response => {
         this.category = response.data
       });
