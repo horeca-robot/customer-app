@@ -6,11 +6,6 @@
           <search-bar/>
           <cart-button :col="4"/>
         </b-row>
-        <SearchResult v-if="input != '' " ref="Searchresults"
-        :products="products"
-        :input="input"
-        :nothingFound="nothingFound"
-        :categories="categories"/>
       </b-container>
     </div>
     <CategoryCard
@@ -31,11 +26,16 @@
     components: {
       CategoryCard,
       SearchBar,
-      CartButton
+      CartButton,
     },
     data() {
       return {
         categories: [],
+        products: [],
+        number: 0,
+        input: "",
+        nothingFound: "",
+
       };
     },
     mounted() {

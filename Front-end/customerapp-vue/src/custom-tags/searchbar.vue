@@ -1,21 +1,80 @@
 <template>
     <b-col cols="8">
-        <input id="search-input" type="search" class="form-control" placeholder="Search"/>
+        <input id="search-input" type="search" class="form-control" placeholder="Zoeken" v-on:input="ContinuousSearch" v-on:keyup.enter="Search" ref="searchInput"/>
         <b-button id="search-button" type="button" class="button-style button-style-search" v-on:click="Search">
             <b-icon icon="search"/>
         </b-button>
+        <SearchResult ref="Searchresults"
+            :products="products"
+            :input="input"
+            :nothingFound="nothingFound"
+            :categories="categories"/>
     </b-col>
-</template>
+</template> 
 
 <script>
-    export default {
-        name: "Header",
-        methods: {
-            Search() {
-                //change this method
+import SearchResult from "../components/SearchResults.vue";
+export default {
+    name: "Header",
+    components: {
+        SearchResult,
+    },
+    data() {
+        return {
+            categories: [],
+            products: [],
+            number: 0,
+            input: "",
+            nothingFound: "",
+        };
+    },
+    mounted() {
+      this.$axios.get(this.$path.CATEGORIES)
+      .then(response => {
+        this.categories = response.data
+      })
+      this.$axios.get(this.$path.PRODUCTS)
+      .then(response =>{
+          this.products = response.data
+      })
+    },
+    methods: {
+        Search() {
+            this.input = this.$refs.searchInput.value;
+            this.CheckProducts()
+            if(this.$refs.searchInput.value == ""){
+                this.nothingFound = "Er zijn geen resultaten gevonden";
+                setTimeout(() => {  this.nothingFound = "" }, 2000);
+            }
+        },
+        ContinuousSearch(){
+            this.input = this.$refs.searchInput.value;
+            this.CheckProducts();
+            if(this.$refs.searchInput.value == " "){
+                this.$refs.searchInput.value = "";
+                this.input = this.$refs.searchInput.value;
+            }
+            else if(this.$refs.searchInput.value != ""){
+                document.documentElement.style.overflow = 'hidden';
+            }
+            else{
+                document.documentElement.style.overflow = 'auto';
+            }
+        },
+        CheckProducts(){
+            this.number = 0;
+            this.nothingFound = "";
+            this.products.forEach(product => {
+            if(product.name.includes(this.$refs.searchInput.value)){
+                this.number++;
+            }
+            })
+            if(this.number == 0){
+                this.nothingFound = "Er zijn geen resultaten gevonden";
             }
         }
-    };
+    }
+};
 </script>
 
 <style scoped>

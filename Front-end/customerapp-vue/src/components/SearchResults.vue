@@ -2,7 +2,7 @@
     <b-container id="results" ref="results" class="text-center" >
         <div v-on:change="CheckProducts(products, input)" v-for="product in products "
         :key="product.name" >
-        <p v-if="product.name.toLowerCase().includes(input.toLowerCase())" v-on:click="GoToProduct(product.id)">{{product.name}}</p>
+        <p v-if="product.name.toLowerCase().includes(input.toLowerCase()) && input != empty" v-on:click="GoToProduct(product.id)">{{product.name}}</p>
         </div>
         <p v-if="nothingFound != empty ">{{nothingFound}}</p>
     </b-container>
@@ -41,5 +41,7 @@ export default {
 #results{
     max-height: 200px;
     overflow: auto;
+    background-color:  #CBE1D9 !important;
+    border-radius: 5px;
 }
 </style>
