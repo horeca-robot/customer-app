@@ -25,13 +25,13 @@ const routes = [
     component: Home,
   },
   {
-    path: "/winkelwagen",
-    name: "Cart",
+    path: "/bestelling",
+    name: "Bestelling",
     component: Cart,
   },
   {
     path: "/menu/:id",
-    name: "Category",
+    name: "Categorie",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/Category.vue"),
   },
@@ -43,7 +43,7 @@ const routes = [
   },
   {
     path: "/bestellingen",
-    name: "OrderHistory",
+    name: "Bestellingen",
     component: OrderHistory,
   },
 ];
