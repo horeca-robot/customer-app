@@ -24,8 +24,8 @@ class APIService{
         return this.getWithParams(pathEnum.PRODUCT_BY_ID, params)
     }
 
-    getByProductId(params) {
-        return this.getWithParams(pathEnum.BYPRODUCT_ID, params)
+    getIngredientsByProductId(params) {
+        return this.getWithParams(pathEnum.INGREDIENTS_BY_PRODUCTID, params)
     }
 
     placeOrder(order) {

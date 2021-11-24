@@ -79,8 +79,7 @@ export default {
       this.hide();
     },
     GoToYourOrders() {
-      console.log("POGGERS");
-      this.$router.push({ name: "OrderHistoryDetails" });
+      this.$router.push({ name: "OrderHistory" });
       this.hide();
     },
     GoToHelp() {},
