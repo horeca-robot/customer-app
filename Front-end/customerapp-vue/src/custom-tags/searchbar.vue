@@ -23,7 +23,6 @@ export default {
         return {
             categories: [],
             products: [],
-            number: 0,
             input: "",
             nothingFound: "",
         };
@@ -49,7 +48,8 @@ export default {
         },
         ContinuousSearch(){
             this.input = this.$refs.searchInput.value;
-            if(this.$refs.searchInput.value == " "){
+            console.log(this.$refs.searchInput.value);
+            if(this.$refs.searchInput.value === " "){
                 this.$refs.searchInput.value = "";
                 this.input = this.$refs.searchInput.value;
             }
@@ -63,14 +63,25 @@ export default {
             }
         },
         CheckProducts(){
-            this.number = 0;
+            console.log("checking products");
+            var number = 0;
             this.nothingFound = "";
+
+            var productnames = [];
             this.products.forEach(product => {
+                productnames.push(product.name);
+            }); 
+
+            productnames.forEach(product => {
             if(product.name.includes(this.$refs.searchInput.value)){
-                this.number++;
+                number++;
+                console.log("product found");
             }
             })
-            if(this.number === 0 && this.$refs.searchInput.value != ""){
+
+            
+
+            if(number === 0 && this.$refs.searchInput.value != ""){
                 this.nothingFound = "Er zijn geen resultaten gevonden";
             }
         }
