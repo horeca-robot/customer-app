@@ -48,7 +48,6 @@ export default {
         },
         ContinuousSearch(){
             this.input = this.$refs.searchInput.value;
-            console.log(this.$refs.searchInput.value);
             if(this.$refs.searchInput.value === " "){
                 this.$refs.searchInput.value = "";
                 this.input = this.$refs.searchInput.value;
@@ -63,25 +62,18 @@ export default {
             }
         },
         CheckProducts(){
-            console.log("checking products");
             var number = 0;
             this.nothingFound = "";
-
             var productnames = [];
             this.products.forEach(product => {
-                productnames.push(product.name);
-            }); 
-
-            productnames.forEach(product => {
-            if(product.name.includes(this.$refs.searchInput.value)){
+                productnames.push(product.name.toLowerCase());
+            });
+            productnames.forEach(name => {
+            if(name.includes(this.$refs.searchInput.value)){
                 number++;
-                console.log("product found");
             }
             })
-
-            
-
-            if(number === 0 && this.$refs.searchInput.value != ""){
+            if(number === 0 && this.$refs.searchInput.value.toLowerCase() != ""){
                 this.nothingFound = "Er zijn geen resultaten gevonden";
             }
         }
