@@ -29,11 +29,11 @@ export default {
         };
     },
     mounted() {
-      this.$axios.get(this.$path.CATEGORIES)
+      this.$APIService.getAllCategories()
       .then(response => {
         this.categories = response.data
       })
-      this.$axios.get(this.$path.PRODUCTS)
+      this.$APIService.getAllProducts()
       .then(response =>{
           this.products = response.data
       })
@@ -49,15 +49,16 @@ export default {
         },
         ContinuousSearch(){
             this.input = this.$refs.searchInput.value;
-            this.CheckProducts();
             if(this.$refs.searchInput.value == " "){
                 this.$refs.searchInput.value = "";
                 this.input = this.$refs.searchInput.value;
             }
             else if(this.$refs.searchInput.value != ""){
+                this.CheckProducts();
                 document.documentElement.style.overflow = 'hidden';
             }
             else{
+                this.CheckProducts();
                 document.documentElement.style.overflow = 'auto';
             }
         },
@@ -69,7 +70,7 @@ export default {
                 this.number++;
             }
             })
-            if(this.number == 0){
+            if(this.number == 0 && this.$refs.searchInput.value != ""){
                 this.nothingFound = "Er zijn geen resultaten gevonden";
             }
         }
