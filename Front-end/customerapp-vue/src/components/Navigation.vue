@@ -65,7 +65,7 @@ export default {
         this.hide();
       },
       GoToCart() {
-                this.$router.push({name:'Cart'});
+                this.$router.push({name:'Winkelwagen'});
         this.hide();
       },
       GoToYourOrders() {
