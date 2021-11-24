@@ -34,7 +34,7 @@
       };
     },
     mounted() {
-      this.$axios.get(this.$path.CATEGORIES)
+      this.$APIService.getAllCategories()
       .then(response => {
         this.categories = response.data
       })

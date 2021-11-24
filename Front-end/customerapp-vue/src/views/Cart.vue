@@ -36,7 +36,7 @@
             <b-button class="button-style heading">Notitie +</b-button>
           </b-col>
           <b-col>
-            <b-button @click="PlaceOrder" class="button-style heading"
+            <b-button :disabled="ordering" @click="PlaceOrder" class="button-style heading"
               >Bestellen</b-button
             >
           </b-col>
@@ -71,6 +71,7 @@ export default {
       dismissSecs: 4,
       dismissCountDown: 0,
       showDismissibleAlert: false,
+      ordering: false,
     };
   },
   computed: {
@@ -83,14 +84,14 @@ export default {
   },
   methods: {
     PlaceOrder() {
+      this.ordering = true;
       const order = {
         products: this.items,
-        tableNumber: JSON.parse(localStorage.getItem("table")).tableId,
+        tableId: JSON.parse(localStorage.getItem('table')).tableId,
         notes: "",
       };
-      console.log(order.tableNumber);
       if (this.items.length > 0) {
-        this.$axios.post(this.$path.ORDER, order).then((response) => {
+        this.$APIService.placeOrder(order).then((response) => {
           this.response = response.data;
         });
         if (this.response != null) {

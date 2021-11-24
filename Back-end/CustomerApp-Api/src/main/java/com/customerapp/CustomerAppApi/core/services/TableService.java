@@ -5,10 +5,7 @@ import com.customerapp.CustomerAppApi.databaselibrary.models.RestaurantTable;
 import com.customerapp.CustomerAppApi.databaselibrary.repositories.RestaurantTableRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class TableService implements ITableService {
@@ -20,8 +17,11 @@ public class TableService implements ITableService {
     }
 
     public List<RestaurantTable> getAllRestaurantTables() {
-        return restaurantTableRepository.findAll();
+        List<RestaurantTable> tables =  restaurantTableRepository.findAll();
+        Collections.sort(tables, Comparator.comparing(RestaurantTable::getTableNumber));
+        return tables;
     }
+
 
     public Optional<RestaurantTable> getRestaurantTableById(UUID uuid) {
         return restaurantTableRepository.findById(uuid);
