@@ -5,7 +5,7 @@
             <b-icon icon="search"/>
         </b-button>
         <SearchResult ref="Searchresults"
-            :products="products"
+            :filteredProducts="filteredProducts"
             :input="input"
             :nothingFound="nothingFound"
             :categories="categories"/>
@@ -23,6 +23,7 @@ export default {
         return {
             categories: [],
             products: [],
+            filteredProducts: [],
             input: "",
             nothingFound: "",
         };
@@ -63,9 +64,9 @@ export default {
         },
         CheckProducts(){
             this.nothingFound = "";
-            var filteredProducts = this.products.filter((product) => product.name.toLowerCase().includes(this.$refs.searchInput.value.toLowerCase()));
+            this.filteredProducts = this.products.filter((product) => product.name.toLowerCase().includes(this.$refs.searchInput.value.toLowerCase()));
 
-            if(filteredProducts.length === 0 && this.$refs.searchInput.value.toLowerCase() != ""){
+            if(this.filteredProducts.length === 0 && this.$refs.searchInput.value.toLowerCase() != ""){
                 this.nothingFound = "Er zijn geen resultaten gevonden";
             }
         }
