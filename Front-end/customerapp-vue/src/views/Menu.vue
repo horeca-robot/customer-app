@@ -32,10 +32,6 @@
       return {
         categories: [],
         products: [],
-        number: 0,
-        input: "",
-        nothingFound: "",
-
       };
     },
     mounted() {
