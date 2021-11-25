@@ -13,8 +13,8 @@
       <CartItemCard v-for="productOrder in order.productOrders" :key="productOrder.id" :product="productOrder.product" />
     </div>
     <br/>
-    <h3>Totaal prijs: €{{order.subTotal.toFixed(2)}}</h3>
-    <h5>{{order.productOrders.length}} producten</h5>
+    <h3>Totaal prijs: €{{order.subTotal && order.subTotal.toFixed(2)}}</h3>
+    <h5>{{order.productOrders && order.productOrders.length}} producten</h5>
   </div>
 </template>
 
