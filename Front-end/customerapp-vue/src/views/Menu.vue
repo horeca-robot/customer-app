@@ -31,7 +31,6 @@
     data() {
       return {
         categories: [],
-        products: [],
       };
     },
     mounted() {
