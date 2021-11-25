@@ -40,7 +40,9 @@
 
 <script>
 export default {
-  props: ["product"],
+  props:{
+    product: Object,
+  },
   data() {
     return {
       sortDirection: "asc",
@@ -60,6 +62,11 @@ export default {
       this.hidden = !this.hidden;
     },
   },
+  mounted(){
+    this.$APIService.getIngredientsByProductId({ params: { id: this.product.id } }).then(response =>{
+      this.product.ingredients = response.data;
+    })
+  }
 };
 </script>
 

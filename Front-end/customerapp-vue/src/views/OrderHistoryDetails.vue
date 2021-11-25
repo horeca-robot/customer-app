@@ -12,6 +12,9 @@
     <div>
       <CartItemCard v-for="productOrder in order.productOrders" :key="productOrder.id" :product="productOrder.product" />
     </div>
+    <br/>
+    <h3>Totaal prijs: €{{order.subTotal.toFixed(2)}}</h3>
+    <h5>{{order.productOrders.length}} producten</h5>
   </div>
 </template>
 
@@ -33,7 +36,6 @@ export default {
     this.$APIService
       .getOrderDetails({ params: { id: this.$route.params.id } })
       .then((response) => {
-        console.log(response.data)
         this.order = response.data;
       });
   },
