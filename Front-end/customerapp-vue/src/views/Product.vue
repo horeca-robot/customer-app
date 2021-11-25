@@ -139,7 +139,7 @@ export default {
     .then((response) => {
       this.product = response.data;
     });
-    this.$APIService.getByProductId({ params: { id: this.productId } })
+    this.$APIService.getIngredientsByProductId({ params: { id: this.productId } })
     .then((response) => {
       this.product.ingredients = response.data;
       this.product.byproduct = response.data;

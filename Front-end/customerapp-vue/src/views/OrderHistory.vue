@@ -1,47 +1,43 @@
 <template>
-  <div class="container">
-    <b-alert
-      class="alert"
-      :show="dismissCountDown"
-      variant="success"
-      @dismissed="dismissCountDown = 0"
-      @dismiss-count-down="countDownChanged"
-    >
-      <p>Bestelling geplaatst!</p>
-    </b-alert>
-    <div></div>
+  <div>
+    <div class="Header">
+      <b-container>
+        <b-row class="SearchandStore">
+          <menu-button :col="6" />
+          <cart-button :col="6" />
+        </b-row>
+      </b-container>
+    </div>
+    <div>
+      <OrderCard :orders="list" />
+    </div>
   </div>
 </template>
 
 <script>
+import OrderCard from "../components/orderHistory/OrderHistoryCard";
+import CartButton from "../custom-tags/cartbutton.vue";
+import MenuButton from "../custom-tags/menubutton.vue";
+import localStorageHelper from "../helpers/localStorageHelper";
+
 export default {
+  name: "OrderHistory",
+  components: { MenuButton, OrderCard, CartButton },
   data() {
     return {
-      dismissSecs: 3,
-      dismissCountDown: 0,
-      showDismissibleAlert: false,
+      list: [],
     };
   },
-  methods: {
-    countDownChanged(dismissCountDown) {
-      this.dismissCountDown = dismissCountDown;
-    },
-    showAlert() {
-      this.dismissCountDown = this.dismissSecs;
-    },
+  mounted() {
+    this.$APIService.getOrdersById(localStorageHelper.load('table').tableId).then((response) => {
+      this.list = response.data;
+    });
   },
 };
 </script>
 
 <style scoped>
-.alert {
-  position: absolute;
-  top: 0;
-  width: 300px;
-  margin-top: 20px;
-  margin-left: auto;
-  margin-right: auto;
-  left: 0;
-  right: 0;
+.SearchandStore {
+  padding: 10px;
 }
 </style>

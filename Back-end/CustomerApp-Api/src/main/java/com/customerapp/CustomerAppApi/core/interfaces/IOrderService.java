@@ -11,6 +11,6 @@ import java.util.UUID;
 public interface IOrderService {
      List<RestaurantOrder> getAllOrders();
      Optional<RestaurantOrder> getOrderById(UUID id);
-     List<RestaurantOrder> getAllOrdersFromTable(int restaurantTable_number);
+     List<RestaurantOrder> getAllOrdersFromTable(UUID restaurantTable_id);
      void postOrder(OrderDto order);
 }

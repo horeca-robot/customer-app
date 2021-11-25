@@ -13,7 +13,20 @@
         v-for="product in items"
         :key="product.guid"
         :product="product"
-      />
+      >
+        <template v-slot:action-area="{ product }">
+          <b-button
+            class="button-style heading"
+            v-on:click="addProductToCart(product)"
+            >Toevoegen</b-button
+          >
+          <b-button
+            class="button-style heading"
+            v-on:click="removeProductFromCart(product)"
+            >Verwijderen</b-button
+          >
+        </template>
+      </CartItemCard>
       <p>Aantal items: {{ items.length }}</p>
       <h3>Totaal: € {{ cart_total.toFixed(2) }}</h3>
       <b-container v-if="items.length">
@@ -42,7 +55,7 @@
 </template>
 
 <script>
-import CartItemCard from "../components/CartItemCard.vue";
+import CartItemCard from "../components/OrderItem.vue";
 import SearchBar from "../custom-tags/searchbar.vue";
 import MenuButton from "../custom-tags/menubutton.vue";
 
@@ -89,6 +102,12 @@ export default {
           }, this.dismissSecs * 1000);
         }
       }
+    },
+    addProductToCart(product) {
+      this.$store.commit("addToCart", product);
+    },
+    removeProductFromCart(product) {
+      this.$store.commit("removeFromCart", product);
     },
     countDownChanged(dismissCountDown) {
       this.dismissCountDown = dismissCountDown;

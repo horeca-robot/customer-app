@@ -1,12 +1,12 @@
 import { shallowMount, createLocalVue } from "@vue/test-utils";
-import CartItemCard from "@/components/CartItemCard.vue";
+import CartItemCard from "@/components/OrderItem.vue";
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 
 const localVue = createLocalVue();  
 localVue.use(BootstrapVue);
 localVue.use(IconsPlugin);
 
-describe("CartItemCard.vue", () => {
+describe("OrderItem.vue", () => {
   it("Test inserting a product.", () => {
     let product = { name: "Hamburger", price: 15.95, img: "url", ingredients: { id: 1, name: "kaas" } };
     let wrapper = shallowMount(CartItemCard, {
