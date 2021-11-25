@@ -26,7 +26,7 @@
     components: {
       CategoryCard,
       SearchBar,
-      CartButton
+      CartButton,
     },
     data() {
       return {

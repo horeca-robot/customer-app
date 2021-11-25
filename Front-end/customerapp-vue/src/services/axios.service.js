@@ -28,6 +28,10 @@ class APIService{
         return this.getWithParams(pathEnum.INGREDIENTS_BY_PRODUCTID, params)
     }
 
+    getAllProducts(){
+        return this.get(pathEnum.PRODUCTS)
+    }
+
     placeOrder(order) {
         return this.post(pathEnum.ORDER, order)
     }
