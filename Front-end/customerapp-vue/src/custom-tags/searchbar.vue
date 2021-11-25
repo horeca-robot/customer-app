@@ -62,18 +62,10 @@ export default {
             }
         },
         CheckProducts(){
-            var number = 0;
             this.nothingFound = "";
-            var productnames = [];
-            this.products.forEach(product => {
-                productnames.push(product.name.toLowerCase());
-            });
-            productnames.forEach(name => {
-            if(name.includes(this.$refs.searchInput.value)){
-                number++;
-            }
-            })
-            if(number === 0 && this.$refs.searchInput.value.toLowerCase() != ""){
+            var filteredProducts = this.products.filter((product) => product.name.toLowerCase().includes(this.$refs.searchInput.value.toLowerCase()));
+
+            if(filteredProducts.length === 0 && this.$refs.searchInput.value.toLowerCase() != ""){
                 this.nothingFound = "Er zijn geen resultaten gevonden";
             }
         }
