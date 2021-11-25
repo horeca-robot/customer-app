@@ -64,7 +64,6 @@ export default {
   },
   mounted(){
     this.$APIService.getIngredientsByProductId({ params: { id: this.product.id } }).then(response =>{
-      console.log("INGREDIENTRESPONSE:", response.data);
       this.product.ingredients = response.data;
     })
   }
