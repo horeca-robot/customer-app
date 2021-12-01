@@ -3,20 +3,18 @@
     <div class="row mb-3 mt-3">
       <div class="col">
         <b-card class="card-bg">
-          <TableQrScanner />
+          <TableQrScanner v-if="usingQR"/>
+          <br v-if="usingQR"/>
+          <b-button class="button-style w-100 border" @click="(usingQR = !usingQR)">{{this.switchbuttontext}}</b-button>
         </b-card>
       </div>
     </div>
     <div class="row">
       <div class="col">
-        <b-card class="card-bg">
+        <b-card v-if="!usingQR" class="card-bg">
           <table-list-picker
-            :tables="[
-              { id: 'CODES', number: 1 },
-              { id: 'CODES', number: 2 },
-              { id: 'CODES', number: 3 },
-              { id: 'CODES', number: 4 },
-            ]"
+            :tables="tables"
+            
           />
         </b-card>
       </div>
@@ -31,6 +29,37 @@ import TableListPicker from "../components/TableListPicker";
 export default {
   name: "Home",
   components: { TableListPicker, TableQrScanner },
+  data()
+  {
+    return {
+      tables: [
+      ],
+      usingQR: true,
+    };
+  },
+  computed:{
+    switchbuttontext: function () {
+      if(this.usingQR){
+        return "Geen camera? klik hier"
+      }
+      else{
+        return "Terug naar QR scannen"
+      }
+    }
+  },
+  mounted() {    
+    this.$APIService.getRestaurantTables().then(
+      (response) => {
+        this.tables = response.data;
+      },
+      (error) => {
+        this.content =
+          (error.response && error.response.data) ||
+          error.message ||
+          error.toString();
+      }
+    );
+  },
 };
 </script>
 
@@ -38,4 +67,5 @@ export default {
 .card-bg {
   background: #e0dccc;
 }
+
 </style>

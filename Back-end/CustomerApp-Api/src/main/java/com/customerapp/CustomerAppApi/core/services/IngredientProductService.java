@@ -1,9 +1,9 @@
 package com.customerapp.CustomerAppApi.core.services;
 
 import com.customerapp.CustomerAppApi.core.interfaces.IIngredientProductService;
-import com.customerapp.CustomerAppApi.databaselibrary.models.Ingredient;
-import com.customerapp.CustomerAppApi.databaselibrary.models.IngredientProduct;
-import com.customerapp.CustomerAppApi.databaselibrary.repositories.IngredientProductRepository;
+import edu.fontys.horecarobot.databaselibrary.models.Ingredient;
+import edu.fontys.horecarobot.databaselibrary.models.IngredientProduct;
+import edu.fontys.horecarobot.databaselibrary.repositories.IngredientProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

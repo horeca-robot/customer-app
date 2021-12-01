@@ -3,38 +3,9 @@
     <div class="Header">
       <b-container>
         <b-row class="SearchandStore">
-          <b-col cols="8">
-            <input
-              id="search-input"
-              type="search"
-              class="form-control"
-              placeholder="Search"
-            />
-            <b-button
-              id="search-button"
-              type="button"
-              class="button-style"
-              v-on:click="Search"
-            >
-              <b-icon icon="search" />
-            </b-button>
-          </b-col>
-          <b-col cols="2">
-            <b-button
-              class="backButton justify-content-end"
-              v-on:click="GoToMenu"
-            >
-              <b-icon icon="reply" flip-h variant="dark" />
-            </b-button>
-          </b-col>
-          <b-col cols="2">
-            <b-button
-              class="shoppingCartButton justify-content-end"
-              v-on:click="GoToCart"
-            >
-              <b-icon icon="cart4" variant="dark" />
-            </b-button>
-          </b-col>
+          <search-bar/>
+          <menu-button :col="2"/>
+          <cart-button :col="2"/>
         </b-row>
       </b-container>
     </div>
@@ -47,66 +18,38 @@
 </template>
 
 <script>
-import ProductCard from "../components/ProductCard.vue";
+  import ProductCard from "../components/ProductCard.vue";
+  import SearchBar from "../custom-tags/searchbar.vue";
+  import CartButton from "../custom-tags/cartbutton.vue";
+  import MenuButton from "../custom-tags/menubutton.vue";
 
-export default {
-  name: "Category",
-  components: {
-    ProductCard,
-  },
-  methods: {
-    GoToMenu: function () {
-      this.$router.push("/menu");
+  export default {
+    name: "Category",
+    components: {
+      ProductCard,
+      SearchBar,
+      CartButton,
+      MenuButton
     },
-    GoToCart() {
-      this.$router.push("/cart");
+    data() {
+      return {
+        category: [],
+        categoryId: this.$route.params.id,
+      };
     },
-    Search() {
-      //change this method
+    // get all products per category
+    mounted() {
+      this.$APIService.getCategoryById(this.categoryId)
+      .then(response => {
+        this.category = response.data
+      });
+      this.$store.commit("updateCartFromLocalStorage");
     },
-  },
-  data() {
-    return {
-      category: [],
-      categoryId: this.$route.params.id,
-    };
-  },
-
-  // get all products per category
-  mounted() {
-    this.axios.get("http://localhost:8080/api/v1/category/byid?id=" + this.categoryId).then((response) => {
-      this.category = response.data;
-    });
-    this.$store.commit("updateCartFromLocalStorage");
-  },
-};
+  };
 </script>
 
 <style scoped>
-.background {
-  background-color: RGBA(203, 225, 217, 0.5);
-}
-.SearchandStore {
-  padding: 10px;
-}
-.Searchbar {
-  width: 115px;
-}
-
-.form-control {
-  width: 70% !important;
-  display: inline !important;
-}
-.search {
-  position: absolute;
-  margin-top: -7%;
-  margin-left: 5%;
-}
-.button-style {
-  width: 30%;
-  padding: 0.375rem 0.75rem;
-  height: 38px;
-  display: inline;
-  vertical-align: baseline !important;
-}
+  .background {
+    background-color: RGBA(203, 225, 217, 0.5);
+  }
 </style>

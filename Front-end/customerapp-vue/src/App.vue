@@ -25,10 +25,10 @@ export default {
   },
   methods: {
     GoToCart() {
-      this.$router.push("/cart");
+      this.$router.push({name:'Cart'});
     },
     GetHelp() {
-      //change method.
+      alert("Er komt zo snel mogelijk een medewerker aan.");
     },
   }
 };
@@ -99,5 +99,16 @@ body {
 .btn-secondary:hover {
   background-color: #e0dccc;
   border: 2pt solid #bdad89;
+}
+.Header .container {
+    background-color: #82c4b5 !important;
+    max-width: 100% !important;
+}
+.menuButton {
+    background-color: #bdad89 !important;
+    border: 2px solid #e0dccc !important;
+}
+.SearchandStore {
+  padding: 10px;
 }
 </style>
