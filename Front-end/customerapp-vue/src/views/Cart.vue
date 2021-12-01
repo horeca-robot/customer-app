@@ -30,10 +30,29 @@
       <p>Aantal items: {{ items.length }}</p>
       <h3>Totaal: € {{ cart_total.toFixed(2) }}</h3>
       <b-container v-if="items.length">
-        <p>Er zijn geen notities toegevoegd...</p>
+        <p v-if="!note">Er zijn geen notities toegevoegd...</p>
+        <p v-if="note">U heeft een notitie toegevoegd</p>
         <b-row>
           <b-col>
-            <b-button class="button-style heading">Notitie +</b-button>
+            <b-button v-b-modal.note class="button-style heading">Notitie +</b-button>
+              <b-modal ref="note" id="note" title="Notitie toevoegen" hide-header hide-footer>
+                <b-form-textarea v-if="!isSaved"
+                id="textarea"
+                v-model="note"
+                placeholder="Voeg hier uw notitie toe..."
+                rows="3"
+                max-rows="6"
+                ></b-form-textarea>
+                <b-button class="button-style heading" v-if="!isSaved" v-on:click="cancel">Annuleren</b-button>
+                <b-button class="button-style heading" v-if="!isSaved" v-on:click="saveNote">Opslaan</b-button>
+                <p v-if="isSaved">{{savedNote}}</p>
+                <b-button class="button-style heading" v-if="isSaved" v-on:click="isSaved = false">
+                <b-icon icon="pencil"/>
+                </b-button>
+                <b-button class="button-style heading" v-if="isSaved" v-on:click="$refs.note.hide">
+                <b-icon icon="x-circle"/>
+                </b-button>
+              </b-modal>
           </b-col>
           <b-col>
             <b-button :disabled="ordering" @click="PlaceOrder" class="button-style heading"
@@ -72,6 +91,9 @@ export default {
       dismissCountDown: 0,
       showDismissibleAlert: false,
       ordering: false,
+      note: "",
+      savedNote: "",
+      isSaved: false,
     };
   },
   computed: {
@@ -115,6 +137,19 @@ export default {
     showAlert() {
       this.dismissCountDown = this.dismissSecs;
     },
+    saveNote(){
+      this.isSaved = true;
+      this.savedNote = this.note;
+    },
+    cancel(){
+      this.note = this.savedNote;
+      if(this.savedNote){
+        this.isSaved = true;
+      }
+      else{
+        this.$refs.note.hide();
+      }
+    }
   },
   mounted() {
     this.$store.commit("updateCartFromLocalStorage");
