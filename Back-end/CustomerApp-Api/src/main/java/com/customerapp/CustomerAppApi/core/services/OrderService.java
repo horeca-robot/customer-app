@@ -40,7 +40,7 @@ public class OrderService implements IOrderService {
 
     @Override
     public List<RestaurantOrder> getAllOrdersFromTable(UUID restaurantTableId) {
-        return orderRepository.findAll().stream().filter(order -> order.getTable().getId().equals(restaurantTableId)).collect(Collectors.toList());
+        return orderRepository.getByTableId(restaurantTableId);
     }
 
     //POST
