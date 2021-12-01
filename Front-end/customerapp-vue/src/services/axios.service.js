@@ -44,6 +44,10 @@ class APIService{
         return this.getWithParams(pathEnum.ORDER_BY_ID, params);
     }
 
+    getDownloadBill(id) {
+        return this.get(pathEnum.DOWNLOAD_BILL + id)
+    }
+
     get(path) {
         return axios.get(path);
     }

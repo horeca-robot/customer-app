@@ -1,9 +1,9 @@
 package com.customerapp.CustomerAppApi.controllers;
 
 import com.customerapp.CustomerAppApi.core.interfaces.IOrderService;
-import com.customerapp.CustomerAppApi.models.ProductDto;
+import com.customerapp.CustomerAppApi.core.interfaces.IPDFService;
 import com.customerapp.CustomerAppApi.models.RestaurantOrderDto;
-import edu.fontys.horecarobot.databaselibrary.models.Product;
+import com.itextpdf.text.Document;
 import edu.fontys.horecarobot.databaselibrary.models.RestaurantOrder;
 import com.customerapp.CustomerAppApi.models.OrderDto;
 import com.customerapp.CustomerAppApi.models.Result;
@@ -22,11 +22,13 @@ public class OrderController {
 
     private final ModelMapper modelMapper;
     private final IOrderService orderService;
+    private final IPDFService pdfService;
 
     @Autowired
-    public OrderController(ModelMapper modelMapper, IOrderService orderService) {
+    public OrderController(ModelMapper modelMapper, IOrderService orderService, IPDFService pdfService) {
         this.modelMapper = modelMapper;
         this.orderService = orderService;
+        this.pdfService = pdfService;
     }
 
     @CrossOrigin(origins = "*")
@@ -59,6 +61,13 @@ public class OrderController {
     public List<RestaurantOrderDto> getAllOrdersFromTable(@RequestParam UUID restaurantTableId) {
         List<RestaurantOrder> orders = orderService.getAllOrdersFromTable(restaurantTableId);
         return orders.stream().map(this::convertToDTO).collect(Collectors.toList());
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("download")
+    public Document downloadBill(@RequestParam UUID restaurantTableId) {
+        List<RestaurantOrderDto> restaurantOrdersDTO = orderService.getAllOrdersFromTable(restaurantTableId).stream().map(this::convertToDTO).collect(Collectors.toList());
+        return pdfService.createPDF(restaurantOrdersDTO);
     }
 
     private RestaurantOrder convertToEntity(RestaurantOrderDto restaurantOrderDto) {

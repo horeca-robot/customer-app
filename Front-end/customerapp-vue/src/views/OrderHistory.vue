@@ -11,6 +11,7 @@
     <div>
       <OrderCard :orders="list" />
     </div>
+    <b-button v-if="!ordered" :disabled="ordered" @click="DownloadBill" class="button-style heading">Download bon</b-button>
   </div>
 </template>
 
@@ -26,7 +27,16 @@ export default {
   data() {
     return {
       list: [],
+      bill: [],
+      ordered: false
     };
+  },
+  methods: {
+    DownloadBill() {
+      this.$APIService.getDownloadBill(localStorageHelper.load('table').tableId).then((response) => {
+        console.log(response.data);
+      });
+    }
   },
   mounted() {
     this.$APIService.getOrdersById(localStorageHelper.load('table').tableId).then((response) => {

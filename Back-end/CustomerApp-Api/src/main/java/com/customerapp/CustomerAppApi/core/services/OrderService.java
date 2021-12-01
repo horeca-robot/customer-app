@@ -2,11 +2,8 @@ package com.customerapp.CustomerAppApi.core.services;
 
 import com.customerapp.CustomerAppApi.core.interfaces.IOrderService;
 import edu.fontys.horecarobot.databaselibrary.enums.OrderStatus;
-import edu.fontys.horecarobot.databaselibrary.models.Product;
 import edu.fontys.horecarobot.databaselibrary.models.ProductOrder;
 import edu.fontys.horecarobot.databaselibrary.models.RestaurantOrder;
-import edu.fontys.horecarobot.databaselibrary.repositories.RestaurantOrderRepository;
-import edu.fontys.horecarobot.databaselibrary.repositories.ProductOrderRepository;
 import edu.fontys.horecarobot.databaselibrary.repositories.RestaurantOrderRepository;
 import edu.fontys.horecarobot.databaselibrary.repositories.RestaurantTableRepository;
 import com.customerapp.CustomerAppApi.models.OrderDto;
@@ -20,13 +17,11 @@ import java.util.stream.Collectors;
 public class OrderService implements IOrderService {
 
     private final RestaurantOrderRepository orderRepository;
-    private final ProductOrderRepository productOrderRepository;
     private final RestaurantTableRepository tableRepository;
 
-    public OrderService(RestaurantOrderRepository orderRepository, RestaurantTableRepository tableRepository, ProductOrderRepository productOrderRepository) {
+    public OrderService(RestaurantOrderRepository orderRepository, RestaurantTableRepository tableRepository) {
         this.orderRepository = orderRepository;
         this.tableRepository = tableRepository;
-        this.productOrderRepository = productOrderRepository;
     }
 
     //GET
@@ -67,5 +62,4 @@ public class OrderService implements IOrderService {
         orderRepository.saveAndFlush(restaurantOrder);
 
     }
-
 }
