@@ -5,7 +5,7 @@ import com.customerapp.CustomerAppApi.models.ProductDto;
 import com.customerapp.CustomerAppApi.models.RestaurantOrderDto;
 import edu.fontys.horecarobot.databaselibrary.models.Product;
 import edu.fontys.horecarobot.databaselibrary.models.RestaurantOrder;
-import com.customerapp.CustomerAppApi.models.OrderDto;
+import com.customerapp.CustomerAppApi.models.PostOrderDto;
 import com.customerapp.CustomerAppApi.models.Result;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +45,7 @@ public class OrderController {
 
     @CrossOrigin(origins = "*")
     @PostMapping("")
-    public Result postOrder(@RequestBody OrderDto order) {
+    public Result postOrder(@RequestBody PostOrderDto order) {
         try {
             orderService.postOrder(order);
             return new Result(true, "Bestelling geplaatst");

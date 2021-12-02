@@ -9,7 +9,7 @@ import edu.fontys.horecarobot.databaselibrary.repositories.RestaurantOrderReposi
 import edu.fontys.horecarobot.databaselibrary.repositories.ProductOrderRepository;
 import edu.fontys.horecarobot.databaselibrary.repositories.RestaurantOrderRepository;
 import edu.fontys.horecarobot.databaselibrary.repositories.RestaurantTableRepository;
-import com.customerapp.CustomerAppApi.models.OrderDto;
+import com.customerapp.CustomerAppApi.models.PostOrderDto;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
@@ -44,10 +44,12 @@ public class OrderService implements IOrderService {
     }
 
     //POST
-    public void postOrder(@NotNull OrderDto order) {
+    public void postOrder(@NotNull PostOrderDto order) {
         var restaurantOrder = new RestaurantOrder();
         restaurantOrder.setTable(tableRepository.findById(order.getTableId()).get());
         restaurantOrder.setPaid(false);
+        restaurantOrder.setNote(order.getNotes());
+        System.out.print(restaurantOrder.getNote());
         restaurantOrder.setCreatedAt(new Date());
         double subTotal = 0;
         for (var product : order.getProducts()) {

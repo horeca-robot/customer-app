@@ -34,24 +34,26 @@
         <p v-if="note">U heeft een notitie toegevoegd</p>
         <b-row>
           <b-col>
-            <b-button v-b-modal.note class="button-style heading">Notitie +</b-button>
-              <b-modal ref="note" id="note" title="Notitie toevoegen" hide-header hide-footer>
+            <b-button v-if="!savedNote" v-b-modal.note class="button-style heading">Notitie toevoegen</b-button>
+            <b-button v-if="savedNote" v-b-modal.note v-on:click="cancel" class="button-style heading">Notitie bekijken</b-button>
+              <b-modal ref="note" id="note" hide-header hide-footer  centered v-on:hide="cancel">
                 <b-form-textarea v-if="!isSaved"
                 id="textarea"
                 v-model="note"
+                :state="note.length <= 350"
+                class="noteText"
                 placeholder="Voeg hier uw notitie toe..."
                 rows="3"
                 max-rows="6"
                 ></b-form-textarea>
                 <b-button class="button-style heading" v-if="!isSaved" v-on:click="cancel">Annuleren</b-button>
-                <b-button class="button-style heading" v-if="!isSaved" v-on:click="saveNote">Opslaan</b-button>
-                <p v-if="isSaved">{{savedNote}}</p>
-                <b-button class="button-style heading" v-if="isSaved" v-on:click="isSaved = false">
+                <b-button class="button-style heading" v-if="!isSaved  && note" v-on:click="saveNote">Opslaan</b-button>
+                <p v-if="isSaved" class="noteText">{{savedNote}}</p>
+                <b-button class="button-style heading changeNote" v-if="isSaved" v-on:click="isSaved = false">
                 <b-icon icon="pencil"/>
                 </b-button>
-                <b-button class="button-style heading" v-if="isSaved" v-on:click="$refs.note.hide">
-                <b-icon icon="x-circle"/>
-                </b-button>
+                <b-button class="button-style heading" v-if="isSaved" v-on:click="deleteNote">Verwijderen</b-button>
+                <b-button class="button-style heading" v-if="isSaved" v-on:click="$refs.note.hide">Sluiten</b-button>
               </b-modal>
           </b-col>
           <b-col>
@@ -92,7 +94,7 @@ export default {
       showDismissibleAlert: false,
       ordering: false,
       note: "",
-      savedNote: "",
+      savedNote: localStorage.getItem('note'),
       isSaved: false,
     };
   },
@@ -110,14 +112,16 @@ export default {
       const order = {
         products: this.items,
         tableId: JSON.parse(localStorage.getItem('table')).tableId,
-        notes: "",
+        notes: localStorage.getItem('note'),
       };
+      console.log(order.notes);
       if (this.items.length > 0) {
         this.$APIService.placeOrder(order).then((response) => {
           this.response = response.data;
         });
         if (this.response != null) {
           this.$store.commit("removeCartFromLocalStorage");
+          localStorage.removeItem('note');
           this.showAlert();
           setTimeout(() => {
             this.$router.go();
@@ -138,8 +142,18 @@ export default {
       this.dismissCountDown = this.dismissSecs;
     },
     saveNote(){
-      this.isSaved = true;
-      this.savedNote = this.note;
+      if(this.note.length <= 350){
+        this.isSaved = true;
+        this.savedNote = this.note;
+        localStorage.setItem('note', this.savedNote);
+      }
+    },
+    deleteNote(){
+      this.savedNote = "";
+      this.note = "";
+      this.isSaved = false;
+      this.$refs.note.hide();
+      localStorage.removeItem('note');
     },
     cancel(){
       this.note = this.savedNote;
@@ -171,5 +185,21 @@ html {
   background-color: #cbe1d9;
   margin: 0;
   max-width: 100% !important;
+}
+.noteText{
+  background-color: #E0DCCC;
+  border-color: black;
+  border-style: solid;
+  padding: 5px;
+  overflow: scroll;
+}
+.changeNote{
+  width: 50px !important;
+}
+</style>
+
+<style>
+#note .modal-dialog .modal-content{
+  background-color: #cbe1d9;
 }
 </style>
