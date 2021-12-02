@@ -1,6 +1,6 @@
 package com.customerapp.CustomerAppApi.core.services;
 
-import com.customerapp.CustomerAppApi.core.MockedItems;
+import com.customerapp.CustomerAppApi.core.MockFactory;
 import edu.fontys.horecarobot.databaselibrary.repositories.ProductOrderRepository;
 import edu.fontys.horecarobot.databaselibrary.repositories.RestaurantOrderRepository;
 import edu.fontys.horecarobot.databaselibrary.repositories.RestaurantTableRepository;
@@ -32,7 +32,7 @@ public class OrderServiceTest {
     @Mock
     private RestaurantTableRepository tableRepository;
 
-    private final MockedItems mockedItems = new MockedItems();
+    private final MockFactory mockFactory = new MockFactory();
 
     @BeforeEach
     public void Init() {
@@ -42,7 +42,7 @@ public class OrderServiceTest {
 
     @Test
     public void getAllOrders() {
-        var mockOrders = mockedItems.getmockRestaurantOrders();
+        var mockOrders = mockFactory.getmockRestaurantOrders();
 
         when(orderRepository.findAll()).thenReturn(mockOrders);
 
@@ -53,7 +53,7 @@ public class OrderServiceTest {
 
     @Test
     public void getOrderById() {
-        var mockOrder = mockedItems.getmockRestaurantOrders().get(0);
+        var mockOrder = mockFactory.getmockRestaurantOrders().get(0);
 
         when(orderRepository.findById(mockOrder.getId())).thenReturn(Optional.of(mockOrder));
 
@@ -64,8 +64,8 @@ public class OrderServiceTest {
 
     @Test
     public void getAllOrdersFromTable() {
-        var mockTable = mockedItems.getMockRestaurantTable();
-        var mockOrders = mockedItems.getmockRestaurantOrders();
+        var mockTable = mockFactory.getMockRestaurantTable();
+        var mockOrders = mockFactory.getmockRestaurantOrders();
 
         when(orderRepository.getByTableId(mockTable.getId())).thenReturn(mockOrders);
 

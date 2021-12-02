@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-public class MockedItems {
+public class MockFactory {
 
     //Products
     public List<Product> getMockProducts() {

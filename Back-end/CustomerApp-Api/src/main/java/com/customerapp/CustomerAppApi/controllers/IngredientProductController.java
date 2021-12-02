@@ -1,13 +1,11 @@
 package com.customerapp.CustomerAppApi.controllers;
 
 import com.customerapp.CustomerAppApi.core.interfaces.IIngredientProductService;
-import com.customerapp.CustomerAppApi.core.interfaces.IProductService;
 import edu.fontys.horecarobot.databaselibrary.models.Ingredient;
 import edu.fontys.horecarobot.databaselibrary.models.IngredientProduct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;

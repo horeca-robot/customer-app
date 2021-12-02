@@ -1,20 +1,17 @@
 package com.customerapp.CustomerAppApi.core.services;
 
 import com.customerapp.CustomerAppApi.core.interfaces.IOrderService;
+import com.customerapp.CustomerAppApi.models.OrderDto;
 import edu.fontys.horecarobot.databaselibrary.enums.OrderStatus;
-import edu.fontys.horecarobot.databaselibrary.models.Product;
 import edu.fontys.horecarobot.databaselibrary.models.ProductOrder;
 import edu.fontys.horecarobot.databaselibrary.models.RestaurantOrder;
-import edu.fontys.horecarobot.databaselibrary.repositories.RestaurantOrderRepository;
 import edu.fontys.horecarobot.databaselibrary.repositories.ProductOrderRepository;
 import edu.fontys.horecarobot.databaselibrary.repositories.RestaurantOrderRepository;
 import edu.fontys.horecarobot.databaselibrary.repositories.RestaurantTableRepository;
-import com.customerapp.CustomerAppApi.models.OrderDto;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class OrderService implements IOrderService {

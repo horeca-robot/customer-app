@@ -1,7 +1,7 @@
 package com.customerapp.CustomerAppApi.core.services;
 
 
-import com.customerapp.CustomerAppApi.core.MockedItems;
+import com.customerapp.CustomerAppApi.core.MockFactory;
 import edu.fontys.horecarobot.databaselibrary.models.Product;
 import edu.fontys.horecarobot.databaselibrary.repositories.ProductRepository;
 import org.junit.Test;
@@ -28,7 +28,7 @@ public class ProductServiceTest {
     @Mock
     private ProductRepository productRepository;
 
-    private MockedItems mockedItems = new MockedItems();
+    private MockFactory mockFactory = new MockFactory();
 
     @BeforeEach
     public void Init() {
@@ -39,7 +39,7 @@ public class ProductServiceTest {
     //Test Cases
     @Test
     public void TC01_Select_A_Product_From_Products() {
-        var mockProducts = mockedItems.getMockProducts();
+        var mockProducts = mockFactory.getMockProducts();
 
         String productName = "Fanta";
 
@@ -62,7 +62,7 @@ public class ProductServiceTest {
 
     @Test
     public void getAllProducts() {
-        var mockProducts = mockedItems.getMockProducts();
+        var mockProducts = mockFactory.getMockProducts();
 
         when(productRepository.findAll()).thenReturn(mockProducts);
 
@@ -73,7 +73,7 @@ public class ProductServiceTest {
 
     @Test
     public void getProductById() {
-        var mockProduct = mockedItems.getMockProducts().get(0);
+        var mockProduct = mockFactory.getMockProducts().get(0);
 
         when(productRepository.findById(mockProduct.getId())).thenReturn(Optional.of(mockProduct));
 
@@ -84,7 +84,7 @@ public class ProductServiceTest {
 
     @Test
     public void getProductByName() {
-        var mockProduct = mockedItems.getMockProducts().get(0);
+        var mockProduct = mockFactory.getMockProducts().get(0);
 
         when(productRepository.getProductByName(mockProduct.getName())).thenReturn(mockProduct);
 

@@ -1,6 +1,6 @@
 package com.customerapp.CustomerAppApi.core.services;
 
-import com.customerapp.CustomerAppApi.core.MockedItems;
+import com.customerapp.CustomerAppApi.core.MockFactory;
 import edu.fontys.horecarobot.databaselibrary.repositories.RestaurantTableRepository;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -24,7 +24,7 @@ public class TableServiceTest {
     @Mock
     private RestaurantTableRepository restaurantTableRepository;
 
-    private MockedItems mockedItems = new MockedItems();
+    private MockFactory mockFactory = new MockFactory();
 
     @BeforeEach
     public void Init() {
@@ -35,7 +35,7 @@ public class TableServiceTest {
 
     @Test
     public void getAllRestaurantTables() {
-        var restaurantTables = mockedItems.getMockRestaurantTableList();
+        var restaurantTables = mockFactory.getMockRestaurantTableList();
 
         when(restaurantTableRepository.findAll()).thenReturn(restaurantTables);
 
@@ -46,7 +46,7 @@ public class TableServiceTest {
 
     @Test
     public void getRestaurantTableById() {
-        var restaurantTable = mockedItems.getMockRestaurantTable();
+        var restaurantTable = mockFactory.getMockRestaurantTable();
 
         when(restaurantTableRepository.findById(restaurantTable.getId())).thenReturn(Optional.of(restaurantTable));
 

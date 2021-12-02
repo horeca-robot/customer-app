@@ -1,9 +1,7 @@
 package com.customerapp.CustomerAppApi.core.services;
 
-import com.customerapp.CustomerAppApi.core.MockedItems;
-import edu.fontys.horecarobot.databaselibrary.models.Product;
+import com.customerapp.CustomerAppApi.core.MockFactory;
 import edu.fontys.horecarobot.databaselibrary.repositories.CategoryRepository;
-import edu.fontys.horecarobot.databaselibrary.repositories.ProductRepository;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +24,7 @@ public class CategoryServiceTest {
     @Mock
     private CategoryRepository categoryRepository;
 
-    private MockedItems mockedItems = new MockedItems();
+    private MockFactory mockFactory = new MockFactory();
 
     @BeforeEach
     public void Init() {
@@ -36,7 +34,7 @@ public class CategoryServiceTest {
 
     @Test
     public void getAllCategories() {
-        var categories = mockedItems.getmockCategories();
+        var categories = mockFactory.getmockCategories();
 
         when(categoryRepository.findAll()).thenReturn(categories);
 
@@ -47,7 +45,7 @@ public class CategoryServiceTest {
 
     @Test
     public void getCategoryById() {
-        var category = mockedItems.getmockCategories().get(0);
+        var category = mockFactory.getmockCategories().get(0);
 
         when(categoryRepository.findById(category.getId())).thenReturn(Optional.of(category));
 
@@ -58,7 +56,7 @@ public class CategoryServiceTest {
 
     @Test
     public void getCategoryByName() {
-        var category = mockedItems.getmockCategories().get(0);
+        var category = mockFactory.getmockCategories().get(0);
 
         when(categoryRepository.getCategoryByName(category.getName())).thenReturn(category);
 

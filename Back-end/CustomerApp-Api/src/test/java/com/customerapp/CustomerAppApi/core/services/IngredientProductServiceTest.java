@@ -1,10 +1,7 @@
 package com.customerapp.CustomerAppApi.core.services;
 
-import com.customerapp.CustomerAppApi.core.MockedItems;
+import com.customerapp.CustomerAppApi.core.MockFactory;
 import edu.fontys.horecarobot.databaselibrary.repositories.IngredientProductRepository;
-import edu.fontys.horecarobot.databaselibrary.repositories.ProductOrderRepository;
-import edu.fontys.horecarobot.databaselibrary.repositories.RestaurantOrderRepository;
-import edu.fontys.horecarobot.databaselibrary.repositories.RestaurantTableRepository;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,7 +24,7 @@ public class IngredientProductServiceTest {
     @Mock
     private IngredientProductRepository ingredientProductRepository;
 
-    private final MockedItems mockedItems = new MockedItems();
+    private final MockFactory mockFactory = new MockFactory();
 
     @BeforeEach
     public void Init() {
@@ -37,7 +34,7 @@ public class IngredientProductServiceTest {
 
     @Test
     public void getAllIngredientProducts() {
-        var ingredientProducts = mockedItems.getmockIngredientProducts();
+        var ingredientProducts = mockFactory.getmockIngredientProducts();
 
         when(ingredientProductRepository.findAll()).thenReturn(ingredientProducts);
 
@@ -48,7 +45,7 @@ public class IngredientProductServiceTest {
 
     @Test
     public void getIngredientsByProductName() {
-        var ingredientProducts = mockedItems.getmockIngredientProducts();
+        var ingredientProducts = mockFactory.getmockIngredientProducts();
 
         when(ingredientProductRepository.findByProductName(ingredientProducts.get(0).getProduct().getName())).thenReturn(ingredientProducts);
 
@@ -59,7 +56,7 @@ public class IngredientProductServiceTest {
 
     @Test
     public void getIngredientProductById() {
-        var ingredientProduct = mockedItems.getmockIngredientProducts().get(0);
+        var ingredientProduct = mockFactory.getmockIngredientProducts().get(0);
 
         when(ingredientProductRepository.findById(ingredientProduct.getId())).thenReturn(Optional.of(ingredientProduct));
 
