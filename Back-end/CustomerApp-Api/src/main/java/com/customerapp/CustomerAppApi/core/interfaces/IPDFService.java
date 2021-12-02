@@ -1,7 +1,7 @@
 package com.customerapp.CustomerAppApi.core.interfaces;
 
 import com.customerapp.CustomerAppApi.models.RestaurantOrderDto;
-import com.itextpdf.text.Document;
+import org.w3c.dom.Document;
 
 import java.util.List;
 
