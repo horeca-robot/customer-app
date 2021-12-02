@@ -11,7 +11,7 @@
     <div>
       <OrderCard :orders="list" />
     </div>
-    <b-button v-if="!ordered" :disabled="ordered" @click="DownloadBill" class="button-style heading">Download bon</b-button>
+    <b-button v-if="list" :disabled="!list" @click="DownloadBill" class="button-style heading">Download bon</b-button>
   </div>
 </template>
 
@@ -26,9 +26,7 @@ export default {
   components: { MenuButton, OrderCard, CartButton },
   data() {
     return {
-      list: [],
-      bill: [],
-      ordered: false
+      list: []
     };
   },
   methods: {
