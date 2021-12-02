@@ -47,8 +47,13 @@ public class OrderController {
     @PostMapping("")
     public Result postOrder(@RequestBody PostOrderDto order) {
         try {
-            orderService.postOrder(order);
-            return new Result(true, "Bestelling geplaatst");
+            if(order.getNotes().length() > 350){
+                return  new Result(false, "Uw notitie is te lang");
+            }
+            else {
+                orderService.postOrder(order);
+                return new Result(true, "Bestelling geplaatst");
+            }
         } catch (Exception e) {
             return new Result(false, e.getMessage());
         }

@@ -48,7 +48,7 @@
                 ></b-form-textarea>
                 <b-button class="button-style heading" v-if="!isSaved" v-on:click="cancel">Annuleren</b-button>
                 <b-button class="button-style heading" v-if="!isSaved  && note" v-on:click="saveNote">Opslaan</b-button>
-                <p v-if="isSaved" class="noteText">{{savedNote}}</p>
+                <p v-if="isSaved" class="noteText" id="noteText">{{savedNote}}</p>
                 <b-button class="button-style heading changeNote" v-if="isSaved" v-on:click="isSaved = false">
                 <b-icon icon="pencil"/>
                 </b-button>
@@ -64,11 +64,12 @@
         </b-row>
         <b-alert
           :show="dismissCountDown"
+          ref="alert"
           fade
-          variant="success"
+          variant= "danger"
           @dismiss-count-down="countDownChanged"
         >
-          Bestelling met succes geplaatst.
+          {{responseMessage}}
         </b-alert>
       </b-container>
     </div>
@@ -88,7 +89,6 @@ export default {
   },
   data() {
     return {
-      response: {},
       dismissSecs: 4,
       dismissCountDown: 0,
       showDismissibleAlert: false,
@@ -96,6 +96,8 @@ export default {
       note: "",
       savedNote: localStorage.getItem('note'),
       isSaved: false,
+      responseMessage: "",
+      selectedVariant: "",
     };
   },
   computed: {
@@ -114,19 +116,28 @@ export default {
         tableId: JSON.parse(localStorage.getItem('table')).tableId,
         notes: localStorage.getItem('note'),
       };
-      console.log(order.notes);
       if (this.items.length > 0) {
         this.$APIService.placeOrder(order).then((response) => {
-          this.response = response.data;
+          if (response.data != null) {
+            if(response.data.message == "Uw notitie is te lang"){
+              this.ordering = false;
+              this.responseMessage = response.data.message;
+              this.selectedVariant = "danger";
+              this.showAlert();
+              setTimeout(this.dismissSecs * 1000)
+            }
+            else{
+              this.$store.commit("removeCartFromLocalStorage");
+              localStorage.removeItem('note');
+              this.responseMessage = response.data.message;
+              this.selectedVariant = "success";
+              this.showAlert();
+              setTimeout(() => {
+                this.$router.go();
+              }, this.dismissSecs * 1000);
+            }
+          }
         });
-        if (this.response != null) {
-          this.$store.commit("removeCartFromLocalStorage");
-          localStorage.removeItem('note');
-          this.showAlert();
-          setTimeout(() => {
-            this.$router.go();
-          }, this.dismissSecs * 1000);
-        }
       }
     },
     addProductToCart(product) {
@@ -192,6 +203,9 @@ html {
   border-style: solid;
   padding: 5px;
   overflow: scroll;
+}
+#noteText{
+  max-height: 200px !important;
 }
 .changeNote{
   width: 50px !important;
