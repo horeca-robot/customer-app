@@ -51,11 +51,13 @@ export default {
   max-height: 60vh;
 }
 .table-item{
-  background-color: #bdad89 !important;
+  background-color: var(--secondary-color) !important;
+  color: var(--text-color-secondary) !important;
 }
 #confirmtable .modal-dialog .modal-content{
     border: 0;
     border-radius: 0;
-    background-color: #e0dccc;
+    background-color: var(--secondary-color-light);
+    color: var(--text-color-secondary);
 }
 </style>

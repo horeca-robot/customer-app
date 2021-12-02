@@ -40,7 +40,8 @@ export default {
   position: absolute;
   bottom: 0;
   right: 0;
-  background-color: #bdad89;
+  background-color: var(--secondary-color);
+  color: var(--text-color-secondary);
   height: max-content;
   padding-left: 2px;
   padding-right: 2px;
@@ -54,7 +55,7 @@ export default {
   margin: auto;
 }
 .productCard {
-  background-color: #e0dccc !important;
+  background-color: var(--secondary-color-light) !important;
   margin-bottom: 20px;
   width: 100% !important;
   border-radius: 0px !;

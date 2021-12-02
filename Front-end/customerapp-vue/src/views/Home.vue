@@ -65,7 +65,8 @@ export default {
 
 <style scoped>
 .card-bg {
-  background: #e0dccc;
+  background: var(--secondary-color-light);
+  color: var(--text-color-secondary);
 }
 
 </style>

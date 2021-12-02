@@ -90,12 +90,14 @@ export default {
 }
 
 .order-item-info {
-  background-color: #cbe1d9;
+  background-color: var(--primary-color-light);
+  color: var(--text-color-primary);
   border-bottom: 1pt solid black;
 }
 
 .card-body {
-  background-color: #e0dccc;
+  background-color: var(--secondary-color-light);
+  color: var(--text-color-secondary);
   padding: 3% 0 0 0;
 }
 </style>

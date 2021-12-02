@@ -30,6 +30,7 @@ export default {
 }
 .categoryCard {
   margin-bottom: 20px;
-  background-color: #e0dccc;
+  background-color: var(--secondary-color-light);
+  color: var(--text-color-secondary);
 }
 </style>
