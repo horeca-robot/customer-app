@@ -10,11 +10,17 @@
       </b-container>
     </div>
     <div>
-      <CartItemCard v-for="productOrder in order.productOrders" :key="productOrder.id" :product="productOrder.product" />
+      <CartItemCard v-for="productOrder in order.productOrders" :key="productOrder.id" :product="productOrder.product">
+        <template v-slot:order-status>
+          <b-icon v-if="productOrder.orderStatus === 'DELIVERED'" icon="check" variant="success"></b-icon>
+          <b-icon v-if="productOrder.orderStatus === 'OPEN_FOR_DELIVERY'" icon="x" variant="danger"></b-icon>
+        </template>
+      </CartItemCard>
     </div>
     <br/>
-    <h3>Totaal prijs: €{{order.subTotal && order.subTotal.toFixed(2)}}</h3>
-    <h5>{{order.productOrders && order.productOrders.length}} producten</h5>
+    <h5>{{CountDeliveredProducts(order)}} / {{order.productOrders.length}} producten geleverd</h5>
+    <h5>Totaal prijs: €{{order.subTotal && order.subTotal.toFixed(2)}}</h5>
+    
   </div>
 </template>
 
@@ -31,6 +37,17 @@ export default {
     return {
       order: {},
     };
+  },
+  methods:{
+  CountDeliveredProducts(order){
+      var count = 0;
+      order.productOrders.forEach(prodorder => {
+        if(prodorder.orderStatus === "DELIVERED"){
+          count++
+        }
+      });
+      return count;
+    }
   },
   mounted() {
     this.$APIService
