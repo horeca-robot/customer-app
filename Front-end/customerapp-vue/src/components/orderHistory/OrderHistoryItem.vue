@@ -10,7 +10,7 @@
     <b-col>
       <b-row class="justify-content-end" >
         <b-col class="text-right">
-          <span class="align-top me-2">€ {{ order.subTotal.toFixed(2) }}</span>  <span class="h3"><b-icon-eye-fill /> </span>
+          <span class="align-top me-2">€ {{ order.subTotal.toFixed(2) }}</span>  <span class="h3"><b-icon-eye-fill style="color: var(--text-color-secondary)" /> </span>
         </b-col>
       </b-row>
     </b-col>

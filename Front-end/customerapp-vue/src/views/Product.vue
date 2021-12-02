@@ -30,6 +30,7 @@
               icon="dash"
               font-scale="3"
               v-on:click="RemoveFromAmount"
+              style="color: var(--text-color-secondary)"
             ></b-icon>
             <b-input
               @change="checkAmount"
@@ -41,6 +42,7 @@
               >amount</b-input
             >
             <b-icon
+            style="color: var(--text-color-secondary)"
               icon="plus"
               font-scale="3"
               v-on:click="AddToAmount"

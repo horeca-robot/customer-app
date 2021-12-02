@@ -13,7 +13,7 @@
           </b-card-text>
         </b-col>
         <b-col cols="2">
-          <b-icon :icon="sortIcon"></b-icon>
+          <b-icon style="color: var(--text-color-secondary)" :icon="sortIcon"></b-icon>
         </b-col>
       </b-row>
       <b-row class="order-item-info" v-show="hidden">

@@ -56,6 +56,7 @@ export default {
 }
 .productCard {
   background-color: var(--secondary-color-light) !important;
+  color: var(--text-color-secondary) !important;
   margin-bottom: 20px;
   width: 100% !important;
   border-radius: 0px !;
