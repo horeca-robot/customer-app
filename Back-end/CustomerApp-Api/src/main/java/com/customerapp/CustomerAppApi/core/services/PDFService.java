@@ -11,9 +11,13 @@ import edu.fontys.horecarobot.databaselibrary.models.RestaurantInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.imageio.ImageIO;
+import java.io.ByteArrayInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DateFormat;
+import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
 
 @Service
@@ -48,18 +52,19 @@ public class PDFService implements IPDFService {
         try {
             document = new Document();
             RestaurantInfo restaurantInfo = infoService.getRestaurantInfo();
-            String path = "docs/" + restaurantInfo.getName() + "-Bill";
+            String path = "docs/" + restaurantInfo.getName() + "-Rekening.pdf";
             docWriter = PdfWriter.getInstance(document, new FileOutputStream(path));
             document.addAuthor(restaurantInfo.getContactPersonName());
             document.addCreationDate();
             document.addProducer();
             document.addCreator(restaurantInfo.getName());
-            document.addTitle(restaurantInfo.getName() + " Bill");
+            document.addTitle(restaurantInfo.getName() + " Rekening");
             document.setPageSize(PageSize.LETTER);
             document.open();
             PdfContentByte pdfContentByte = docWriter.getDirectContent();
-            generateLayout(document, pdfContentByte, restaurantInfo);
+            generateLayout(document, docWriter, pdfContentByte, restaurantInfo);
             generateHeader(pdfContentByte, restaurantInfo);
+            int y = 615;
         } catch (IOException | DocumentException e) {
             e.printStackTrace();
         } finally {
@@ -70,9 +75,7 @@ public class PDFService implements IPDFService {
         return document;
     }
 
-
-
-    private void generateLayout(Document document, PdfContentByte pdfContentByte, RestaurantInfo restaurantInfo)  {
+    private void generateLayout(Document document, PdfWriter docWriter, PdfContentByte pdfContentByte, RestaurantInfo restaurantInfo) {
         try {
             pdfContentByte.setLineWidth(1f);
 
@@ -85,9 +88,9 @@ public class PDFService implements IPDFService {
             pdfContentByte.lineTo(480,760);
             pdfContentByte.stroke();
 
-            createHeadings(pdfContentByte,422,743,"Account No.");
-            createHeadings(pdfContentByte,422,723,"Invoice No.");
-            createHeadings(pdfContentByte,422,703,"Invoice Date");
+            createHeadings(pdfContentByte,422,743,"Account Nr.");
+            createHeadings(pdfContentByte,422,723,"Rekening Nr.");
+            createHeadings(pdfContentByte,422,703,"Datum");
 
             pdfContentByte.rectangle(20,50,550,600);
             pdfContentByte.moveTo(20,630);
@@ -102,31 +105,33 @@ public class PDFService implements IPDFService {
             pdfContentByte.lineTo(500,650);
             pdfContentByte.stroke();
 
-            createHeadings(pdfContentByte,22,633,"Qty");
-            createHeadings(pdfContentByte,52,633,"Item Number");
-            createHeadings(pdfContentByte,152,633,"Item Description");
-            createHeadings(pdfContentByte,432,633,"Price");
-            createHeadings(pdfContentByte,502,633,"Ext Price");
+            createHeadings(pdfContentByte,22,633,"Aantal");
+            createHeadings(pdfContentByte,52,633,"Product");
+            createHeadings(pdfContentByte,152,633,"Product Beschrijving");
+            createHeadings(pdfContentByte,432,633,"Prijs");
+            createHeadings(pdfContentByte,502,633,"Tot. Prijs");
 
-            Image companyLogo = Image.getInstance(restaurantInfo.getRestaurantLogo());
+            String base64Image = restaurantInfo.getRestaurantLogo().split(",")[1];
+            byte[] imageBytes = Base64.getDecoder().decode(base64Image);
+            ByteArrayInputStream bis = new ByteArrayInputStream(imageBytes);
+            java.awt.Image img = ImageIO.read(bis);
+            bis.close();
+            Image companyLogo = Image.getInstance(docWriter, img, 1);
             companyLogo.setAbsolutePosition(25,700);
-            companyLogo.scalePercent(25);
+            companyLogo.scalePercent(5);
             document.add(companyLogo);
-
-        } catch (DocumentException dex) {
-            dex.printStackTrace();
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (DocumentException | IOException e) {
+            e.printStackTrace();
         }
     }
 
     private void generateHeader(PdfContentByte pdfContentByte, RestaurantInfo restaurantInfo)  {
         try {
             createHeadings(pdfContentByte,200,750,restaurantInfo.getName());
-            createHeadings(pdfContentByte,200,735,"Address Line 1");
-            createHeadings(pdfContentByte,200,720,"Address Line 2");
-            createHeadings(pdfContentByte,200,705,"City, State - ZipCode");
-            createHeadings(pdfContentByte,200,690,"Country");
+            createHeadings(pdfContentByte,200,735,"Adres Lijn 1");
+            createHeadings(pdfContentByte,200,720,"Adres Lijn 2");
+            createHeadings(pdfContentByte,200,705,"Stad, Provincie - Postcode");
+            createHeadings(pdfContentByte,200,690,"Land");
 
             createHeadings(pdfContentByte,482,743,"ABC0001");
             createHeadings(pdfContentByte,482,723,"123456");
