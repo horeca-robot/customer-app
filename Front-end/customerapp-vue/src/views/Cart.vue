@@ -3,8 +3,8 @@
     <div class="Header">
       <b-container>
         <b-row class="SearchandStore">
-          <search-bar />
-          <menu-button :col="4" />
+          <search-bar :col="10" />
+          <menu-button :col="2" />
         </b-row>
       </b-container>
     </div>

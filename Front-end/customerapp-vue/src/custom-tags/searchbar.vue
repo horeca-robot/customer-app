@@ -1,97 +1,141 @@
 <template>
-    <b-col cols="8">
-        <input id="search-input" type="search" class="form-control" placeholder="Zoeken" v-on:input="ContinuousSearch" v-on:keyup.enter="Search" ref="searchInput"/>
-        <b-button id="search-button" type="button" class="button-style button-style-search" v-on:click="Search">
-            <b-icon icon="search"/>
+  <b-col :cols="col">
+    <b-input-group>
+      <input
+        id="search-input"
+        type="search"
+        class="form-control"
+        placeholder="Zoeken"
+        v-on:input="ContinuousSearch"
+        v-on:keyup.enter="Search"
+        ref="searchInput"
+      />
+      <b-input-group-append>
+        <b-button
+          id="search-button"
+          type="button"
+          class="search-button"
+          v-on:click="Search"
+        >
+          <b-icon-search />
         </b-button>
-        <SearchResult ref="Searchresults"
-            :filteredProducts="filteredProducts"
-            :input="input"
-            :nothingFound="nothingFound"
-            :categories="categories"/>
-    </b-col>
+        <b-button @click="filter = !filter" class="filter-button"
+          ><b-icon-filter
+        /></b-button>
+      </b-input-group-append>
+    </b-input-group>
+
+    <category-filter :categories="categories" :visible="filter" />
+
+    <SearchResult
+      ref="Searchresults"
+      :filteredProducts="filteredProducts"
+      :input="input"
+      :nothingFound="nothingFound"
+      :categories="categories"
+    />
+  </b-col>
 </template> 
 
 <script>
+import CategoryFilter from "../components/CategoryFilter.vue";
 import SearchResult from "../components/SearchResults.vue";
 export default {
-    name: "Header",
-    components: {
-        SearchResult,
+  props: ["col"],
+  name: "Header",
+  components: {
+    SearchResult,
+    CategoryFilter,
+  },
+  data() {
+    return {
+      categories: [],
+      products: [],
+      filteredProducts: [],
+      input: "",
+      nothingFound: "",
+      filter: false,
+    };
+  },
+  mounted() {
+    this.$APIService.getAllCategories().then((response) => {
+      this.categories = response.data;
+    });
+    this.$APIService.getAllProducts().then((response) => {
+      this.products = response.data;
+    });
+  },
+  methods: {
+    Search() {
+      this.input = this.$refs.searchInput.value;
+      this.CheckProducts();
+      if (this.$refs.searchInput.value == "") {
+        this.nothingFound = "Er zijn geen resultaten gevonden";
+        setTimeout(() => {
+          this.nothingFound = "";
+        }, 2000);
+      }
     },
-    data() {
-        return {
-            categories: [],
-            products: [],
-            filteredProducts: [],
-            input: "",
-            nothingFound: "",
-        };
+    ContinuousSearch() {
+      this.input = this.$refs.searchInput.value;
+      if (this.$refs.searchInput.value === " ") {
+        this.$refs.searchInput.value = "";
+        this.input = this.$refs.searchInput.value;
+      } else if (this.$refs.searchInput.value != "") {
+        this.CheckProducts();
+        document.documentElement.style.overflow = "hidden";
+      } else {
+        this.CheckProducts();
+        document.documentElement.style.overflow = "auto";
+      }
     },
-    mounted() {
-      this.$APIService.getAllCategories()
-      .then(response => {
-        this.categories = response.data
-      })
-      this.$APIService.getAllProducts()
-      .then(response =>{
-          this.products = response.data
-      })
-    },
-    methods: {
-        Search() {
-            this.input = this.$refs.searchInput.value;
-            this.CheckProducts()
-            if(this.$refs.searchInput.value == ""){
-                this.nothingFound = "Er zijn geen resultaten gevonden";
-                setTimeout(() => {  this.nothingFound = "" }, 2000);
-            }
-        },
-        ContinuousSearch(){
-            this.input = this.$refs.searchInput.value;
-            if(this.$refs.searchInput.value === " "){
-                this.$refs.searchInput.value = "";
-                this.input = this.$refs.searchInput.value;
-            }
-            else if(this.$refs.searchInput.value != ""){
-                this.CheckProducts();
-                document.documentElement.style.overflow = 'hidden';
-            }
-            else{
-                this.CheckProducts();
-                document.documentElement.style.overflow = 'auto';
-            }
-        },
-        CheckProducts(){
-            this.nothingFound = "";
-            this.filteredProducts = this.products.filter((product) => product.name.toLowerCase().includes(this.$refs.searchInput.value.toLowerCase()));
+    CheckProducts() {
+      this.nothingFound = "";
+      this.filteredProducts = this.products.filter((product) =>
+        product.name
+          .toLowerCase()
+          .includes(this.$refs.searchInput.value.toLowerCase())
+      );
 
-            if(this.filteredProducts.length === 0 && this.$refs.searchInput.value.toLowerCase() != ""){
-                this.nothingFound = "Er zijn geen resultaten gevonden";
-            }
-        }
-    }
+      if (
+        this.filteredProducts.length === 0 &&
+        this.$refs.searchInput.value.toLowerCase() != ""
+      ) {
+        this.nothingFound = "Er zijn geen resultaten gevonden";
+      }
+    },
+  },
 };
 </script>
 
 <style scoped>
-    .Searchbar {
-        width: 115px;
-    }
-    .form-control {
-        width: 70% !important;
-        display: inline !important;
-    }
-    .search {
-        position: absolute;
-        margin-top: -7%;
-        margin-left: 5%;
-    }
-    .button-style {
-        width: 30%;
-        padding: 0.375rem 0.75rem;
-        height: 38px;
-        display: inline;
-        vertical-align: baseline !important;
-    }
+.Searchbar {
+  width: 115px;
+}
+.form-control {
+  width: 50% !important;
+  display: inline !important;
+}
+.search {
+  position: absolute;
+  margin-top: -7%;
+  margin-left: 5%;
+}
+/* .button-style {
+  width: 50%;
+  height: auto;
+  padding: 0.375rem 0.75rem;
+  display: inline;
+  vertical-align: baseline !important;
+} */
+.search-button {
+  background-color: #bdad89 !important;
+  border: 2pt solid #e0dccc !important;
+  color: black !important;
+}
+.filter-button {
+  background-color: #bdad89 !important;
+  border: 2pt solid #e0dccc !important;
+  color: black !important;
+}
 </style>
