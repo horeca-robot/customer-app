@@ -64,9 +64,8 @@
         </b-row>
         <b-alert
           :show="dismissCountDown"
-          ref="alert"
           fade
-          variant= "danger"
+          :variant="chosenVariant"
           @dismiss-count-down="countDownChanged"
         >
           {{responseMessage}}
@@ -97,7 +96,7 @@ export default {
       savedNote: localStorage.getItem('note'),
       isSaved: false,
       responseMessage: "",
-      selectedVariant: "",
+      chosenVariant: "",
     };
   },
   computed: {
@@ -111,6 +110,9 @@ export default {
   methods: {
     PlaceOrder() {
       this.ordering = true;
+      if(localStorage.getItem('note') == null){
+        localStorage.setItem('note', "");
+      }
       const order = {
         products: this.items,
         tableId: JSON.parse(localStorage.getItem('table')).tableId,
@@ -119,10 +121,10 @@ export default {
       if (this.items.length > 0) {
         this.$APIService.placeOrder(order).then((response) => {
           if (response.data != null) {
-            if(response.data.message == "Uw notitie is te lang"){
+            if(response.data.successful == false){
               this.ordering = false;
               this.responseMessage = response.data.message;
-              this.selectedVariant = "danger";
+              this.chosenVariant = "danger";
               this.showAlert();
               setTimeout(this.dismissSecs * 1000)
             }
@@ -130,7 +132,7 @@ export default {
               this.$store.commit("removeCartFromLocalStorage");
               localStorage.removeItem('note');
               this.responseMessage = response.data.message;
-              this.selectedVariant = "success";
+              this.chosenVariant = "success";
               this.showAlert();
               setTimeout(() => {
                 this.$router.go();
