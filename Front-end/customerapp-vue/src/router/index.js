@@ -6,6 +6,7 @@ import OrderHistory from "../views/OrderHistory.vue";
 import TableValidator from "../views/TableValidator";
 import Home from "../views/Home";
 import OrderHistoryDetails from "../views/OrderHistoryDetails";
+import Filter from "../views/TagFilter";
 
 Vue.use(VueRouter);
 
@@ -72,6 +73,14 @@ const routes = [
       title: "Bestelling info",
     },
     component: OrderHistoryDetails,
+  },
+  {
+    path: "/filter",
+    name: "Filters",
+    meta: {
+      title: "Filter profiel",
+    },
+    component: Filter,
   },
 ];
 
