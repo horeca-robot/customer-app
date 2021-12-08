@@ -4,9 +4,15 @@ import com.customerapp.CustomerAppApi.core.interfaces.IPDFService;
 import com.customerapp.CustomerAppApi.core.interfaces.IRestaurantInfoService;
 import com.customerapp.CustomerAppApi.models.ProductOrderDto;
 import com.customerapp.CustomerAppApi.models.RestaurantOrderDto;
+import com.itextpdf.text.pdf.qrcode.ByteArray;
 import com.lowagie.text.DocumentException;
 import edu.fontys.horecarobot.databaselibrary.models.RestaurantInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.xhtmlrenderer.pdf.ITextRenderer;
@@ -16,6 +22,7 @@ import org.xml.sax.SAXException;
 import java.awt.*;
 import java.io.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -37,7 +44,7 @@ public class PDFService implements IPDFService {
     }
 
     @Override
-    public Document createPDF(List<RestaurantOrderDto> restaurantOrdersDto, UUID restaurantTableId) {
+    public ResponseEntity<ByteArrayResource> createPDF(List<RestaurantOrderDto> restaurantOrdersDto, UUID restaurantTableId) {
         Document document = null;
         try {
             URL resource = PDFService.class.getResource("/invoice.html");
@@ -71,18 +78,32 @@ public class PDFService implements IPDFService {
             document = builder.parse(new InputSource(new StringReader(data)));
             document.getDocumentElement().normalize();
 
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ITextRenderer renderer = new ITextRenderer();
             renderer.setDocument(document, null);
-
-            String outputFile = "docs/" + restaurantInfo.getName() + "-Rekening.pdf";
-            OutputStream os = new FileOutputStream(outputFile);
             renderer.layout();
-            renderer.createPDF(os);
-            os.close();
+            renderer.createPDF(baos);
+            byte[] byteArray = baos.toByteArray();
+            baos.close();
+
+            ByteArrayResource bar = new ByteArrayResource(byteArray);
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Content-Disposition",
+                    "attachment; filename=\"Rekening_" + restaurantInfo.getName() + ".pdf\"");
+            headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+            headers.add("Pragma", "no-cache");
+            headers.add("Expires", "0");
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .contentLength(byteArray.length)
+                    .contentType(MediaType.APPLICATION_PDF)
+                    .body(bar);
+
+
         } catch(IOException | DocumentException | SAXException | ParserConfigurationException | URISyntaxException e) {
             e.printStackTrace();
         }
-        return document;
+        return null;
     }
 
     private String getTableRows(List<RestaurantOrderDto> restaurantOrdersDto) {
