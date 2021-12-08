@@ -44,6 +44,10 @@ class APIService{
         return this.getWithParams(pathEnum.ORDER_BY_ID, params);
     }
 
+    getAllTags() {
+        return this.get(pathEnum.TAGS);
+    }
+
     get(path) {
         return axios.get(path);
     }
