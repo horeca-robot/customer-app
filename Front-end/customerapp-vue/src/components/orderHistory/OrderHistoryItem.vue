@@ -67,11 +67,11 @@ export default {
 
 <style scoped>
 .OrderHistoryItem {
-  background-color: #e0dccc;
+  background-color: var(--secondary-color-light) !important;
 
 }
 .order-details {
-  background-color: #bdad89;
+  background-color: var(--secondary-color) !important;
   padding: 20px;
 }
 .text-right {
@@ -82,7 +82,7 @@ export default {
 }
 
 .button-style {
-  background-color: #e0dccc !important;
+  background-color: var(--secondary-color-light) !important;
   margin-bottom: 10px;
   max-width: 40vw;
   margin-left: 50vw;
