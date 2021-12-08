@@ -3,8 +3,8 @@
     <div class="Header">
       <b-container>
         <b-row class="SearchandStore">
-          <search-bar/>
-          <cart-button :col="4"/>
+          <search-bar :col="10" />
+          <cart-button :col="2" />
         </b-row>
       </b-container>
     </div>
@@ -17,34 +17,33 @@
 </template>
 
 <script>
-  import CategoryCard from "../components/CategoryCard.vue";
-  import SearchBar from "../custom-tags/searchbar.vue";
-  import CartButton from "../custom-tags/cartbutton.vue";
+import CategoryCard from "../components/CategoryCard.vue";
+import SearchBar from "../custom-tags/searchbar.vue";
+import CartButton from "../custom-tags/cartbutton.vue";
 
-  export default {
-    name: "Menu",
-    components: {
-      CategoryCard,
-      SearchBar,
-      CartButton,
-    },
-    data() {
-      return {
-        categories: [],
-      };
-    },
-    mounted() {
-      this.$APIService.getAllCategories()
-      .then(response => {
-        this.categories = response.data
-      })
-      this.$store.commit("updateCartFromLocalStorage");
-    },
-  };
+export default {
+  name: "Menu",
+  components: {
+    CategoryCard,
+    SearchBar,
+    CartButton,
+  },
+  data() {
+    return {
+      categories: [],
+    };
+  },
+  mounted() {
+    this.$APIService.getAllCategories().then((response) => {
+      this.categories = response.data;
+    });
+    this.$store.commit("updateCartFromLocalStorage");
+  },
+};
 </script>
 
 <style scoped>
-  .background {
-    background-color: RGBA(203, 225, 217, 0.5);
-  }
+.background {
+  background-color: RGBA(203, 225, 217, 0.5);
+}
 </style>

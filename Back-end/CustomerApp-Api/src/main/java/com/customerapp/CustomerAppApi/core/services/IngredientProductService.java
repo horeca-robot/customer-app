@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class IngredientProductService implements IIngredientProductService {
@@ -28,7 +27,7 @@ public class IngredientProductService implements IIngredientProductService {
 
     public List<Ingredient> getIngredientsByProductName(String name) {
         List<Ingredient> ingredients = new ArrayList<>();
-        var ingredientProducts = ingredientProductRepository.findAll().stream().filter(i -> i.getProduct().getName().equals(name)).collect(Collectors.toList());
+        var ingredientProducts = ingredientProductRepository.findByProductName(name);
         for (IngredientProduct ingredientProduct : ingredientProducts) {
             ingredients.add(ingredientProduct.getIngredient());
         }

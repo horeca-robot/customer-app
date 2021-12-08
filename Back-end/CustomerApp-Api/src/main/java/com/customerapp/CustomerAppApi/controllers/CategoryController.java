@@ -3,9 +3,7 @@ package com.customerapp.CustomerAppApi.controllers;
 
 import com.customerapp.CustomerAppApi.core.interfaces.ICategoryService;
 import com.customerapp.CustomerAppApi.models.CategoryDto;
-import com.customerapp.CustomerAppApi.models.ProductDto;
 import edu.fontys.horecarobot.databaselibrary.models.Category;
-import edu.fontys.horecarobot.databaselibrary.models.Product;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
