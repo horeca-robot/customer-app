@@ -45,6 +45,7 @@
 
 <style scoped>
   .background {
-    background-color: RGBA(203, 225, 217, 0.5);
+    background-color: var(--primary-color-light);
+    color: var(--text-color-primary);
   }
 </style>

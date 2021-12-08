@@ -2,7 +2,7 @@
     <b-col cols="8">
         <input id="search-input" type="search" class="form-control" placeholder="Zoeken" v-on:input="ContinuousSearch" v-on:keyup.enter="Search" ref="searchInput"/>
         <b-button id="search-button" type="button" class="button-style button-style-search" v-on:click="Search">
-            <b-icon icon="search"/>
+            <b-icon style="color: var(--text-color-secondary)" icon="search"/>
         </b-button>
         <SearchResult ref="Searchresults"
             :filteredProducts="filteredProducts"

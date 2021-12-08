@@ -17,6 +17,7 @@ export default {
 
 <style scoped>
 .card-background {
-  background-color: var(--secondary-color) !important;
+  background-color: var(--secondary-color-light);
+  color: var(--text-color-secondary);
 }
 </style>
