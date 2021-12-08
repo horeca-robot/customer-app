@@ -112,8 +112,6 @@ export default {
 
         document.documentElement.style.setProperty('--text-color-secondary', textColorSecondary);
         document.documentElement.style.setProperty('--text-color-primary', textColorPrimary);
-        console.log( "TEXTCOLORPRIM", document.documentElement.style.getPropertyValue("--text-color-primary"));
-        console.log("TEXTCOLORSEC", textColorSecondary);
     },
 
     //https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
