@@ -14,12 +14,12 @@
         <b-button
           id="search-button"
           type="button"
-          class="search-button"
+          class="searchbar-button"
           v-on:click="Search"
         >
           <b-icon-search />
         </b-button>
-        <b-button @click="filter = !filter" class="filter-button"
+        <b-button @click="filter = !filter" class="searchbar-button"
           ><b-icon-filter
         /></b-button>
       </b-input-group-append>
@@ -128,14 +128,10 @@ export default {
   display: inline;
   vertical-align: baseline !important;
 } */
-.search-button {
+.searchbar-button {
   background-color: #bdad89 !important;
   border: 2pt solid #e0dccc !important;
   color: black !important;
 }
-.filter-button {
-  background-color: #bdad89 !important;
-  border: 2pt solid #e0dccc !important;
-  color: black !important;
-}
+
 </style>
