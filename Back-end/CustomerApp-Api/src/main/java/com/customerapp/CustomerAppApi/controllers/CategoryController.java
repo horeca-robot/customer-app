@@ -32,6 +32,13 @@ public class CategoryController {
         return categories.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
+    @GetMapping("all/parent")
+    @CrossOrigin(origins = "*")
+    public List<CategoryDto> getAllParentCategories(){
+        List<Category> categories = categoryService.getAllParentCategories();
+        return categories.stream().map(this::convertToDTO).collect(Collectors.toList());
+    }
+
     @GetMapping("byid")
     @CrossOrigin(origins = "*")
     public CategoryDto getCategoryById(@RequestParam String id){

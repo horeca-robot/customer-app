@@ -12,6 +12,7 @@ export default {
   methods: {
     GoToCategory(category) {
       this.$router.push({ name: "Category", params: { id: category } });
+      this.$router.go();
     },
   },
 };

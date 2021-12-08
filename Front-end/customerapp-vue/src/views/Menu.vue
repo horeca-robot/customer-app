@@ -34,7 +34,7 @@
       };
     },
     mounted() {
-      this.$APIService.getAllCategories()
+      this.$APIService.getAllParentCategories()
       .then(response => {
         this.categories = response.data
       })
