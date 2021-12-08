@@ -30,6 +30,7 @@
               icon="dash"
               font-scale="3"
               v-on:click="RemoveFromAmount"
+              style="color: var(--text-color-secondary)"
             ></b-icon>
             <b-input
               @change="checkAmount"
@@ -41,6 +42,7 @@
               >amount</b-input
             >
             <b-icon
+            style="color: var(--text-color-secondary)"
               icon="plus"
               font-scale="3"
               v-on:click="AddToAmount"
@@ -154,7 +156,8 @@ export default {
   height: 200px;
 }
 .ingrediënten {
-  background-color: #e0dccc;
+  background-color: var(--secondary-color-light);
+  color: var(--text-color-secondary);
 }
 .numberSelected {
   width: 20%;
@@ -162,7 +165,8 @@ export default {
   text-align: center;
 }
 .bijgerechten {
-  background-color: #cbe1d9;
+  background-color: var(--primary-color-light);
+  color: var(--text-color-primary);
 }
 .b-icon.bi {
   vertical-align: middle !important;
@@ -172,7 +176,8 @@ export default {
   margin-bottom: 10px;
 }
 .place-order {
-  background-color: #cbe1d9;
+  background-color: var(--primary-color-light);
+  color: var(--text-color-primary);
   padding-top: 30px;
 }
 </style>

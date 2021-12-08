@@ -7,6 +7,7 @@ import edu.fontys.horecarobot.databaselibrary.models.Product;
 import edu.fontys.horecarobot.databaselibrary.models.RestaurantOrder;
 import com.customerapp.CustomerAppApi.models.PostOrderDto;
 import com.customerapp.CustomerAppApi.models.Result;
+import edu.fontys.horecarobot.databaselibrary.models.RestaurantOrder;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

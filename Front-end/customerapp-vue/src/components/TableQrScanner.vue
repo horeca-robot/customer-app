@@ -119,11 +119,11 @@ export default {
   color: red;
 }
 .scan-button-bg {
-  background: #bdad89;
-  color: black;
+  background: var(--secondary-color);
+  color: var(--text-color-secondary);
 }
 .scan-button-bg:hover {
-  background: #e0dccc;
-  color: black;
+  background: var(--secondary-color-light);
+  color: var(--text-color-secondary);
 }
 </style>

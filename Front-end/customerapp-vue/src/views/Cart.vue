@@ -186,16 +186,19 @@ export default {
 
 <style lang="scss" scoped>
 html {
-  background-color: #cbe1d9;
+  background-color: var(--primary-color-light);
+  color: var(--text-color-primary)
 }
 .cart {
-  background-color: #cbe1d9;
+  background-color: var(--primary-color-light);
+  color: var(--text-color-primary)
 }
 .container .row .col {
   margin-left: 3%;
 }
 .container {
-  background-color: #cbe1d9;
+  background-color: var(--primary-color-light);
+  color: var(--text-color-primary);
   margin: 0;
   max-width: 100% !important;
 }

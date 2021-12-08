@@ -25,7 +25,4 @@ public class CategoryDto {
 
     @JsonIgnoreProperties("categories")
     private List<Product> products;
-
-
-
 }
