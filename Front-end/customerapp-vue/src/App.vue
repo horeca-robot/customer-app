@@ -34,7 +34,6 @@ export default {
         this.restaurantInfo = response.data;
         document.documentElement.style.setProperty('--primary-color', response.data.primaryColor);
         document.documentElement.style.setProperty('--primary-color-light', this.pSBC(0.4, response.data.primaryColor, false, true));
-        console.log(this.pSBC(0.4, response.data.primaryColor, false, true));
         document.documentElement.style.setProperty('--secondary-color', response.data.secondaryColor);
         document.documentElement.style.setProperty('--secondary-color-light', this.pSBC(0.4, response.data.secondaryColor,false,true));
         this.getTextColor();
