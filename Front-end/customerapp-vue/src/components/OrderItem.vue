@@ -4,7 +4,7 @@
       <b-row v-on:click="changeIcon" class="order-item" no-gutters>
         <b-col cols="7">
           <b-card-text class="heading">
-            {{ product.name }}
+            {{ product.name }} <slot name="order-status"></slot>
           </b-card-text>
         </b-col>
         <b-col cols="3">
