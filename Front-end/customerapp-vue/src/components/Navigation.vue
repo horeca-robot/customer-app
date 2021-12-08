@@ -118,7 +118,8 @@ export default {
 #modal1 .modal-dialog .modal-content {
   border: 0;
   border-radius: 0;
-  background-color: #cbe1d9;
+  background-color: var(--primary-color-light);
+  color: var(--text-color-primary);
 }
 </style>
 

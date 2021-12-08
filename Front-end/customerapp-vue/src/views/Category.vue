@@ -18,10 +18,10 @@
 </template>
 
 <script>
-import ProductCard from "../components/ProductCard.vue";
-import SearchBar from "../custom-tags/searchbar.vue";
-import CartButton from "../custom-tags/cartbutton.vue";
-import MenuButton from "../custom-tags/menubutton.vue";
+  import ProductCard from "../components/ProductCard.vue";
+  import SearchBar from "../custom-tags/searchbar.vue";
+  import CartButton from "../custom-tags/cartbutton.vue";
+  import MenuButton from "../custom-tags/menubutton.vue";
 
 export default {
   name: "Category",
@@ -61,7 +61,8 @@ export default {
 </script>
 
 <style scoped>
-.background {
-  background-color: RGBA(203, 225, 217, 0.5);
-}
+  .background {
+    background-color: var(--primary-color-light);
+    color: var(--text-color-primary);
+  }
 </style>

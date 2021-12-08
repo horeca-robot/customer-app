@@ -11,6 +11,10 @@ class APIService{
     getRestaurantTableNumberById(id){
         return this.get(pathEnum.TABLE_NUMBER_BY_ID + id);
     }
+    
+    getRestaurantInfo(){
+        return this.get(pathEnum.RESTAURANT_INFO);
+    }
 
     getCategoryById(id) {
         return this.get(pathEnum.CATEGORY_BY_ID + id)

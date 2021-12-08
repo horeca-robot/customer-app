@@ -8,7 +8,8 @@ const pathEnum = Object.freeze({
     INGREDIENTS_BY_PRODUCTID: "/api/v1/ingredient/byproductid",
     PRODUCTS: "/api/v1/product/all",
     TABLES: '/api/v1/table/all',
-    TABLE_NUMBER_BY_ID: '/api/vi/table/byid?id=',
+    TABLE_NUMBER_BY_ID: '/api/v1/table/byid?id=',
+    RESTAURANT_INFO: '/api/v1/info/',
     TAGS: '/api/v1/tag/all',
 });
 

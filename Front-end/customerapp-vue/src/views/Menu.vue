@@ -17,9 +17,9 @@
 </template>
 
 <script>
-import CategoryCard from "../components/CategoryCard.vue";
-import SearchBar from "../custom-tags/searchbar.vue";
-import CartButton from "../custom-tags/cartbutton.vue";
+  import CategoryCard from "../components/CategoryCard.vue";
+  import SearchBar from "../custom-tags/searchbar.vue";
+  import CartButton from "../custom-tags/cartbutton.vue";
 
 export default {
   name: "Menu",
@@ -43,7 +43,8 @@ export default {
 </script>
 
 <style scoped>
-.background {
-  background-color: RGBA(203, 225, 217, 0.5);
-}
+  .background {
+    background-color: var(--primary-color-light);
+    color: var(--text-color-primary);
+  }
 </style>

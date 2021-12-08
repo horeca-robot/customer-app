@@ -17,7 +17,7 @@
           class="searchbar-button"
           v-on:click="Search"
         >
-          <b-icon-search />
+          <b-icon style="color: var(--text-color-secondary)" icon="search"/>
         </b-button>
         <b-button @click="filter = !filter" class="searchbar-button"
           ><b-icon-filter
@@ -97,14 +97,11 @@ export default {
           .includes(this.$refs.searchInput.value.toLowerCase())
       );
 
-      if (
-        this.filteredProducts.length === 0 &&
-        this.$refs.searchInput.value.toLowerCase() != ""
-      ) {
-        this.nothingFound = "Er zijn geen resultaten gevonden";
-      }
-    },
-  },
+            if(this.filteredProducts.length === 0 && this.$refs.searchInput.value.toLowerCase() != ""){
+                this.nothingFound = "Er zijn geen resultaten gevonden";
+            }
+        }
+    }
 };
 </script>
 
