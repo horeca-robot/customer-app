@@ -2,6 +2,7 @@ package com.customerapp.CustomerAppApi.core.services;
 
 import com.customerapp.CustomerAppApi.core.interfaces.IPDFService;
 import com.customerapp.CustomerAppApi.core.interfaces.IRestaurantInfoService;
+import com.customerapp.CustomerAppApi.models.ProductOrderDto;
 import com.customerapp.CustomerAppApi.models.RestaurantOrderDto;
 import com.lowagie.text.DocumentException;
 import edu.fontys.horecarobot.databaselibrary.models.RestaurantInfo;
@@ -9,15 +10,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.xhtmlrenderer.pdf.ITextRenderer;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import java.awt.*;
 import java.io.*;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.text.DateFormat;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class PDFService implements IPDFService {
@@ -29,47 +37,88 @@ public class PDFService implements IPDFService {
     }
 
     @Override
-    public Document createPDF(List<RestaurantOrderDto> restaurantOrdersDto) {
-        StringBuilder buf = new StringBuilder();
-        buf.append("<html>");
-
-        // put in some style
-        buf.append("<head><style language='text/css'>");
-        buf.append("h3 { border: 1px solid #aaaaff; background: #ccccff; ");
-        buf.append("padding: 1em; text-transform: capitalize; font-family: sansserif; font-weight: normal;}");
-        buf.append("p { margin: 1em 1em 4em 3em; } p:first-letter { color: red; font-size: 150%; }");
-        buf.append("h2 { background: #5555ff; color: white; border: 10px solid black; padding: 3em; font-size: 200%; }");
-        buf.append("</style></head>");
-
-        // generate the body
-        buf.append("<body>");
-        buf.append("<p><img src='100bottles.jpg'/></p>");
-        for(int i=99; i>0; i--) {
-            buf.append("<h3>").append(i).append(" bottles of beer on the wall, ").append(i).append(" bottles of beer!</h3>");
-            buf.append("<p>Take one down and pass it around, ").append(i - 1).append(" bottles of beer on the wall</p>\n");
-        }
-        buf.append("<h2>No more bottles of beer on the wall, no more bottles of beer. ");
-        buf.append("Go to the store and buy some more, 99 bottles of beer on the wall.</h2>");
-        buf.append("</body>");
-        buf.append("</html>");
-
+    public Document createPDF(List<RestaurantOrderDto> restaurantOrdersDto, UUID restaurantTableId) {
         Document document = null;
         try {
+            URL resource = PDFService.class.getResource("/invoice.html");
+            RestaurantInfo restaurantInfo = infoService.getRestaurantInfo();
+            Path file = Paths.get(resource.toURI());
+            String data = Files.readString(file);
+            double subTotal = getSubTotal(restaurantOrdersDto);
+            Color color = Color.decode(restaurantInfo.getPrimaryColor());
+            Color colorLight = brighten(color, 0.25);
+            Color colorLightest = brighten(colorLight, 0.25);
+
+            data = data.replace("{{RESTAURANT_NAME}}", restaurantInfo.getName());
+            data = data.replace("{{DATE}}", java.time.LocalDate.now().toString());
+            data = data.replace("{{PAYMENT_DATE}}", java.time.LocalDate.now().toString());
+            data = data.replace("{{INVOICE_NR}}", restaurantInfo.getId().toString());
+            data = data.replace("{{TABLE_NR}}", restaurantTableId.toString());
+            data = data.replace("{{LOGO}}", restaurantInfo.getRestaurantLogo());
+            data = data.replace("{{CONTACT_NAME}}", restaurantInfo.getContactPersonName());
+            data = data.replace("{{CONTACT_PHONE}}", restaurantInfo.getContactPersonPhone());
+            data = data.replace("{{CONTACT_EMAIL}}", restaurantInfo.getContactPersonEmail());
+            data = data.replace("{{SUBTOTAL}}", String.format("%.2f", subTotal - (subTotal / 100) * 9));
+            data = data.replace("{{BTW_TOTAL}}", String.format("%.2f", (subTotal / 100) * 9));
+            data = data.replace("{{TOTAL}}", String.format("%.2f", subTotal));
+            data = data.replace("{{COLOR}}", "#" + String.format("%06X", 0xFFFFFF & color.getRGB()));
+            data = data.replace("{{COLOR_LIGHT}}", "#" + String.format("%06X", 0xFFFFFF & colorLight.getRGB()));
+            data = data.replace("{{COLOR_LIGHTEST}}", "#" + String.format("%06X", 0xFFFFFF & colorLightest.getRGB()));
+            data = data.replace("{{TEXT_COLOR}}", "#" + String.format("%06X", 0xFFFFFF & getColor(color).getRGB()));
+            data = data.replace("{{TEXT_COLOR_LIGHT}}", "#" + String.format("%06X", 0xFFFFFF & getColor(colorLight).getRGB()));
+            data = data.replace("{{PRODUCTS}}", getTableRows(restaurantOrdersDto));
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            document = builder.parse(new StringBufferInputStream(buf.toString()));
+            document = builder.parse(new InputSource(new StringReader(data)));
+            document.getDocumentElement().normalize();
 
             ITextRenderer renderer = new ITextRenderer();
             renderer.setDocument(document, null);
 
-            RestaurantInfo restaurantInfo = infoService.getRestaurantInfo();
             String outputFile = "docs/" + restaurantInfo.getName() + "-Rekening.pdf";
             OutputStream os = new FileOutputStream(outputFile);
             renderer.layout();
             renderer.createPDF(os);
             os.close();
-        } catch(IOException | DocumentException | SAXException | ParserConfigurationException e) {
+        } catch(IOException | DocumentException | SAXException | ParserConfigurationException | URISyntaxException e) {
             e.printStackTrace();
         }
         return document;
+    }
+
+    private String getTableRows(List<RestaurantOrderDto> restaurantOrdersDto) {
+        StringBuilder row = new StringBuilder();
+        for (RestaurantOrderDto order: restaurantOrdersDto) {
+            for (ProductOrderDto product: order.getProductOrders()) row.append("<tr class=\"product-row\"><td><div>").append(product.getProduct().getName()).append("</div><div class=\"text-opacity\"></div></td><td>").append(1).append("</td><td><div>&#x2713;</div></td><td class=\"text-right\">").append(product.getProduct().getPrice()).append(",-</td><td class=\"text-right\">").append(product.getProduct().getPrice()).append(",-</td></tr>");
+        }
+        return row.toString();
+    }
+
+    private static Color brighten(Color color, double fraction) {
+        int red = (int) Math.round(Math.min(255, color.getRed() + 255 * fraction));
+        int green = (int) Math.round(Math.min(255, color.getGreen() + 255 * fraction));
+        int blue = (int) Math.round(Math.min(255, color.getBlue() + 255 * fraction));
+
+        int alpha = color.getAlpha();
+
+        return new Color(red, green, blue, alpha);
+    }
+
+    private Color getColor(Color color) {
+        int colorRange = color.getRGB();
+
+        int red   = (colorRange >>> 16) & 0xFF;
+        int green = (colorRange >>> 8) & 0xFF;
+        int blue  = (colorRange) & 0xFF;
+
+        float luminance = (red * 0.2126f + green * 0.7152f + blue * 0.0722f) / 255;
+
+        if (luminance >= 0.5f) return Color.white;
+        else return Color.black;
+    }
+
+    private double getSubTotal(List<RestaurantOrderDto> restaurantOrdersDto) {
+        double subTotal = 0.00;
+        for (RestaurantOrderDto order: restaurantOrdersDto) subTotal += order.getSubTotal();
+        return subTotal;
     }
 }

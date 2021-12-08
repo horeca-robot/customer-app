@@ -67,7 +67,7 @@ public class OrderController {
     @GetMapping("download")
     public Document downloadBill(@RequestParam UUID restaurantTableId) {
         List<RestaurantOrderDto> restaurantOrdersDTO = orderService.getAllOrdersFromTable(restaurantTableId).stream().map(this::convertToDTO).collect(Collectors.toList());
-        return pdfService.createPDF(restaurantOrdersDTO);
+        return pdfService.createPDF(restaurantOrdersDTO, restaurantTableId);
     }
 
     private RestaurantOrder convertToEntity(RestaurantOrderDto restaurantOrderDto) {
