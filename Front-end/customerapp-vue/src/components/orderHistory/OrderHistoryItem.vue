@@ -68,10 +68,12 @@ export default {
 <style scoped>
 .OrderHistoryItem {
   background-color: var(--secondary-color-light) !important;
+  color: var(--text-color-secondary);
 
 }
 .order-details {
   background-color: var(--secondary-color) !important;
+  color: var(--text-color-secondary);
   padding: 20px;
 }
 .text-right {

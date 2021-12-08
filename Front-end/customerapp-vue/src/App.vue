@@ -20,6 +20,7 @@
 <script>
 import Navbar from "./components/Navbar.vue";
 import APIService from "./services/axios.service"
+
 export default {
   components: {
     Navbar,

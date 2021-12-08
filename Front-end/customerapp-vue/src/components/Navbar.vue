@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import Image from "../assets/logo.png";
 import Navigation from "./Navigation.vue";
+import APIService from "../services/axios.service"
 export default {
   props: ["route"],
   components: {
@@ -25,7 +25,7 @@ export default {
   },
   data() {
     return {
-      img: Image,
+      img: "",
       hamburgerOpen: false
     };
   },
@@ -34,6 +34,11 @@ export default {
       if (this.hamburgerOpen) this.$refs.modalComponent.show();
       else this.$refs.modalComponent.hide();
     }
+  },
+  created(){
+    APIService.getRestaurantInfo().then(response =>{
+      this.img = response.data.restaurantLogo;
+    })
   },
   watch: {
     $route () {

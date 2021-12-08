@@ -30,7 +30,7 @@
       </b-row>
       <b-row>
         <b-col>
-          <b-card-img :src="img" class="image"></b-card-img>
+          <b-card-img :src="restaurantInfo.restaurantLogo" class="image"></b-card-img>
         </b-col>
       </b-row>
       <b-row>
@@ -57,16 +57,28 @@
           <p>U zit nu aan tafel ...</p>
         </b-col>
       </b-row>
+      <b-row>
+        <b-col>
+          <br/>
+          <p>{{restaurantInfo.name}}
+            <br/>
+          Email: {{restaurantInfo.contactPersonEmail}}
+          <br/>
+          Telefoon: {{restaurantInfo.contactPersonPhone}}
+          </p>
+        </b-col>
+      </b-row>
     </b-container>
   </b-modal>
 </template>
 
 <script>
-import Image from "../assets/logo.png";
+import APIService from "../services/axios.service";
+
 export default {
   data() {
     return {
-      img: Image,
+      restaurantInfo: {},
     };
   },
   methods: {
@@ -90,6 +102,11 @@ export default {
     hide() {
       this.$refs.modal1.hide();
     },
+  },
+  created(){
+    APIService.getRestaurantInfo().then(response =>{
+      this.restaurantInfo = response.data;
+    })
   },
 };
 </script>
