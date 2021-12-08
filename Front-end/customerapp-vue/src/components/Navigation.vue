@@ -83,7 +83,11 @@ export default {
       this.hide();
     },
     GoToHelp() {},
-    ChangeTable() {},
+    ChangeTable() {
+      localStorage.removeItem('table');
+      this.$router.push("/");
+      this.hide();
+    },
     show() {
       this.$refs.modal1.show();
     },
