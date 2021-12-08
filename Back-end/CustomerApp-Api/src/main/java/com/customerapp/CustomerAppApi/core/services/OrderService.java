@@ -1,7 +1,7 @@
 package com.customerapp.CustomerAppApi.core.services;
 
 import com.customerapp.CustomerAppApi.core.interfaces.IOrderService;
-import com.customerapp.CustomerAppApi.models.OrderDto;
+import com.customerapp.CustomerAppApi.models.PostOrderDto;
 import edu.fontys.horecarobot.databaselibrary.enums.OrderStatus;
 import edu.fontys.horecarobot.databaselibrary.models.ProductOrder;
 import edu.fontys.horecarobot.databaselibrary.models.RestaurantOrder;

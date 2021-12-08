@@ -1,6 +1,6 @@
 package com.customerapp.CustomerAppApi.core;
 
-import com.customerapp.CustomerAppApi.models.OrderDto;
+import com.customerapp.CustomerAppApi.models.PostOrderDto;
 import com.customerapp.CustomerAppApi.models.ProductDto;
 import com.customerapp.CustomerAppApi.models.ProductOrderDto;
 import edu.fontys.horecarobot.databaselibrary.enums.OrderStatus;
