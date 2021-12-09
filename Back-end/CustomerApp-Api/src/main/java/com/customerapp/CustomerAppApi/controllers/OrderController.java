@@ -12,6 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -64,7 +65,9 @@ public class OrderController {
     @GetMapping("bytable")
     public List<RestaurantOrderDto> getAllOrdersFromTable(@RequestParam UUID restaurantTableId) {
         List<RestaurantOrder> orders = orderService.getAllOrdersFromTable(restaurantTableId);
-        return orders.stream().map(this::convertToDTO).collect(Collectors.toList());
+        var orderlist = orders.stream().map(this::convertToDTO).collect(Collectors.toList());
+        Collections.sort(orderlist);
+        return orderlist;
     }
 
     private RestaurantOrder convertToEntity(RestaurantOrderDto restaurantOrderDto) {
