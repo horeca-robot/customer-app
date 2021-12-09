@@ -11,7 +11,7 @@
       </b-list-group-item>
   </b-list-group>
 
-  <b-modal class="confirmtable" centered="true" hide-header hide-footer ref="confirmtable" id="confirmtable">
+  <b-modal class="confirmtable" centered hide-header hide-footer ref="confirmtable" id="confirmtable">
     <p>U heeft tafel {{selectedTable.tableNumber}} geselecteerd</p>
     <b-button class="button-style" @click="redirectToTable(selectedTable)">Bevestigen</b-button>
   </b-modal>
@@ -58,6 +58,6 @@ export default {
     border: 0;
     border-radius: 0;
     background-color: var(--secondary-color-light);
-    color: var(--text-color-secondary);
+    color: var(--text-color-secondary-light);
 }
 </style>

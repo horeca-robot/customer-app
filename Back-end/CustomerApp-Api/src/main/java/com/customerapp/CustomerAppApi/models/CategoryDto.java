@@ -15,10 +15,10 @@ public class CategoryDto {
     private String name;
     private String image;
 
-    @JsonIgnoreProperties("product")
+    @JsonIgnoreProperties({"products","childCategories","parentCategories"})
     private List<Category> parentCategories;
 
-    @JsonIgnoreProperties("products")
+    @JsonIgnoreProperties({"products","childCategories","parentCategories"})
     private List<Category> childCategories;
 
     private boolean visible;

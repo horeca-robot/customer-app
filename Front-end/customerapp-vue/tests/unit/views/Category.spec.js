@@ -12,8 +12,8 @@ describe("Category.vue", ()=>{
         var coffee = {id: 3, name: "Coffee", price: 4.54};
         var Products = [pizza, coffee];
         var category = {name: "dessert", id: 1, img: "https://www.24kitchen.nl/files/styles/social_media_share/public/2020-08/verse-tomatensoep.jpg?itok=AqWg5Ju0" ,products: Products}
-        const axios =  {
-            get: ()=> Promise.resolve({data: category}), 
+        const $APIService =  {
+            getCategoryById: ()=> Promise.resolve({data: category}), 
         };
         const $store = {
             commit: jest.fn(),
@@ -25,7 +25,7 @@ describe("Category.vue", ()=>{
         }
         var wrapper = shallowMount(Categoryview, {
             mocks: {
-            axios,
+            $APIService,
             $store,
             $route,
             },

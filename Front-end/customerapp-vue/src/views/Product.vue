@@ -157,7 +157,7 @@ export default {
 }
 .ingrediënten {
   background-color: var(--secondary-color-light);
-  color: var(--text-color-secondary);
+  color: var(--text-color-secondary-light);
 }
 .numberSelected {
   width: 20%;
@@ -166,7 +166,7 @@ export default {
 }
 .bijgerechten {
   background-color: var(--primary-color-light);
-  color: var(--text-color-primary);
+  color: var(--text-color-primary-light);
 }
 .b-icon.bi {
   vertical-align: middle !important;
@@ -177,7 +177,7 @@ export default {
 }
 .place-order {
   background-color: var(--primary-color-light);
-  color: var(--text-color-primary);
+  color: var(--text-color-primary-light);
   padding-top: 30px;
 }
 </style>

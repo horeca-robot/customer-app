@@ -91,13 +91,13 @@ export default {
 
 .order-item-info {
   background-color: var(--primary-color-light);
-  color: var(--text-color-primary);
+  color: var(--text-color-primary-light);
   border-bottom: 1pt solid black;
 }
 
 .card-body {
   background-color: var(--secondary-color-light);
-  color: var(--text-color-secondary);
+  color: var(--text-color-secondary-light);
   padding: 3% 0 0 0;
 }
 </style>
