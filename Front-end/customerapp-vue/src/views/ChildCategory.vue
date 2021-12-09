@@ -4,14 +4,14 @@
       <b-container>
         <b-row class="SearchandStore">
           <search-bar />
-          <menu-button :col="2" />
+          <back-button :col="2" />
           <cart-button :col="2" />
         </b-row>
       </b-container>
     </div>
     <div>
       <ProductCard
-        v-for="product in category.products"
+        v-for="product in filteredProducts"
         :key="product.id"
         :product="product"
       />
@@ -23,7 +23,7 @@
 import ProductCard from "../components/ProductCard.vue";
 import SearchBar from "../custom-tags/searchbar.vue";
 import CartButton from "../custom-tags/cartbutton.vue";
-import MenuButton from "../custom-tags/menubutton.vue";
+import BackButton from "../custom-tags/backbutton.vue";
 
 export default {
   name: "ChildCategory",
@@ -31,11 +31,24 @@ export default {
     ProductCard,
     SearchBar,
     CartButton,
-    MenuButton,
+    BackButton,
+  },
+  computed: {
+    filteredProducts() {
+      if (!this.category.products) return [];
+      if(this.$store.state.tagFilter.selectedFilters.length === 0) return this.category.products;
+      return this.category.products.filter((item) => {
+        for (const tag of item.tags) {
+          if (this.$store.getters["tagFilter/selectedFilterIds"].includes(tag.id))
+            return true;
+        }
+        return false;
+      });
+    },
   },
   data() {
     return {
-      category: {},
+      category: [],
       categoryId: this.$route.params.id,
     };
   },

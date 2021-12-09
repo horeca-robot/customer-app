@@ -3,8 +3,8 @@
     <div class="Header">
       <b-container>
         <b-row class="SearchandStore">
-          <search-bar />
-          <menu-button :col="2" />
+          <search-bar :col="8" />
+          <back-button :col="2" />
           <cart-button :col="2" />
         </b-row>
       </b-container>
@@ -22,7 +22,7 @@
 <script>
 import SearchBar from "../custom-tags/searchbar.vue";
 import CartButton from "../custom-tags/cartbutton.vue";
-import MenuButton from "../custom-tags/menubutton.vue";
+import BackButton from "../custom-tags/backbutton.vue";
 import CategoryCard from "../components/CategoryCard.vue";
 
 export default {
@@ -30,7 +30,7 @@ export default {
   components: {
     SearchBar,
     CartButton,
-    MenuButton,
+    BackButton,
     CategoryCard,
   },
   data() {
