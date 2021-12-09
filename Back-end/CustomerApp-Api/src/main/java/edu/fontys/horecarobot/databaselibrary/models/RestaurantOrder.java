@@ -38,6 +38,9 @@ public class RestaurantOrder {
     @Column
     private boolean paid;
 
+    @Column
+    private String note;
+
     @Column(name = "created_at")
     private Date createdAt;
 

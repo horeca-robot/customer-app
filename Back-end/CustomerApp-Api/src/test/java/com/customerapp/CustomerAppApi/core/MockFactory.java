@@ -1,6 +1,6 @@
 package com.customerapp.CustomerAppApi.core;
 
-import com.customerapp.CustomerAppApi.models.OrderDto;
+import com.customerapp.CustomerAppApi.models.PostOrderDto;
 import com.customerapp.CustomerAppApi.models.ProductDto;
 import com.customerapp.CustomerAppApi.models.ProductOrderDto;
 import edu.fontys.horecarobot.databaselibrary.enums.OrderStatus;
@@ -163,6 +163,7 @@ public class MockFactory {
         restaurantOrder1.setSubTotal(0);
         restaurantOrder1.setCreatedAt(new Date());
         restaurantOrder1.setPaid(false);
+        restaurantOrder1.setNote("Test");
 
         RestaurantOrder restaurantOrder2 = new RestaurantOrder();
         restaurantOrder2.setId(UUID.randomUUID());
@@ -171,6 +172,7 @@ public class MockFactory {
         restaurantOrder2.setSubTotal(0);
         restaurantOrder2.setCreatedAt(new Date());
         restaurantOrder2.setPaid(false);
+        restaurantOrder2.setNote("Test");
 
         RestaurantOrder restaurantOrder3 = new RestaurantOrder();
         restaurantOrder3.setId(UUID.randomUUID());
@@ -179,6 +181,7 @@ public class MockFactory {
         restaurantOrder3.setSubTotal(0);
         restaurantOrder3.setCreatedAt(new Date());
         restaurantOrder3.setPaid(false);
+        restaurantOrder3.setNote("Test");
 
         restaurantOrders.add(restaurantOrder1);
         restaurantOrders.add(restaurantOrder2);

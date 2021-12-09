@@ -1,13 +1,14 @@
 package com.customerapp.CustomerAppApi.core.services;
 
 import com.customerapp.CustomerAppApi.core.interfaces.IOrderService;
-import com.customerapp.CustomerAppApi.models.OrderDto;
+import com.customerapp.CustomerAppApi.models.PostOrderDto;
 import edu.fontys.horecarobot.databaselibrary.enums.OrderStatus;
 import edu.fontys.horecarobot.databaselibrary.models.ProductOrder;
 import edu.fontys.horecarobot.databaselibrary.models.RestaurantOrder;
 import edu.fontys.horecarobot.databaselibrary.repositories.ProductOrderRepository;
 import edu.fontys.horecarobot.databaselibrary.repositories.RestaurantOrderRepository;
 import edu.fontys.horecarobot.databaselibrary.repositories.RestaurantTableRepository;
+import com.customerapp.CustomerAppApi.models.PostOrderDto;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
@@ -41,10 +42,11 @@ public class OrderService implements IOrderService {
     }
 
     //POST
-    public void postOrder(@NotNull OrderDto order) {
+    public void postOrder(@NotNull PostOrderDto order) {
         var restaurantOrder = new RestaurantOrder();
         restaurantOrder.setTable(tableRepository.findById(order.getTableId()).get());
         restaurantOrder.setPaid(false);
+        restaurantOrder.setNote(order.getNotes());
         restaurantOrder.setCreatedAt(new Date());
         double subTotal = 0;
         for (var product : order.getProducts()) {
