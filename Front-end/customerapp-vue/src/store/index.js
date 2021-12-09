@@ -29,7 +29,7 @@ export default new Vuex.Store({
     },
     removeFromCart(state, product) {
       let item = state.cart.find((i) => i.guid === product.guid);
-
+      
       if (item) {
         state.cart = state.cart.filter((i) => i.guid !== product.guid);
       }

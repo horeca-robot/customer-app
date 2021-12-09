@@ -10,9 +10,11 @@
     </div>
     <div class="cart">
       <CartItemCard
-        v-for="product in items"
+        v-for="product in orderedItems"
         :key="product.guid"
-        :product="product"
+        :product="product.product"
+        :amount="product.amount"
+        :price="product.price"
       >
         <template v-slot:action-area="{ product }">
           <b-button
@@ -97,10 +99,12 @@ export default {
       isSaved: false,
       responseMessage: "",
       chosenVariant: "",
+      orderedItems: [],
     };
   },
   computed: {
     items() {
+      this.OrderingItems(this.$store.getters.cartItems);
       return this.$store.getters.cartItems;
     },
     cart_total() {
@@ -145,8 +149,16 @@ export default {
     addProductToCart(product) {
       this.$store.commit("addToCart", product);
     },
-    removeProductFromCart(product) {
-      this.$store.commit("removeFromCart", product);
+    removeProductFromCart(productToDelete) {
+      var productsInCart = JSON.parse(localStorage.getItem('cart'));
+      productsInCart = productsInCart.reverse();
+      var deleted = false;
+      productsInCart.forEach((product) =>{
+        if (product.id == productToDelete.id && deleted == false){
+          this.$store.commit("removeFromCart", product);
+          deleted = true;
+        }
+      })
     },
     countDownChanged(dismissCountDown) {
       this.dismissCountDown = dismissCountDown;
@@ -176,6 +188,26 @@ export default {
       else{
         this.$refs.note.hide();
       }
+    },
+    OrderingItems(itemList){
+      this.orderedItems = [];
+      var number = 0;
+      itemList.forEach((item1) =>{
+        this.orderedItems.forEach((item2) =>{
+          //aan if-statement toevoegen item2.product.byproducts == item1.byproducts als je op bijproducten wilt checken.
+          if(item2.product.id == item1.id){
+            item2.amount++;
+            item2.price = item2.price + item1.price;
+            number++;
+          }
+        });
+        if(number == 0){
+          this.orderedItems.push({amount: 1, product: item1, price: item1.price});
+        } else if(this.orderedItems.length == 0){
+          this.orderedItems.push({amount: 1, product: item1, price: item1.price});
+        }
+        number = 0;
+      });
     }
   },
   mounted() {
