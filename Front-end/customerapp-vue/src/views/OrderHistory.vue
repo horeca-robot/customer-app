@@ -11,11 +11,11 @@
     <div>
       <OrderCard :orders="list" />
     </div>
-    <b-button v-if="list" :disabled="!list" @click.prevent="DownloadBill" class="button-style heading">Download bon</b-button>
+    <b-button v-if="list" :disabled="!list" @click="Download()" class="button-style heading">Download bon</b-button>
   </div>
 </template>
 
-<script>
+<script> 
 import OrderCard from "../components/orderHistory/OrderHistoryCard";
 import CartButton from "../custom-tags/cartbutton.vue";
 import MenuButton from "../custom-tags/menubutton.vue";
@@ -30,16 +30,8 @@ export default {
     };
   },
   methods: {
-    DownloadBill() {
-      this.$APIService.getDownloadBill(localStorageHelper.load('table').tableId).then((response) => {
-        console.log(response.data)
-        var fileURL = window.URL.createObjectURL(new Blob([response.data]));
-        const link = document.createElement('a');
-        link.href = fileURL;
-        link.setAttribute('download', 'file.pdf');
-        document.body.appendChild(link);
-        link.click();
-      });
+    Download(){
+      this.$APIService.getDownloadBill(localStorageHelper.load('table').tableId);
     }
   },
   mounted() {
