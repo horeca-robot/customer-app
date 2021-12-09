@@ -16,18 +16,21 @@ public class AdminMockService implements IMockService {
     private final IngredientRepository ingredientRepository;
     private final RestaurantTableRepository tableRepository;
     private final IngredientProductRepository ingredientProductRepository;
+    private final TagRepository tagRepository;
 
-    public AdminMockService(ProductRepository productRepository, CategoryRepository categoryRepository, IngredientRepository ingredientRepository, RestaurantTableRepository tableRepository, IngredientProductRepository ingredientProductRepository) {
+    public AdminMockService(ProductRepository productRepository, CategoryRepository categoryRepository, IngredientRepository ingredientRepository, RestaurantTableRepository tableRepository, IngredientProductRepository ingredientProductRepository, TagRepository tagRepository) {
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
         this.ingredientRepository = ingredientRepository;
         this.tableRepository = tableRepository;
         this.ingredientProductRepository = ingredientProductRepository;
+        this.tagRepository = tagRepository;
     }
 
     public void Initialize() {
 
         setIngredients();
+        setTags();
 
         List<Category> voorgerecht_child_list = new ArrayList<>();
         List<Category> hoofdgerecht_child_list = new ArrayList<>();
@@ -157,6 +160,32 @@ public class AdminMockService implements IMockService {
         tableRepository.saveAndFlush(table3);
     }
 
+    private void setTags() {
+        var tag1 = new Tag();
+        tag1.setName("Gluten");
+        tagRepository.saveAndFlush(tag1);
+
+        var tag2 = new Tag();
+        tag2.setName("Vegetarisch");
+        tagRepository.saveAndFlush(tag2);
+
+        var tag3 = new Tag();
+        tag3.setName("Alcohol");
+        tagRepository.saveAndFlush(tag3);
+    }
+
+    private List<Tag> getRandomTags() {
+        List<Tag> tags = tagRepository.findAll();
+        List<Tag> returnTags = new ArrayList<>();
+        for (Tag tag : tags) {
+            int random_int = (int) Math.floor(Math.random() * (100));
+            System.out.println(random_int);
+            if (random_int > 65)
+                returnTags.add(tag);
+        }
+        return returnTags;
+    }
+
     private void setIngredients() {
         var ingredients = new ArrayList<Ingredient>();
         var yoghurt = new Ingredient();
@@ -244,7 +273,6 @@ public class AdminMockService implements IMockService {
 
     private List<Product> getProductsOfCategory(String category) {
         List<Product> products = new ArrayList<>();
-        var tag = new ArrayList<Tag>();
         switch (category) {
             case "Salade":
                 Product tamara = new Product();
@@ -253,6 +281,7 @@ public class AdminMockService implements IMockService {
                 tamara.setPrice(5.00);
                 tamara.setDescription("Viskruidsalade");
                 tamara.setContainsAlcohol(false);
+                tamara.setTags(getRandomTags());
                 products.add(tamara);
                 break;
 
@@ -263,7 +292,7 @@ public class AdminMockService implements IMockService {
                 tzatziki.setPrice(4.50);
                 tzatziki.setDescription("Griekse yoghurt met knoflook en komkommer");
                 tzatziki.setContainsAlcohol(false);
-                tzatziki.setTags(tag);
+                tzatziki.setTags(getRandomTags());
                 products.add(tzatziki);
                 break;
 
@@ -274,6 +303,7 @@ public class AdminMockService implements IMockService {
                 tomatensoep.setPrice(4.75);
                 tomatensoep.setDescription("lekker man");
                 tomatensoep.setContainsAlcohol(false);
+                tomatensoep.setTags(getRandomTags());
                 products.add(tomatensoep);
                 break;
 
@@ -284,6 +314,7 @@ public class AdminMockService implements IMockService {
                 gyros.setPrice(15.50);
                 gyros.setDescription("Gesneden varkensvlees met tzatziki, mayonaise, frites en koolsalade");
                 gyros.setContainsAlcohol(false);
+                gyros.setTags(getRandomTags());
                 products.add(gyros);
                 break;
             case "Pizza":
@@ -293,6 +324,7 @@ public class AdminMockService implements IMockService {
                 margherita.setPrice(5.00);
                 margherita.setDescription("Pizza met tomaat en kaas");
                 margherita.setContainsAlcohol(false);
+                margherita.setTags(getRandomTags());
                 products.add(margherita);
 
                 Product gorgonzola = new Product();
@@ -301,6 +333,7 @@ public class AdminMockService implements IMockService {
                 gorgonzola.setPrice(8.50);
                 gorgonzola.setDescription("Pizza met tomaten, kaas en gorgonzola");
                 gorgonzola.setContainsAlcohol(false);
+                gorgonzola.setTags(getRandomTags());
                 products.add(gorgonzola);
                 break;
 
@@ -311,6 +344,7 @@ public class AdminMockService implements IMockService {
                 smurfijs.setPrice(2.00);
                 smurfijs.setDescription("Blauw ijs en das mooi");
                 smurfijs.setContainsAlcohol(false);
+                smurfijs.setTags(getRandomTags());
                 products.add(smurfijs);
 
                 Product VanilleIjs = new Product();
@@ -319,6 +353,7 @@ public class AdminMockService implements IMockService {
                 VanilleIjs.setPrice(2.00);
                 VanilleIjs.setDescription("Voor de saaie mensen");
                 VanilleIjs.setContainsAlcohol(false);
+                VanilleIjs.setTags(getRandomTags());
                 products.add(VanilleIjs);
                 break;
             case "Dranken":
@@ -328,6 +363,7 @@ public class AdminMockService implements IMockService {
                 cappuccino.setPrice(2.75);
                 cappuccino.setDescription("Koffie met créme laagje witte wel");
                 cappuccino.setContainsAlcohol(false);
+                cappuccino.setTags(getRandomTags());
                 products.add(cappuccino);
                 break;
             case "Snoepgoed":
@@ -337,6 +373,7 @@ public class AdminMockService implements IMockService {
                 kwatta.setPrice(3.00);
                 kwatta.setDescription("Heerlijke chocolade blokjes");
                 kwatta.setContainsAlcohol(false);
+                kwatta.setTags(getRandomTags());
                 products.add(kwatta);
                 break;
         }
