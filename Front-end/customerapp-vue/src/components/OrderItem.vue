@@ -9,7 +9,7 @@
         </b-col>
         <b-col cols="3">
           <b-card-text class="text price">
-            1x &euro;{{ product.price.toFixed(2) }}
+            {{amount}}x &euro;{{ price.toFixed(2) }}
           </b-card-text>
         </b-col>
         <b-col cols="2">
@@ -42,6 +42,8 @@
 export default {
   props:{
     product: Object,
+    amount: Number,
+    price: Number,
   },
   data() {
     return {
