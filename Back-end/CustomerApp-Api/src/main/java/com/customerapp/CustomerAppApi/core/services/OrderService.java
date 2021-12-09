@@ -18,13 +18,11 @@ import java.util.*;
 public class OrderService implements IOrderService {
 
     private final RestaurantOrderRepository orderRepository;
-    private final ProductOrderRepository productOrderRepository;
     private final RestaurantTableRepository tableRepository;
 
-    public OrderService(RestaurantOrderRepository orderRepository, RestaurantTableRepository tableRepository, ProductOrderRepository productOrderRepository) {
+    public OrderService(RestaurantOrderRepository orderRepository, RestaurantTableRepository tableRepository) {
         this.orderRepository = orderRepository;
         this.tableRepository = tableRepository;
-        this.productOrderRepository = productOrderRepository;
     }
 
     //GET
@@ -66,5 +64,4 @@ public class OrderService implements IOrderService {
         orderRepository.saveAndFlush(restaurantOrder);
 
     }
-
 }

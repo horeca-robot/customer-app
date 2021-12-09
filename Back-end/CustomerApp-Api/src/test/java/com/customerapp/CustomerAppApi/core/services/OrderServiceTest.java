@@ -27,16 +27,13 @@ public class OrderServiceTest {
     private RestaurantOrderRepository orderRepository;
 
     @Mock
-    private ProductOrderRepository productOrderRepository;
-
-    @Mock
     private RestaurantTableRepository tableRepository;
 
     private final MockFactory mockFactory = new MockFactory();
 
     @BeforeEach
     public void Init() {
-        orderService = new OrderService(orderRepository, tableRepository, productOrderRepository);
+        orderService = new OrderService(orderRepository, tableRepository);
         MockitoAnnotations.openMocks(orderService);
     }
 
