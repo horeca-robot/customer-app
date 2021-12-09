@@ -1,20 +1,19 @@
 package com.customerapp.CustomerAppApi.controllers;
 
 import com.customerapp.CustomerAppApi.core.interfaces.IOrderService;
-import com.customerapp.CustomerAppApi.models.ProductDto;
+import com.customerapp.CustomerAppApi.core.interfaces.IPDFService;
 import com.customerapp.CustomerAppApi.models.RestaurantOrderDto;
-import edu.fontys.horecarobot.databaselibrary.models.Product;
 import edu.fontys.horecarobot.databaselibrary.models.RestaurantOrder;
 import com.customerapp.CustomerAppApi.models.PostOrderDto;
 import com.customerapp.CustomerAppApi.models.Result;
-import edu.fontys.horecarobot.databaselibrary.models.RestaurantOrder;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -24,11 +23,13 @@ public class OrderController {
 
     private final ModelMapper modelMapper;
     private final IOrderService orderService;
+    private final IPDFService pdfService;
 
     @Autowired
-    public OrderController(ModelMapper modelMapper, IOrderService orderService) {
+    public OrderController(ModelMapper modelMapper, IOrderService orderService, IPDFService pdfService) {
         this.modelMapper = modelMapper;
         this.orderService = orderService;
+        this.pdfService = pdfService;
     }
 
     @CrossOrigin(origins = "*")
@@ -68,6 +69,13 @@ public class OrderController {
         var orderlist = orders.stream().map(this::convertToDTO).collect(Collectors.toList());
         Collections.sort(orderlist);
         return orderlist;
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("download")
+    public ResponseEntity<ByteArrayResource> downloadBill(@RequestParam UUID restaurantTableId) {
+        List<RestaurantOrderDto> restaurantOrdersDTO = orderService.getAllOrdersFromTable(restaurantTableId).stream().map(this::convertToDTO).collect(Collectors.toList());
+        return pdfService.createPDF(restaurantOrdersDTO, restaurantTableId);
     }
 
     private RestaurantOrder convertToEntity(RestaurantOrderDto restaurantOrderDto) {
