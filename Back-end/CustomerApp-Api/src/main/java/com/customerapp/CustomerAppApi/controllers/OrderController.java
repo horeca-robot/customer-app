@@ -39,9 +39,9 @@ public class OrderController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("byid")
-    public Optional<RestaurantOrderDto> getOrderById(@RequestParam UUID id) {
-       var orderdto = convertToDTO(orderService.getOrderById(id).get());
-       return Optional.ofNullable(orderdto);
+    public RestaurantOrderDto getOrderById(@RequestParam UUID id) {
+        var order = orderService.getOrderById(id);
+        return order.map(this::convertToDTO).orElse(null);
     }
 
     @CrossOrigin(origins = "*")

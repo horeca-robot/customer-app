@@ -24,6 +24,10 @@ class APIService{
         return this.get(pathEnum.CATEGORIES)
     }
 
+    getAllParentCategories() {
+        return this.get(pathEnum.PARENTCATEGORIES)
+    }
+
     getProductById(params) {
         return this.getWithParams(pathEnum.PRODUCT_BY_ID, params)
     }
