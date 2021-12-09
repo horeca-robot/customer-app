@@ -17,7 +17,7 @@
           class="searchbar-button"
           v-on:click="Search"
         >
-          <b-icon style="color: var(--text-color-secondary)" icon="search"/>
+          <b-icon style="color: var(--text-color-secondary)" icon="search" />
         </b-button>
         <b-button @click="filter = !filter" class="searchbar-button"
           ><b-icon-filter
@@ -35,7 +35,7 @@
       :categories="categories"
     />
   </b-col>
-</template> 
+</template>
 
 <script>
 import CategoryFilter from "../components/CategoryFilter.vue";
@@ -91,17 +91,35 @@ export default {
     },
     CheckProducts() {
       this.nothingFound = "";
-      this.filteredProducts = this.products.filter((product) =>
-        product.name
-          .toLowerCase()
-          .includes(this.$refs.searchInput.value.toLowerCase())
-      );
+      this.filteredProducts = this.products.filter((product) => {
+        if (
+          !product.name
+            .toLowerCase()
+            .includes(this.$refs.searchInput.value.toLowerCase())
+        )
+          return false;
 
-            if(this.filteredProducts.length === 0 && this.$refs.searchInput.value.toLowerCase() != ""){
-                this.nothingFound = "Er zijn geen resultaten gevonden";
-            }
+        if (this.$store.state.tagFilter.selectedFilters.length === 0)
+          return true;
+
+        for (const tag of product.tags) {
+          if (
+            this.$store.getters["tagFilter/selectedFilterIds"].includes(tag.id)
+          )
+            return true;
         }
-    }
+
+        return false;
+      });
+
+      if (
+        this.filteredProducts.length === 0 &&
+        this.$refs.searchInput.value.toLowerCase() != ""
+      ) {
+        this.nothingFound = "Er zijn geen resultaten gevonden";
+      }
+    },
+  },
 };
 </script>
 
@@ -126,9 +144,8 @@ export default {
   vertical-align: baseline !important;
 } */
 .searchbar-button {
-  background-color: #bdad89 !important;
-  border: 2pt solid #e0dccc !important;
-  color: black !important;
+  background-color: var(--secondary-color) !important;
+  border: 2pt solid var(--secondary-color-light) !important;
+  color: var(--text-color-primary) !important;
 }
-
 </style>

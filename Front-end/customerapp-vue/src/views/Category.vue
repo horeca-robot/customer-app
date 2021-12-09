@@ -37,7 +37,7 @@ export default {
       if(this.$store.state.tagFilter.selectedFilters.length === 0) return this.category.products;
       return this.category.products.filter((item) => {
         for (const tag of item.tags) {
-          if (this.$store.state.tagFilter.selectedFilters.includes(tag.id))
+          if (this.$store.getters["tagFilter/selectedFilterIds"].includes(tag.id))
             return true;
         }
         return false;
