@@ -17,8 +17,11 @@ export default {
     },
   },
   getters: {
-    selectedFilters: (state) => {
-      return state.selectedFilters;
+    selectedFilterIds: (state) => {
+      return state.selectedFilters.map((value) => value.id);
+    },
+    selectedFilterNames: (state) => {
+      return state.selectedFilters.map((value) => value.name);
     },
   },
 };
