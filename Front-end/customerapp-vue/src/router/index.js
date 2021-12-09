@@ -6,6 +6,7 @@ import OrderHistory from "../views/OrderHistory.vue";
 import TableValidator from "../views/TableValidator";
 import Home from "../views/Home";
 import OrderHistoryDetails from "../views/OrderHistoryDetails";
+import Filter from "../views/TagFilter";
 
 Vue.use(VueRouter);
 
@@ -49,6 +50,15 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/Category.vue"),
   },
   {
+    path: "/menu/sub/:id",
+    name: "ChildCategory",
+    meta: {
+      title: "Subcategorie",
+    },
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/ChildCategory.vue"),
+  },
+  {
     path: "/menu/:categoryId/:id",
     name: "Product",
     meta: {
@@ -72,6 +82,14 @@ const routes = [
       title: "Bestelling info",
     },
     component: OrderHistoryDetails,
+  },
+  {
+    path: "/filter",
+    name: "Filters",
+    meta: {
+      title: "Filter profiel",
+    },
+    component: Filter,
   },
 ];
 

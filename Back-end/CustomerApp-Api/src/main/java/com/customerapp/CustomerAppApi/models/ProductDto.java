@@ -24,6 +24,6 @@ public class ProductDto {
     @JsonIgnoreProperties("product")
     private List<IngredientProduct> ingredients;
 
-    @JsonIgnoreProperties("products")
+    @JsonIgnoreProperties({"products","childCategories","parentCategories"})
     private List<Category> categories = new ArrayList<>();
 }

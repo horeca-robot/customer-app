@@ -3,8 +3,8 @@
     <div class="Header">
       <b-container>
         <b-row class="SearchandStore">
-          <search-bar/>
-          <cart-button :col="4"/>
+          <search-bar :col="10" />
+          <cart-button :col="2" />
         </b-row>
       </b-container>
     </div>
@@ -34,7 +34,7 @@
       };
     },
     mounted() {
-      this.$APIService.getAllCategories()
+      this.$APIService.getAllParentCategories()
       .then(response => {
         this.categories = response.data
       })

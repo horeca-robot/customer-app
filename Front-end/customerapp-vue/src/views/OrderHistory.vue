@@ -12,6 +12,7 @@
       <OrderHistoryItem  :order="order" :number="restaurantOrders.indexOf(order) + 1" />
     </div>
     <h3 v-if="restaurantOrders.length === 0">U heeft nog geen bestellingen geplaats, <a href="/menu">klik hier</a> om uw bestelling samen te stellen</h3>
+	<b-button v-if="restaurantOrders.length !== 0" :disabled="restaurantOrders.length === 0" @click="Download()" class="button-style heading">Download bon</b-button>
   </div>
 </template>
 
@@ -26,8 +27,13 @@ export default {
   components: { MenuButton, OrderHistoryItem, CartButton },
   data() {
     return {
-      restaurantOrders: [],
+      restaurantOrders: []
     };
+  },
+  methods: {
+    Download(){
+      this.$APIService.getDownloadBill(localStorageHelper.load('table').tableId);
+    }
   },
   mounted() {
     this.$APIService.getOrdersById(localStorageHelper.load('table').tableId).then((response) => {

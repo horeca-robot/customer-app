@@ -1,7 +1,8 @@
 import axios from "axios";
 import pathEnum from "../enum/index"
 
-axios.defaults.baseURL = "http://localhost:8080"
+const baseURL = "http://localhost:8080";
+axios.defaults.baseURL = baseURL;
 
 class APIService{
     getRestaurantTables(){
@@ -22,6 +23,10 @@ class APIService{
 
     getAllCategories() {
         return this.get(pathEnum.CATEGORIES)
+    }
+
+    getAllParentCategories() {
+        return this.get(pathEnum.PARENTCATEGORIES)
     }
 
     getProductById(params) {
@@ -46,6 +51,26 @@ class APIService{
 
     getOrderDetails(params) {
         return this.getWithParams(pathEnum.ORDER_BY_ID, params);
+    }
+
+    getAllTags() {
+        return this.get(pathEnum.TAGS);
+    }
+
+    getDownloadBill(id) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', baseURL + pathEnum.DOWNLOAD_BILL + id, true);
+        xhr.responseType = 'arraybuffer';
+        xhr.onload = function() {
+            if (this.status == 200) {
+              var blob=new Blob([this.response], {type:"application/pdf"});
+              var link=document.createElement('a');
+              link.href=window.URL.createObjectURL(blob);
+              link.download="Rekening"+ new Date(Date.now()) +".pdf";
+              link.click();
+            }
+        };
+        xhr.send();
     }
 
     get(path) {
