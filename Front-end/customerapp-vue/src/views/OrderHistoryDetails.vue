@@ -11,18 +11,20 @@
     </div>
     <div>
       <CartItemCard
-        v-for="productOrder in order.productOrders"
-        :key="productOrder.id"
-        :product="productOrder.product"
+        v-for="products in orderedItems"
+        :key="products.id"
+        :product="products.product"
+        :amount="products.amount"
+        :price="products.price"
       >
         <template v-slot:order-status>
           <b-icon
-            v-if="productOrder.orderStatus === 'DELIVERED'"
+            v-if="products.orderStatus === 'DELIVERED'"
             icon="check"
             variant="success"
           ></b-icon>
           <b-icon
-            v-if="productOrder.orderStatus === 'OPEN_FOR_DELIVERY'"
+            v-if="products.orderStatus === 'OPEN_FOR_DELIVERY'"
             icon="x"
             variant="danger"
           ></b-icon>
@@ -57,11 +59,14 @@ export default {
         table: {},
         productOrders: [],
       },
+      filtereditemList: [],
+      orderedItems: [],
     };
   },
   methods: {
     CountDeliveredProducts() {
       var count = 0;
+      console.log(this.order.productOrders)
       if (this.order.productOrders.length) {
         this.order.productOrders.forEach((productorder) => {
           if (productorder.orderStatus === "DELIVERED") {
@@ -72,12 +77,40 @@ export default {
 
       return count;
     },
+    OrderingItems(itemList){
+      itemList.forEach((item)=>{
+        this.filtereditemList.push(item);
+      })
+      this.orderedItems = [];
+      
+      var number = 0;
+      this.filtereditemList.forEach((item1) =>{
+        this.orderedItems.forEach((item2) =>{
+          //aan if-statement toevoegen item2.product.byproducts == item1.byproducts als je op bijproducten wilt checken.
+          if(item2.product.id == item1.product.id){
+            item2.amount++;
+            item2.price = item2.price + item1.product.price;
+            number++;
+            if(item2.orderStatus == "DELIVERED" && item1.orderStatus == "OPEN_FOR_DELIVERY"){
+              item2.orderStatus = item1.orderStatus;
+            }
+          }
+        });
+        if(number == 0){
+          this.orderedItems.push({amount: 1, product: item1.product, price: item1.product.price, orderStatus: item1.orderStatus});
+        } else if(this.orderedItems.length == 0){
+          this.orderedItems.push({amount: 1, product: item1, price: item1.product.price, orderStatus: item1.orderStatus});
+        }
+        number = 0;
+      });
+    },
   },
   mounted() {
     this.$APIService
       .getOrderDetails({ params: { id: this.$route.params.id } })
       .then((response) => {
         this.order = response.data;
+        this.OrderingItems(this.order.productOrders);
       });
   },
 };
