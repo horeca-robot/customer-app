@@ -17,5 +17,5 @@ public class RestaurantOrderDto {
     private boolean paid;
     private Date createdAt;
     private RestaurantTable table;
-    private List<ProductOrderDto> productOrders = new ArrayList<>();
+    private List<ProductOrderDto> productOrders;
 }
