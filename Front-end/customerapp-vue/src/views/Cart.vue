@@ -125,18 +125,18 @@ export default {
 <style lang="scss" scoped>
 html {
   background-color: var(--primary-color-light);
-  color: var(--text-color-primary)
+  color: var(--text-color-primary-light)
 }
 .cart {
   background-color: var(--primary-color-light);
-  color: var(--text-color-primary)
+  color: var(--text-color-primary-light)
 }
 .container .row .col {
   margin-left: 3%;
 }
 .container {
   background-color: var(--primary-color-light);
-  color: var(--text-color-primary);
+  color: var(--text-color-primary-light);
   margin: 0;
   max-width: 100% !important;
 }

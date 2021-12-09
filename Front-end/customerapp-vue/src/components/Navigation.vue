@@ -136,7 +136,7 @@ export default {
   border: 0;
   border-radius: 0;
   background-color: var(--primary-color-light);
-  color: var(--text-color-primary);
+  color: var(--text-color-primary-light);
 }
 </style>
 

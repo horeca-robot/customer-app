@@ -69,7 +69,6 @@ export default {
 .OrderHistoryItem {
   background-color: var(--secondary-color-light) !important;
   color: var(--text-color-secondary);
-
 }
 .order-details {
   background-color: var(--secondary-color) !important;
