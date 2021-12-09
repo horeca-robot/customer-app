@@ -58,6 +58,6 @@ export default {
     border: 0;
     border-radius: 0;
     background-color: var(--secondary-color-light);
-    color: var(--text-color-secondary);
+    color: var(--text-color-secondary-light);
 }
 </style>

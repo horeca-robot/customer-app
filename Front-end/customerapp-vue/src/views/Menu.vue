@@ -46,6 +46,6 @@
 <style scoped>
   .background {
     background-color: var(--primary-color-light);
-    color: var(--text-color-primary);
+    color: var(--text-color-primary-light);
   }
 </style>
