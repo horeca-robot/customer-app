@@ -47,7 +47,6 @@ public class OrderService implements IOrderService {
         restaurantOrder.setTable(tableRepository.findById(order.getTableId()).get());
         restaurantOrder.setPaid(false);
         restaurantOrder.setNote(order.getNotes());
-        System.out.print(restaurantOrder.getNote());
         restaurantOrder.setCreatedAt(new Date());
         double subTotal = 0;
         for (var product : order.getProducts()) {

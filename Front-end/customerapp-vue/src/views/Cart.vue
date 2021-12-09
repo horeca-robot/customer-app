@@ -203,8 +203,9 @@ html {
   max-width: 100% !important;
 }
 .noteText{
-  background-color: #E0DCCC;
-  border-color: black;
+  background-color: var(--secondary-color-light);
+  color: var(--text-color-secondary);
+  border-color: var(--text-color-secondary);
   border-style: solid;
   padding: 5px;
   overflow: scroll;
@@ -219,6 +220,7 @@ html {
 
 <style>
 #note .modal-dialog .modal-content{
-  background-color: #cbe1d9;
+  background-color: var(--primary-color-light);
+  color: var(--text-color-primary);
 }
 </style>
