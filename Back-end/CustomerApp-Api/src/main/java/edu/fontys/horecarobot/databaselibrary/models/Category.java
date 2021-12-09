@@ -49,8 +49,8 @@ public class Category {
     @ManyToMany
     @JoinTable(
         name = "category_relations",
-        joinColumns = { @JoinColumn(name = "parent_category_id", nullable = false, referencedColumnName = "id") },
-        inverseJoinColumns = { @JoinColumn(name = "child_category_id", nullable = false, referencedColumnName = "id") }
+        joinColumns = { @JoinColumn(name = "parent_category_id", nullable = false) },
+        inverseJoinColumns = { @JoinColumn(name = "child_category_id", nullable = false) }
     )
     private List<Category> childCategories = new ArrayList<>();
     
