@@ -4,7 +4,7 @@
       <b-container>
         <b-row class="SearchandStore">
           <search-bar />
-          <menu-button :col="2" />
+          <back-button :col="2" />
           <cart-button :col="2" />
         </b-row>
       </b-container>
@@ -23,7 +23,7 @@
 import ProductCard from "../components/ProductCard.vue";
 import SearchBar from "../custom-tags/searchbar.vue";
 import CartButton from "../custom-tags/cartbutton.vue";
-import MenuButton from "../custom-tags/menubutton.vue";
+import BackButton from "../custom-tags/backbutton.vue";
 
 export default {
   name: "ChildCategory",
@@ -31,7 +31,7 @@ export default {
     ProductCard,
     SearchBar,
     CartButton,
-    MenuButton,
+    BackButton,
   },
   computed: {
     filteredProducts() {
