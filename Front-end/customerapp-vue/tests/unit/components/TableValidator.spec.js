@@ -31,7 +31,7 @@ describe("TableValidator.vue", () => {
       "tableModule/setTable",
       "TestCode"
     );
-    expect($router.push).toHaveBeenCalledWith({ name: "menu" });
+    expect($router.push).toHaveBeenCalledWith({ name: "Menu" });
   });
 
   it("Test table validator by url failed.", async () => {

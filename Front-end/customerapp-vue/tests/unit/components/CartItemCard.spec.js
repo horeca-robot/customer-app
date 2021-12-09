@@ -9,8 +9,17 @@ localVue.use(IconsPlugin);
 describe("OrderItem.vue", () => {
   it("Test inserting a product.", () => {
     let product = { name: "Hamburger", price: 15.95, img: "url", ingredients: { id: 1, name: "kaas" } };
+    var ingredients = ["kaas", "ijs", "chocolade"];
+    
+    const $APIService = {
+      getIngredientsByProductId: ()=> Promise.resolve({data: ingredients})
+    };
+
     let wrapper = shallowMount(CartItemCard, {
         propsData: { product },
+        mocks: {
+          $APIService,
+        },
         localVue,
     });
     expect(wrapper.text()).toMatch(product.name);
@@ -18,15 +27,21 @@ describe("OrderItem.vue", () => {
 
   it("Test add to cart.", () => {
     let product = { name: "Hamburger", price: 15.95, img: "url", ingredients: { id: 1, name: "kaas" } };
+    var ingredients = ["kaas", "ijs", "chocolade"];
 
     const $store = {
       commit: jest.fn(),
+    };
+
+    const $APIService ={
+      getIngredientsByProductId: ()=> Promise.resolve({data: ingredients})
     };
 
     let wrapper = shallowMount(CartItemCard, {
         propsData: { product },
         mocks: {
             $store,
+            $APIService,
         },
         localVue,
     });
@@ -37,15 +52,21 @@ describe("OrderItem.vue", () => {
 
   it("Test remove from cart.", () => {
     let product = { name: "Hamburger", price: 15.95, img: "url", ingredients: { id: 1, name: "kaas" } };
+    var ingredients = ["kaas", "ijs", "chocolade"];
 
     const $store = {
       commit: jest.fn(),
+    };
+
+    const $APIService = {
+      getIngredientsByProductId: ()=> Promise.resolve({data: ingredients})
     };
 
     let wrapper = shallowMount(CartItemCard, {
         propsData: { product },
         mocks: {
             $store,
+            $APIService,
         },
         localVue,
     });
@@ -58,9 +79,17 @@ describe("OrderItem.vue", () => {
 
   it("Test changing icon.", () => {
     let product = { name: "Hamburger", price: 15.95, img: "url", ingredients: { id: 1, name: "kaas" } };
+    var ingredients = ["kaas", "ijs", "chocolade"];
 
+    const $APIService = {
+      getIngredientsByProductId: ()=> Promise.resolve({data: ingredients})
+    };
+    
     let wrapper = shallowMount(CartItemCard, {
         propsData: { product },
+        mocks: {
+          $APIService,
+        },
         data() {
           return {
             sortDirection: "asc",

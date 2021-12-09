@@ -7,17 +7,25 @@ localVue.use(BootstrapVue);
 
 describe("Navbar.vue", () => {
   it("Test the changing text in navbar.", () => {
-    let route = { name: "Menu" };
+    let route = {
+      meta: {
+        title: "Menu",
+      }
+    };
     let wrapper = shallowMount(Navbar, {
       propsData: { route },
       localVue,
     });
-    expect(wrapper.text()).toMatch(route.name);
-    route = { name: "Categorie" };
+    expect(wrapper.text()).toMatch(route.meta.title);
+    route = {
+      meta: {
+        title: "Categorie"
+      }
+    };
     wrapper = shallowMount(Navbar, {
       propsData: { route },
       localVue,
     });
-    expect(wrapper.text()).toMatch(route.name);
+    expect(wrapper.text()).toMatch(route.meta.title);
   });
 });

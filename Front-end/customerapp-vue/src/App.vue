@@ -20,6 +20,7 @@
 <script>
 import Navbar from "./components/Navbar.vue";
 import APIService from "./services/axios.service"
+
 export default {
   components: {
     Navbar,
@@ -36,9 +37,13 @@ export default {
         document.documentElement.style.setProperty('--primary-color-light', this.pSBC(0.4, response.data.primaryColor, false, true));
         document.documentElement.style.setProperty('--secondary-color', response.data.secondaryColor);
         document.documentElement.style.setProperty('--secondary-color-light', this.pSBC(0.4, response.data.secondaryColor,false,true));
-        this.getTextColor();
+
+        document.documentElement.style.setProperty('--text-color-secondary', this.getTextColor('--secondary-color'));
+        document.documentElement.style.setProperty('--text-color-primary', this.getTextColor('--primary-color'));
+
+        document.documentElement.style.setProperty('--text-color-secondary-light', this.getTextColor('--secondary-color-light'));
+        document.documentElement.style.setProperty('--text-color-primary-light', this.getTextColor('--primary-color-light'));
       })
-      
   },
   methods: {
     GoToCart() {
@@ -72,45 +77,26 @@ export default {
     if(h)return"rgb"+(f?"a(":"(")+r+","+g+","+b+(f?","+m(a*1000)/1000:"")+")";
     else return"#"+(4294967296+r*16777216+g*65536+b*256+(f?m(a*255):0)).toString(16).slice(1,f?undefined:-2)
 },
-    getTextColor() {
+    getTextColor(color) {
         const style = getComputedStyle(document.body);
-        const secondary = style.getPropertyValue('--secondary-color');
-        const primary = style.getPropertyValue('--primary-color');
+        const backgroundColor = style.getPropertyValue(color);
 
-        let rgbsec;
-        if(secondary.startsWith('#')){
-            rgbsec = this.hexToRgb(secondary)
+        let rgbBackgroundColor;
+        if(backgroundColor.startsWith('#')){
+            rgbBackgroundColor = this.hexToRgb(backgroundColor)
         }
         else{
-            rgbsec = secondary.match(/\d+/g);
+            rgbBackgroundColor = backgroundColor.match(/\d+/g);
         }
 
-        let rgbpri;
-        if(primary.startsWith('#')){
-            rgbpri = this.hexToRgb(primary)
-        }
-        else{
-            rgbpri = primary.match(/\d+/g);
-        }
-
-        let textColorPrimary;
+        let textColor;
         //https://stackoverflow.com/questions/3942878/how-to-decide-font-color-in-white-or-black-depending-on-background-color
-        if ((rgbpri[0] * 0.299 + rgbpri[1] * 0.587 + rgbpri[2] * 0.114) > 186) {
-            textColorPrimary = 'rgba(0, 0, 0, 1)';
+        if ((rgbBackgroundColor[0] * 0.299 + rgbBackgroundColor[1] * 0.587 + rgbBackgroundColor[2] * 0.114) > 150) {
+            textColor = 'rgba(0, 0, 0, 1)';
         } else {
-            textColorPrimary = 'rgba(255, 255, 255, 1)';
+            textColor = 'rgba(255, 255, 255, 1)';
         }
-
-        let textColorSecondary;
-        //https://stackoverflow.com/questions/3942878/how-to-decide-font-color-in-white-or-black-depending-on-background-color
-        if ((rgbsec[0] * 0.299 + rgbsec[1] * 0.587 + rgbsec[2] * 0.114) > 186) {
-            textColorSecondary = 'rgba(0, 0, 0, 1)';
-        } else {
-            textColorSecondary = 'rgba(255, 255, 255, 1)';
-        }
-
-        document.documentElement.style.setProperty('--text-color-secondary', textColorSecondary);
-        document.documentElement.style.setProperty('--text-color-primary', textColorPrimary);
+        return textColor;
     },
 
     //https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
@@ -197,7 +183,7 @@ body {
 .btn-secondary:hover {
   background-color: var(--secondary-color-light);
   border: 2pt solid var(--secondary-color) ;
-  color: var(--text-color-secondary) !important;
+  color: var(--text-color-secondary-light) !important;
 }
 .Header .container {
     background-color: var(--primary-color) !important;

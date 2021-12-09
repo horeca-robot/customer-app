@@ -30,10 +30,31 @@
       <p>Aantal items: {{ items.length }}</p>
       <h3>Totaal: € {{ cart_total.toFixed(2) }}</h3>
       <b-container v-if="items.length">
-        <p>Er zijn geen notities toegevoegd...</p>
+        <p v-if="!note">Er zijn geen notities toegevoegd...</p>
+        <p v-if="note">U heeft een notitie toegevoegd</p>
         <b-row>
           <b-col>
-            <b-button class="button-style heading">Notitie +</b-button>
+            <b-button v-if="!savedNote" v-b-modal.note class="button-style heading">Notitie toevoegen</b-button>
+            <b-button v-if="savedNote" v-b-modal.note v-on:click="cancel" class="button-style heading">Notitie bekijken</b-button>
+              <b-modal ref="note" id="note" hide-header hide-footer  centered v-on:hide="cancel">
+                <b-form-textarea v-if="!isSaved"
+                id="textarea"
+                v-model="note"
+                :state="note.length <= 350"
+                class="noteText"
+                placeholder="Voeg hier uw notitie toe..."
+                rows="3"
+                max-rows="6"
+                ></b-form-textarea>
+                <b-button class="button-style heading" v-if="!isSaved" v-on:click="cancel">Annuleren</b-button>
+                <b-button class="button-style heading" v-if="!isSaved  && note" v-on:click="saveNote">Opslaan</b-button>
+                <p v-if="isSaved" class="noteText" id="noteText">{{savedNote}}</p>
+                <b-button class="button-style heading changeNote" v-if="isSaved" v-on:click="isSaved = false">
+                <b-icon icon="pencil"/>
+                </b-button>
+                <b-button class="button-style heading" v-if="isSaved" v-on:click="deleteNote">Verwijderen</b-button>
+                <b-button class="button-style heading" v-if="isSaved" v-on:click="$refs.note.hide">Sluiten</b-button>
+              </b-modal>
           </b-col>
           <b-col>
             <b-button :disabled="ordering" @click="PlaceOrder" class="button-style heading"
@@ -44,10 +65,10 @@
         <b-alert
           :show="dismissCountDown"
           fade
-          variant="success"
+          :variant="chosenVariant"
           @dismiss-count-down="countDownChanged"
         >
-          Bestelling met succes geplaatst.
+          {{responseMessage}}
         </b-alert>
       </b-container>
     </div>
@@ -67,11 +88,15 @@ export default {
   },
   data() {
     return {
-      response: {},
       dismissSecs: 4,
       dismissCountDown: 0,
       showDismissibleAlert: false,
       ordering: false,
+      note: "",
+      savedNote: localStorage.getItem('note'),
+      isSaved: false,
+      responseMessage: "",
+      chosenVariant: "",
     };
   },
   computed: {
@@ -85,22 +110,36 @@ export default {
   methods: {
     PlaceOrder() {
       this.ordering = true;
+      if(localStorage.getItem('note') == null){
+        localStorage.setItem('note', "");
+      }
       const order = {
         products: this.items,
         tableId: JSON.parse(localStorage.getItem('table')).tableId,
-        notes: "",
+        notes: localStorage.getItem('note'),
       };
       if (this.items.length > 0) {
         this.$APIService.placeOrder(order).then((response) => {
-          this.response = response.data;
+          if (response.data != null) {
+            if(response.data.successful == false){
+              this.ordering = false;
+              this.responseMessage = response.data.message;
+              this.chosenVariant = "danger";
+              this.showAlert();
+              setTimeout(this.dismissSecs * 1000)
+            }
+            else{
+              this.$store.commit("removeCartFromLocalStorage");
+              localStorage.removeItem('note');
+              this.responseMessage = response.data.message;
+              this.chosenVariant = "success";
+              this.showAlert();
+              setTimeout(() => {
+                this.$router.go();
+              }, this.dismissSecs * 1000);
+            }
+          }
         });
-        if (this.response != null) {
-          this.$store.commit("removeCartFromLocalStorage");
-          this.showAlert();
-          setTimeout(() => {
-            this.$router.go();
-          }, this.dismissSecs * 1000);
-        }
       }
     },
     addProductToCart(product) {
@@ -115,6 +154,29 @@ export default {
     showAlert() {
       this.dismissCountDown = this.dismissSecs;
     },
+    saveNote(){
+      if(this.note.length <= 350){
+        this.isSaved = true;
+        this.savedNote = this.note;
+        localStorage.setItem('note', this.savedNote);
+      }
+    },
+    deleteNote(){
+      this.savedNote = "";
+      this.note = "";
+      this.isSaved = false;
+      this.$refs.note.hide();
+      localStorage.removeItem('note');
+    },
+    cancel(){
+      this.note = this.savedNote;
+      if(this.savedNote){
+        this.isSaved = true;
+      }
+      else{
+        this.$refs.note.hide();
+      }
+    }
   },
   mounted() {
     this.$store.commit("updateCartFromLocalStorage");
@@ -125,19 +187,40 @@ export default {
 <style lang="scss" scoped>
 html {
   background-color: var(--primary-color-light);
-  color: var(--text-color-primary)
+  color: var(--text-color-primary-light)
 }
 .cart {
   background-color: var(--primary-color-light);
-  color: var(--text-color-primary)
+  color: var(--text-color-primary-light)
 }
 .container .row .col {
   margin-left: 3%;
 }
 .container {
   background-color: var(--primary-color-light);
-  color: var(--text-color-primary);
+  color: var(--text-color-primary-light);
   margin: 0;
   max-width: 100% !important;
+}
+.noteText{
+  background-color: var(--secondary-color-light);
+  color: var(--text-color-secondary);
+  border-color: var(--text-color-secondary);
+  border-style: solid;
+  padding: 5px;
+  overflow: scroll;
+}
+#noteText{
+  max-height: 200px !important;
+}
+.changeNote{
+  width: 50px !important;
+}
+</style>
+
+<style>
+#note .modal-dialog .modal-content{
+  background-color: var(--primary-color-light);
+  color: var(--text-color-primary);
 }
 </style>
