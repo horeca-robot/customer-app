@@ -25,6 +25,11 @@ public class CategoryService implements ICategoryService {
         return categoryRepository.findAll().stream().filter(i->i.getChildCategories().size() > 0).collect(Collectors.toList());
     }
 
+    public List<Category> getAllChildCategories()
+    {
+        return categoryRepository.findAll().stream().filter(i->i.getParentCategories().size() > 0).collect(Collectors.toList());
+    }
+
     public Category getCategoryById(UUID id)
     {
         return categoryRepository.findById(id).get();

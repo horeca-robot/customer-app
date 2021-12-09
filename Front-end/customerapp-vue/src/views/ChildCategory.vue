@@ -9,29 +9,29 @@
         </b-row>
       </b-container>
     </div>
-    <div v-if="category.childCategories">
-      <category-card
-        v-for="childCategory in category.childCategories"
-        :key="childCategory.id"
-        :category="childCategory"
+    <div>
+      <ProductCard
+        v-for="product in category.products"
+        :key="product.id"
+        :product="product"
       />
-    </div>
+    </div>    
   </div>
 </template>
 
 <script>
+import ProductCard from "../components/ProductCard.vue";
 import SearchBar from "../custom-tags/searchbar.vue";
 import CartButton from "../custom-tags/cartbutton.vue";
 import MenuButton from "../custom-tags/menubutton.vue";
-import CategoryCard from "../components/CategoryCard.vue";
 
 export default {
-  name: "Category",
+  name: "ChildCategory",
   components: {
+    ProductCard,
     SearchBar,
     CartButton,
     MenuButton,
-    CategoryCard,
   },
   data() {
     return {
