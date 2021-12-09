@@ -4,6 +4,7 @@ const pathEnum = Object.freeze({
     ORDER_BY_ID: "/api/v1/order/byid",
     CATEGORY_BY_ID: "/api/v1/category/byid?id=",
     CATEGORIES: "/api/v1/category/all",
+    PARENTCATEGORIES: "/api/v1/category/all/parent",
     PRODUCT_BY_ID: "/api/v1/product/byid",
     INGREDIENTS_BY_PRODUCTID: "/api/v1/ingredient/byproductid",
     PRODUCTS: "/api/v1/product/all",
