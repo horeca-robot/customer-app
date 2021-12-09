@@ -12,15 +12,15 @@ describe("Menu.vue", () => {
       var appetizer = {id: 1, name: "appetizer"};
       var dessert = {id: 3, name: "dessert"};
       var categories = {appetizer, dessert};
-      const axios =  {
-          get: ()=> Promise.resolve({data: categories}),
+      const $APIService =  {
+          getAllCategories: ()=> Promise.resolve({data: categories}),
       }
       const $store = {
           commit: jest.fn(),
       }
       var wrapper = shallowMount(Menu, {
           mocks: {
-            axios,
+            $APIService,
             $store,
           },
           localVue,

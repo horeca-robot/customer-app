@@ -13,9 +13,16 @@ describe("TableListPicker.vue", () => {
     const $store = {
       dispatch: jest.fn(),
     };
+    const confirmtable ={
+      show: jest.fn(),
+      render: () => {},
+    };
     const wrapper = shallowMount(TableListPicker, {
       propsData: {
         tables: [{ id: "TestCode", number: 1 }],
+      },
+      stubs: {
+        confirmtable,
       },
       mocks: {
         $router,

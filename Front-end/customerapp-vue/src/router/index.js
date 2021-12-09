@@ -49,6 +49,15 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/Category.vue"),
   },
   {
+    path: "/menu/sub/:id",
+    name: "ChildCategory",
+    meta: {
+      title: "Subcategorie",
+    },
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/ChildCategory.vue"),
+  },
+  {
     path: "/menu/:categoryId/:id",
     name: "Product",
     meta: {

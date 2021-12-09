@@ -8,25 +8,28 @@
         </b-row>
       </b-container>
     </div>
-    <div>
-      <OrderCard :orders="list" />
+    <div v-for="order in restaurantOrders" :key="order.id">
+      <OrderHistoryItem  :order="order" :number="restaurantOrders.indexOf(order) + 1" />
     </div>
-    <b-button v-if="list" :disabled="!list" @click="Download()" class="button-style heading">Download bon</b-button>
+    <h3 v-if="restaurantOrders.length === 0">U heeft nog geen bestellingen geplaats, <a href="/menu">klik hier</a> om uw bestelling samen te stellen</h3>
+	<b-button v-if="list" :disabled="!list" @click="Download()" class="button-style heading">Download bon</b-button>
   </div>
 </template>
 
-<script> 
+<script>
 import OrderCard from "../components/orderHistory/OrderHistoryCard";
 import CartButton from "../custom-tags/cartbutton.vue";
 import MenuButton from "../custom-tags/menubutton.vue";
 import localStorageHelper from "../helpers/localStorageHelper";
+import OrderHistoryItem from "../components/orderHistory/OrderHistoryItem.vue"
 
 export default {
   name: "OrderHistory",
-  components: { MenuButton, OrderCard, CartButton },
+  components: { MenuButton, OrderHistoryItem, CartButton },
   data() {
     return {
       list: []
+      restaurantOrders: [],
     };
   },
   methods: {
@@ -36,7 +39,7 @@ export default {
   },
   mounted() {
     this.$APIService.getOrdersById(localStorageHelper.load('table').tableId).then((response) => {
-      this.list = response.data;
+      this.restaurantOrders = response.data;
     });
   },
 };

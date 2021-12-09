@@ -3,6 +3,14 @@
     <div class="row mb-3 mt-3">
       <div class="col">
         <b-card class="card-bg">
+          <img class="logo" :src="restaurantInfo.restaurantLogo"/>
+          <br/>
+          <h3>Welkom bij <b>{{restaurantInfo.name}}</b></h3>
+          
+          <br/>
+        </b-card>
+        <br/>
+        <b-card class="card-bg">
           <TableQrScanner v-if="usingQR"/>
           <br v-if="usingQR"/>
           <b-button class="button-style w-100 border" @click="(usingQR = !usingQR)">{{this.switchbuttontext}}</b-button>
@@ -14,7 +22,6 @@
         <b-card v-if="!usingQR" class="card-bg">
           <table-list-picker
             :tables="tables"
-            
           />
         </b-card>
       </div>
@@ -25,6 +32,7 @@
 <script>
 import TableQrScanner from "../components/TableQrScanner";
 import TableListPicker from "../components/TableListPicker";
+import APIService from "../services/axios.service"
 
 export default {
   name: "Home",
@@ -35,6 +43,7 @@ export default {
       tables: [
       ],
       usingQR: true,
+      restaurantInfo: {}
     };
   },
   computed:{
@@ -60,12 +69,23 @@ export default {
       }
     );
   },
+  created(){
+    APIService.getRestaurantInfo().then(response =>{
+      this.restaurantInfo = response.data;
+    })
+  },
 };
 </script>
 
 <style scoped>
 .card-bg {
-  background: #e0dccc;
+  background: var(--secondary-color-light);
+  color: var(--text-color-secondary);
+}
+.logo{
+  height: 150px;
+  max-width: 100%;
+  object-fit:contain;
 }
 
 </style>

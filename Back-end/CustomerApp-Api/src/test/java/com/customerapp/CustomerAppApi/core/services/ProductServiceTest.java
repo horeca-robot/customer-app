@@ -1,6 +1,7 @@
 package com.customerapp.CustomerAppApi.core.services;
 
 
+import com.customerapp.CustomerAppApi.core.MockFactory;
 import edu.fontys.horecarobot.databaselibrary.models.Product;
 import edu.fontys.horecarobot.databaselibrary.repositories.ProductRepository;
 import org.junit.Test;
@@ -14,9 +15,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+import java.util.Optional;
 
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -28,7 +28,7 @@ public class ProductServiceTest {
     @Mock
     private ProductRepository productRepository;
 
-    private List<Product> mockProducts;
+    private MockFactory mockFactory = new MockFactory();
 
     @BeforeEach
     public void Init() {
@@ -36,23 +36,10 @@ public class ProductServiceTest {
         MockitoAnnotations.openMocks(productService);
     }
 
-    //Requirements tests
-    @Test
-    public void Test_Get_All_Products_From_Menu()
-    {
-        mockProducts = getMockProducts();
-
-        when(productRepository.findAll()).thenReturn(mockProducts);
-
-        List<Product> actual = productService.getAllProducts();
-
-        Assertions.assertEquals(mockProducts,actual);
-    }
-
     //Test Cases
     @Test
     public void TC01_Select_A_Product_From_Products() {
-        mockProducts = getMockProducts();
+        var mockProducts = mockFactory.getMockProducts();
 
         String productName = "Fanta";
 
@@ -66,34 +53,43 @@ public class ProductServiceTest {
 
     @Test
     public void TC02_View_Empty_List_Of_Products() {
-        mockProducts = new ArrayList<>();
+        List<Product> mockProducts = new ArrayList<>();
 
         when(productRepository.findAll()).thenReturn(mockProducts);
 
-        Assertions.assertEquals(productService.getAllProducts().size(), mockProducts.size());
+        Assertions.assertEquals(productService.getAllProducts(), mockProducts);
     }
 
-    private List<Product> getMockProducts() {
-        List<Product> products = new ArrayList<>();
+    @Test
+    public void getAllProducts() {
+        var mockProducts = mockFactory.getMockProducts();
 
-        Product cola = new Product();
-        cola.setName("Cola");
-        cola.setPrice(2.50);
-        cola.setContainsAlcohol(false);
-        products.add(cola);
+        when(productRepository.findAll()).thenReturn(mockProducts);
 
-        Product fanta = new Product();
-        fanta.setName("Fanta");
-        fanta.setPrice(2.50);
-        fanta.setContainsAlcohol(false);
-        products.add(fanta);
+        List<Product> actual = productService.getAllProducts();
 
-        Product sprite = new Product();
-        sprite.setName("Sprite");
-        sprite.setPrice(2.50);
-        sprite.setContainsAlcohol(false);
-        products.add(sprite);
+        Assertions.assertEquals(mockProducts, actual);
+    }
 
-        return products;
+    @Test
+    public void getProductById() {
+        var mockProduct = mockFactory.getMockProducts().get(0);
+
+        when(productRepository.findById(mockProduct.getId())).thenReturn(Optional.of(mockProduct));
+
+        var actual = productService.getProductById(mockProduct.getId());
+
+        Assertions.assertEquals(mockProduct, actual);
+    }
+
+    @Test
+    public void getProductByName() {
+        var mockProduct = mockFactory.getMockProducts().get(0);
+
+        when(productRepository.getProductByName(mockProduct.getName())).thenReturn(mockProduct);
+
+        var actual = productService.getProductByName(mockProduct.getName());
+
+        Assertions.assertEquals(mockProduct, actual);
     }
 }

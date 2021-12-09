@@ -1,17 +1,31 @@
 <template>
-  <div class="categoryCard" v-on:click="GoToCategory(category.id)">
-      <b-img :src="category.image" class="image"></b-img>
-      <h1 class="categoryName">{{category.name}}</h1>  
+  <div class="categoryCard" v-on:click="GoToCategory()">
+    <b-img :src="category.image" class="image"></b-img>
+    <h1 class="categoryName">{{ category.name }}</h1>
   </div>
 </template>
 
 <script>
 export default {
   props: ["category"],
-  name: 'CategoryCard',
+  name: "CategoryCard",
+
   methods: {
-    GoToCategory(category) {
-      this.$router.push({ name: "Category", params: { id: category } });
+    GoToCategory() {
+      this.$APIService.getCategoryById(this.category.id).then((response) => {
+        var category = response.data;
+        if (category.products.length) {
+          this.$router.push({
+            name: "ChildCategory",
+            params: { id: category.id },
+          });
+        } else {
+          this.$router.push({
+            name: "Category",
+            params: { id: category.id },
+          });
+        }
+      });
     },
   },
 };
@@ -30,6 +44,7 @@ export default {
 }
 .categoryCard {
   margin-bottom: 20px;
-  background-color: #e0dccc;
+  background-color: var(--secondary-color-light);
+  color: var(--text-color-secondary-light);
 }
 </style>

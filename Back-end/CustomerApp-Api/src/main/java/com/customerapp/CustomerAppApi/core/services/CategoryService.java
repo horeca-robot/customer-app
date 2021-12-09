@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryService implements ICategoryService {
@@ -17,6 +18,16 @@ public class CategoryService implements ICategoryService {
     public List<Category> getAllCategories()
     {
         return categoryRepository.findAll();
+    }
+
+    public List<Category> getAllParentCategories()
+    {
+        return categoryRepository.findAll().stream().filter(i->i.getChildCategories().size() > 0).collect(Collectors.toList());
+    }
+
+    public List<Category> getAllChildCategories()
+    {
+        return categoryRepository.findAll().stream().filter(i->i.getParentCategories().size() > 0).collect(Collectors.toList());
     }
 
     public Category getCategoryById(UUID id)
