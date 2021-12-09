@@ -2,6 +2,8 @@ package com.customerapp.CustomerAppApi.core.services;
 
 import com.customerapp.CustomerAppApi.core.interfaces.IPDFService;
 import com.customerapp.CustomerAppApi.core.interfaces.IRestaurantInfoService;
+import com.customerapp.CustomerAppApi.core.interfaces.ITableService;
+import com.customerapp.CustomerAppApi.models.BillProductDto;
 import com.customerapp.CustomerAppApi.models.ProductOrderDto;
 import com.customerapp.CustomerAppApi.models.RestaurantOrderDto;
 import com.itextpdf.text.pdf.qrcode.ByteArray;
@@ -31,21 +33,23 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @Service
 public class PDFService implements IPDFService {
     private final IRestaurantInfoService infoService;
+    private final ITableService tableService;
 
     @Autowired
-    public PDFService(IRestaurantInfoService infoService) {
+    public PDFService(IRestaurantInfoService infoService, ITableService tableService) {
         this.infoService = infoService;
+        this.tableService = tableService;
     }
 
     @Override
     public ResponseEntity<ByteArrayResource> createPDF(List<RestaurantOrderDto> restaurantOrdersDto, UUID restaurantTableId) {
-        Document document = null;
         try {
             URL resource = PDFService.class.getResource("/invoice.html");
             RestaurantInfo restaurantInfo = infoService.getRestaurantInfo();
@@ -54,13 +58,12 @@ public class PDFService implements IPDFService {
             double subTotal = getSubTotal(restaurantOrdersDto);
             Color color = Color.decode(restaurantInfo.getPrimaryColor());
             Color colorLight = brighten(color, 0.25);
-            Color colorLightest = brighten(colorLight, 0.25);
 
             data = data.replace("{{RESTAURANT_NAME}}", restaurantInfo.getName());
             data = data.replace("{{DATE}}", java.time.LocalDate.now().toString());
             data = data.replace("{{PAYMENT_DATE}}", java.time.LocalDate.now().toString());
             data = data.replace("{{INVOICE_NR}}", restaurantInfo.getId().toString());
-            data = data.replace("{{TABLE_NR}}", restaurantTableId.toString());
+            data = data.replace("{{TABLE_NR}}", Integer.toString(tableService.getRestaurantTableById(restaurantTableId).get().getTableNumber()));
             data = data.replace("{{LOGO}}", restaurantInfo.getRestaurantLogo());
             data = data.replace("{{CONTACT_NAME}}", restaurantInfo.getContactPersonName());
             data = data.replace("{{CONTACT_PHONE}}", restaurantInfo.getContactPersonPhone());
@@ -70,12 +73,11 @@ public class PDFService implements IPDFService {
             data = data.replace("{{TOTAL}}", String.format("%.2f", subTotal));
             data = data.replace("{{COLOR}}", "#" + String.format("%06X", 0xFFFFFF & color.getRGB()));
             data = data.replace("{{COLOR_LIGHT}}", "#" + String.format("%06X", 0xFFFFFF & colorLight.getRGB()));
-            data = data.replace("{{COLOR_LIGHTEST}}", "#" + String.format("%06X", 0xFFFFFF & colorLightest.getRGB()));
             data = data.replace("{{TEXT_COLOR}}", "#" + String.format("%06X", 0xFFFFFF & getColor(color).getRGB()));
             data = data.replace("{{TEXT_COLOR_LIGHT}}", "#" + String.format("%06X", 0xFFFFFF & getColor(colorLight).getRGB()));
             data = data.replace("{{PRODUCTS}}", getTableRows(restaurantOrdersDto));
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            document = builder.parse(new InputSource(new StringReader(data)));
+            Document document = builder.parse(new InputSource(new StringReader(data)));
             document.getDocumentElement().normalize();
 
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -98,9 +100,7 @@ public class PDFService implements IPDFService {
                     .contentLength(byteArray.length)
                     .contentType(MediaType.APPLICATION_PDF)
                     .body(bar);
-
-
-        } catch(IOException | DocumentException | SAXException | ParserConfigurationException | URISyntaxException e) {
+        } catch (IOException | DocumentException | SAXException | ParserConfigurationException | URISyntaxException e) {
             e.printStackTrace();
         }
         return null;
@@ -108,8 +108,40 @@ public class PDFService implements IPDFService {
 
     private String getTableRows(List<RestaurantOrderDto> restaurantOrdersDto) {
         StringBuilder row = new StringBuilder();
+        int amount = 1;
+        List<BillProductDto> billProducts;
         for (RestaurantOrderDto order: restaurantOrdersDto) {
-            for (ProductOrderDto product: order.getProductOrders()) row.append("<tr class=\"product-row\"><td><div>").append(product.getProduct().getName()).append("</div><div class=\"text-opacity\"></div></td><td>").append(1).append("</td><td><div>&#x2713;</div></td><td class=\"text-right\">").append(product.getProduct().getPrice()).append(",-</td><td class=\"text-right\">").append(product.getProduct().getPrice()).append(",-</td></tr>");
+            billProducts = null;
+            billProducts = new ArrayList<>();
+
+            row.append("<tr class=\"product-row\"><td><div>")
+                    .append("Order: ")
+                    .append(restaurantOrdersDto.indexOf(order) + 1)
+                    .append("</div><div class=\"text-opacity\"></div></td><td>")
+                    .append("</td><td><div>&#x2713;</div></td><td class=\"text-right\">")
+                    .append("</td><td class=\"text-right\">")
+                    .append("</td></tr>");
+
+            for (ProductOrderDto product : order.getProductOrders()) {
+                if(billProducts.stream().anyMatch(p -> p.getProduct().getId().equals(product.getProduct().getId()))){
+                    billProducts.stream().filter(p -> p.getProduct().getId().equals(product.getProduct().getId())).forEach(p -> {
+                        p.setAmount(p.getAmount() + 1);
+                    });
+                } else {
+                    billProducts.add(new BillProductDto(product.getProduct(), amount));
+                }
+            }
+            for(BillProductDto billProduct : billProducts){
+                row.append("<tr class=\"product-row\"><td><div>")
+                        .append(billProduct.getProduct().getName())
+                        .append("</div><div class=\"text-opacity\"></div></td><td>")
+                        .append(billProduct.getAmount())
+                        .append("</td><td><div>&#x2713;</div></td><td class=\"text-right\">")
+                        .append(String.format("%.2f", billProduct.getProduct().getPrice()))
+                        .append("</td><td class=\"text-right\">")
+                        .append(String.format("%.2f", billProduct.getProduct().getPrice() * billProduct.getAmount()))
+                        .append("</td></tr>");
+            }
         }
         return row.toString();
     }
@@ -131,10 +163,12 @@ public class PDFService implements IPDFService {
         int green = (colorRange >>> 8) & 0xFF;
         int blue  = (colorRange) & 0xFF;
 
-        float luminance = (red * 0.2126f + green * 0.7152f + blue * 0.0722f) / 255;
-
-        if (luminance >= 0.5f) return Color.white;
-        else return Color.black;
+//        float luminance = (red * 0.2126f + green * 0.7152f + blue * 0.0722f) / 255;
+//
+//        if (luminance >= 0.5f) return Color.white;
+//        else return Color.black;
+        if((red * 0.299 + green * 0.587 + blue * 0.114) > 150) return Color.BLACK;
+        else return Color.WHITE;
     }
 
     private double getSubTotal(List<RestaurantOrderDto> restaurantOrdersDto) {

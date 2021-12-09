@@ -7,7 +7,6 @@
 				font-size: 16px;
 				line-height: 1.3;
 				color: black;
-				background-color: {{COLOR_LIGHTEST}};
 				margin: 0;
 			}
 			div {
@@ -51,7 +50,7 @@
 			}
 			.invoice-content .dates {
 				height: 66px;
-				padding: 0px 0 0 20px;
+				padding: 0 0 0 20px;
 			}
 			.invoice-content .dates .title {
 				color: {{TEXT_COLOR}};
@@ -75,9 +74,6 @@
 				min-width: 140px;
 				height: 66px;
 				padding: 10px 20px 0 20px;
-			}
-			.invoice-content .invoice-number strong {
-				color: rgba(255, 255, 255, 1);
 			}
 			.invoice-content .logo-row {
 				width: 100%;
@@ -144,16 +140,13 @@
 				font-weight: bold;
 			}
 			.invoice-content .payment-contact {
-				position: absolute;
 				width: 100%;
-				height: 100px;
-				bottom: -353px;
 				background-color: {{COLOR_LIGHT}};
+				color: {{TEXT_COLOR_LIGHT}};
 				padding: 10px 20px;
 			}
 			.invoice-content .payment-instruction {
 				width: 50%;
-				color: {{TEXT_COLOR_LIGHT}};
 			}
 			.invoice-content .contact-details {
 				width: 50%;
@@ -163,8 +156,6 @@
 				width: 100%;
 				height: 20px;
 				background-color: {{COLOR}};
-				position: absolute;
-				bottom: -373px;
 			}
 		</style>
 	</head>
@@ -247,7 +238,7 @@
 			  </p>
 			</div>
 		  </div>
-		  <div class="invoice-footer"></div>
+			<div class="invoice-footer"></div>
 		</div>
 	</body>
 </html>
