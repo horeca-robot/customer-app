@@ -16,9 +16,9 @@
             >{{ tag.name }}</b-form-select-option
           >
         </b-form-select>
-        <b-button @click="addTagFilter()" class="add-button"
-          ><b-icon-plus-circle
-        /></b-button>
+        <b-button @click="addTagFilter()" class="add-button">
+          <b-icon-plus-circle/>
+          </b-button>
       </b-input-group>
       <b-list-group>
         <b-badge
@@ -97,7 +97,7 @@ export default {
 .add-button {
   background-color: var(--secondary-color) !important;
   border: 2pt solid var(--secondary-color-light) !important;
-  color: var(--text-color-primary) !important;
+  color: var(--text-color-secondary) !important;
 }
 .badge {
   background-color: var(--secondary-color) !important;
