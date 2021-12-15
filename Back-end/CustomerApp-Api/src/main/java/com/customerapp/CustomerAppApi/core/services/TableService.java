@@ -18,7 +18,7 @@ public class TableService implements ITableService {
 
     public List<RestaurantTable> getAllRestaurantTables() {
         List<RestaurantTable> tables =  restaurantTableRepository.findAll();
-        Collections.sort(tables, Comparator.comparing(RestaurantTable::getTableNumber));
+        tables.sort(Comparator.comparing(RestaurantTable::getTableNumber));
         return tables;
     }
 
