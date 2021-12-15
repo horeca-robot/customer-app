@@ -18,6 +18,7 @@
         :price="products.price"
       >
         <template v-slot:order-status>
+          {{products.productsDelivered}}/{{products.amount}}
           <b-icon
             v-if="products.orderStatus === 'DELIVERED'"
             icon="check"
@@ -66,7 +67,6 @@ export default {
   methods: {
     CountDeliveredProducts() {
       var count = 0;
-      console.log(this.order.productOrders)
       if (this.order.productOrders.length) {
         this.order.productOrders.forEach((productorder) => {
           if (productorder.orderStatus === "DELIVERED") {
@@ -91,15 +91,23 @@ export default {
             item2.amount++;
             item2.price = item2.price + item1.product.price;
             number++;
-            if(item2.orderStatus == "DELIVERED" && item1.orderStatus == "OPEN_FOR_DELIVERY"){
-              item2.orderStatus = item1.orderStatus;
+            if(item1.orderStatus == "DELIVERED"){
+              item2.productsDelivered++;
+              item2.orderStatus = "DELIVERED";
             }
           }
         });
+        var delivered = 0;
         if(number == 0){
-          this.orderedItems.push({amount: 1, product: item1.product, price: item1.product.price, orderStatus: item1.orderStatus});
+          if(item1.orderStatus == "DELIVERED"){
+            delivered++;
+          }
+          this.orderedItems.push({amount: 1, product: item1.product, price: item1.product.price, orderStatus: item1.orderStatus, productsDelivered: delivered});
         } else if(this.orderedItems.length == 0){
-          this.orderedItems.push({amount: 1, product: item1, price: item1.product.price, orderStatus: item1.orderStatus});
+          if(item1.orderStatus == "DELIVERED"){
+            delivered++;
+          }
+          this.orderedItems.push({amount: 1, product: item1, price: item1.product.price, orderStatus: item1.orderStatus, productsDelivered: delivered});
         }
         number = 0;
       });
