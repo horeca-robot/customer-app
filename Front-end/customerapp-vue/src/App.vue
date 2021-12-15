@@ -15,15 +15,18 @@
         <b-icon icon="cart4"/>
       </b-button>
     </b-card-footer>
+    <HelpModal ref="helpmodal"/>
   </div>
 </template>
 <script>
 import Navbar from "./components/Navbar.vue";
-import APIService from "./services/axios.service"
+import HelpModal from "./components/HelpModal.vue";
+import APIService from "./services/axios.service";
 
 export default {
   components: {
     Navbar,
+    HelpModal
   },
   data(){
     return{
@@ -45,12 +48,17 @@ export default {
         document.documentElement.style.setProperty('--text-color-primary-light', this.getTextColor('--primary-color-light'));
       })
   },
+  mounted(){
+      this.$root.$on("help", () => {
+        this.GetHelp();
+      })
+  },
   methods: {
     GoToCart() {
       this.$router.push({name:'Cart'});
     },
     GetHelp() {
-      alert("Er komt zo snel mogelijk een medewerker aan.");
+      this.$refs.helpmodal.Show();
     },
     //https://stackoverflow.com/questions/5560248/programmatically-lighten-or-darken-a-hex-color-or-rgb-and-blend-colors
     pSBC(p,c0,c1,l){
