@@ -13,14 +13,16 @@ describe("searchbar.vue", () => {
         var pizza = {name: "pizza", price: 24.2}
         var icecream = {name: "icecream", price: 1.34};
         var products = [hamburger, pizza, icecream];
-        var filteredProducts = [products];
+        let filteredProducts = [
+            {name: "pizza"},
+            {name: "hamburger"},
+        ];
         var categories = ["dinner", "icecream", "vegetarian"];
 
         const $APIService = {
             getAllCategories: ()=> Promise.resolve({data: categories}),
             getAllProducts: ()=> Promise.resolve({data: products}),
         }
-
         let wrapper = shallowMount(searchbar, {
             propsData: {
                 input,
@@ -31,7 +33,8 @@ describe("searchbar.vue", () => {
             },
             localVue,
         });
-        expect(wrapper.props(filteredProducts.length).tobe(products.length));
+        wrapper.vm.CheckProducts();
+        expect(filteredProducts[0].name).toBe(pizza.name);
 
     })
 })
