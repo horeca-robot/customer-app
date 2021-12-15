@@ -5,6 +5,7 @@ import edu.fontys.horecarobot.databaselibrary.models.*;
 import edu.fontys.horecarobot.databaselibrary.repositories.*;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,14 +18,16 @@ public class AdminMockService implements IMockService {
     private final RestaurantTableRepository tableRepository;
     private final IngredientProductRepository ingredientProductRepository;
     private final TagRepository tagRepository;
+    private final RestaurantInfoRepository restaurantInfoRepository;
 
-    public AdminMockService(ProductRepository productRepository, CategoryRepository categoryRepository, IngredientRepository ingredientRepository, RestaurantTableRepository tableRepository, IngredientProductRepository ingredientProductRepository, TagRepository tagRepository) {
+    public AdminMockService(ProductRepository productRepository, CategoryRepository categoryRepository, IngredientRepository ingredientRepository, RestaurantTableRepository tableRepository, IngredientProductRepository ingredientProductRepository, TagRepository tagRepository, RestaurantInfoRepository restaurantInfoRepository) {
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
         this.ingredientRepository = ingredientRepository;
         this.tableRepository = tableRepository;
         this.ingredientProductRepository = ingredientProductRepository;
         this.tagRepository = tagRepository;
+        this.restaurantInfoRepository = restaurantInfoRepository;
     }
 
     public void Initialize() {
@@ -35,6 +38,18 @@ public class AdminMockService implements IMockService {
         List<Category> voorgerecht_child_list = new ArrayList<>();
         List<Category> hoofdgerecht_child_list = new ArrayList<>();
         List<Category> nagerecht_child_list = new ArrayList<>();
+
+        var info = new RestaurantInfo();
+        info.setName("Syan");
+        info.setClosingTime(LocalTime.MIDNIGHT);
+        info.setOpeningTime(LocalTime.NOON);
+        info.setContactPersonEmail("info@syan.com");
+        info.setContactPersonName("Jan-pieter");
+        info.setContactPersonPhone("0612345678");
+        info.setPrimaryColor("#82C4B5");
+        info.setSecondaryColor("#BDAD89");
+        info.setRestaurantLogo("https://e7.pngegg.com/pngimages/332/214/png-clipart-restaurant-name-logo-layout-illustration-logo-restaurant-food-food-logo-design-food-text.png");
+        restaurantInfoRepository.saveAndFlush(info);
 
 
         var salade = new Category();
