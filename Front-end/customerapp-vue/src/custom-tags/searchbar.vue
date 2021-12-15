@@ -56,7 +56,6 @@ export default {
       nothingFound: "",
       filter: false,
     };
-    
   },
   mounted() {
     this.$APIService.getAllCategories().then((response) => {
