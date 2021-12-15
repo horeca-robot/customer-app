@@ -18,9 +18,12 @@
         :price="products.price"
       >
         <template v-slot:order-status>
-          {{products.productsDelivered}}/{{products.amount}}
+          {{ products.productsDelivered }}/{{ products.amount }}
           <b-icon
-            v-if="products.orderStatus === 'DELIVERED'"
+            v-if="
+              products.orderStatus === 'DELIVERED' &&
+              products.productsDelivered == products.amount
+            "
             icon="check"
             variant="success"
           ></b-icon>
@@ -28,6 +31,11 @@
             v-if="products.orderStatus === 'OPEN_FOR_DELIVERY'"
             icon="x"
             variant="danger"
+          ></b-icon>
+          <b-icon
+            v-if="products.productsDelivered < products.amount && products.orderStatus === 'DELIVERED'"
+            icon="check"
+            variant="warning"
           ></b-icon>
         </template>
       </CartItemCard>
@@ -77,37 +85,49 @@ export default {
 
       return count;
     },
-    OrderingItems(itemList){
-      itemList.forEach((item)=>{
+    OrderingItems(itemList) {
+      itemList.forEach((item) => {
         this.filtereditemList.push(item);
-      })
+      });
       this.orderedItems = [];
-      
+
       var number = 0;
-      this.filtereditemList.forEach((item1) =>{
-        this.orderedItems.forEach((item2) =>{
+      this.filtereditemList.forEach((item1) => {
+        this.orderedItems.forEach((item2) => {
           //aan if-statement toevoegen item2.product.byproducts == item1.byproducts als je op bijproducten wilt checken.
-          if(item2.product.id == item1.product.id){
+          if (item2.product.id == item1.product.id) {
             item2.amount++;
             item2.price = item2.price + item1.product.price;
             number++;
-            if(item1.orderStatus == "DELIVERED"){
+            if (item1.orderStatus == "DELIVERED") {
               item2.productsDelivered++;
               item2.orderStatus = "DELIVERED";
             }
           }
         });
         var delivered = 0;
-        if(number == 0){
-          if(item1.orderStatus == "DELIVERED"){
+        if (number == 0) {
+          if (item1.orderStatus == "DELIVERED") {
             delivered++;
           }
-          this.orderedItems.push({amount: 1, product: item1.product, price: item1.product.price, orderStatus: item1.orderStatus, productsDelivered: delivered});
-        } else if(this.orderedItems.length == 0){
-          if(item1.orderStatus == "DELIVERED"){
+          this.orderedItems.push({
+            amount: 1,
+            product: item1.product,
+            price: item1.product.price,
+            orderStatus: item1.orderStatus,
+            productsDelivered: delivered,
+          });
+        } else if (this.orderedItems.length == 0) {
+          if (item1.orderStatus == "DELIVERED") {
             delivered++;
           }
-          this.orderedItems.push({amount: 1, product: item1, price: item1.product.price, orderStatus: item1.orderStatus, productsDelivered: delivered});
+          this.orderedItems.push({
+            amount: 1,
+            product: item1,
+            price: item1.product.price,
+            orderStatus: item1.orderStatus,
+            productsDelivered: delivered,
+          });
         }
         number = 0;
       });
