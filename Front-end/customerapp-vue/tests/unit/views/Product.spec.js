@@ -15,10 +15,14 @@ describe("Product.vue", () => {
         var Byproducts = [salade, fries];
         var Ingredients = ["Sla", "ui", "kaas", "broodje", "burger"]
         var Product = {id: 3, name: "Hamburger", price: 14.54, img: "https://www.24kitchen.nl/files/styles/social_media_share/public/2020-08/verse-tomatensoep.jpg?itok=AqWg5Ju0", byproducts: Byproducts};
+        var dinner = {name: "dinner", products: [fries]};
+        var icecream = {name: "icecream", products: [salade]};
+        var categories = [dinner, icecream];
 
         const $APIService =  {
             getProductById: ()=> Promise.resolve({data: Product}),
-            getIngredientsByProductId: ()=> Promise.resolve({data: Ingredients})
+            getIngredientsByProductId: ()=> Promise.resolve({data: Ingredients}),
+            getAllParentCategories: ()=> Promise.resolve({data: categories})
         }
         const $store = {
             commit: jest.fn(),
@@ -45,6 +49,9 @@ describe("Product.vue", () => {
     it("test Gotocategory", async () =>{
         var Product = {id: 3, name: "Hamburger", price: 14.54};
         var Ingredients = ["kaas", "ham", "deeg", "tomatensaus"];
+        var dinner = {name: "dinner", products: [Product]};
+        var icecream = {name: "icecream", products: [Product]};
+        var categories = [dinner, icecream];
         const $store = {
             commit: jest.fn(),
             getters: { cartItems: 0, cartTotal: 0 },
@@ -52,6 +59,7 @@ describe("Product.vue", () => {
           const $APIService =  {
             getProductById: ()=> Promise.resolve({data: Product}),
             getIngredientsByProductId: ()=> Promise.resolve({data: Ingredients}),
+            getAllParentCategories: ()=> Promise.resolve({data: categories}),
         };
         const $route = {
             params: {

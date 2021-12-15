@@ -14,6 +14,7 @@ describe("Menu.vue", () => {
       var categories = {appetizer, dessert};
       const $APIService =  {
           getAllCategories: ()=> Promise.resolve({data: categories}),
+          getAllParentCategories: ()=> Promise.resolve({data: categories}),
       }
       const $store = {
           commit: jest.fn(),
