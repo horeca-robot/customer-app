@@ -1,11 +1,11 @@
 package com.customerapp.CustomerAppApi.core;
 
-import com.customerapp.CustomerAppApi.models.PostOrderDto;
 import com.customerapp.CustomerAppApi.models.ProductDto;
 import com.customerapp.CustomerAppApi.models.ProductOrderDto;
 import edu.fontys.horecarobot.databaselibrary.enums.OrderStatus;
 import edu.fontys.horecarobot.databaselibrary.models.*;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -254,5 +254,21 @@ public class MockFactory {
         categories.add(category);
 
         return categories;
+    }
+
+    //RestaurantInfo
+    public RestaurantInfo getmockRestaurantInfo()
+    {
+        var info = new RestaurantInfo();
+        info.setName("Syan");
+        info.setClosingTime(LocalTime.MIDNIGHT);
+        info.setOpeningTime(LocalTime.NOON);
+        info.setContactPersonEmail("info@syan.com");
+        info.setContactPersonName("Jan-pieter");
+        info.setContactPersonPhone("0612345678");
+        info.setPrimaryColor("#82C4B5");
+        info.setSecondaryColor("#BDAD89");
+        info.setRestaurantLogo("https://e7.pngegg.com/pngimages/332/214/png-clipart-restaurant-name-logo-layout-illustration-logo-restaurant-food-food-logo-design-food-text.png");
+        return info;
     }
 }

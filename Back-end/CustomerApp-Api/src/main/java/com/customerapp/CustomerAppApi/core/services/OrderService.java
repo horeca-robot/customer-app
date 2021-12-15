@@ -5,10 +5,8 @@ import com.customerapp.CustomerAppApi.models.PostOrderDto;
 import edu.fontys.horecarobot.databaselibrary.enums.OrderStatus;
 import edu.fontys.horecarobot.databaselibrary.models.ProductOrder;
 import edu.fontys.horecarobot.databaselibrary.models.RestaurantOrder;
-import edu.fontys.horecarobot.databaselibrary.repositories.ProductOrderRepository;
 import edu.fontys.horecarobot.databaselibrary.repositories.RestaurantOrderRepository;
 import edu.fontys.horecarobot.databaselibrary.repositories.RestaurantTableRepository;
-import com.customerapp.CustomerAppApi.models.PostOrderDto;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 

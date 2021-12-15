@@ -5,7 +5,6 @@ import edu.fontys.horecarobot.databaselibrary.models.Category;
 import edu.fontys.horecarobot.databaselibrary.models.Product;
 import lombok.Data;
 
-
 import java.util.List;
 import java.util.UUID;
 
