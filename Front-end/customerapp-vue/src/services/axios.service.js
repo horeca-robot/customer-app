@@ -1,7 +1,9 @@
 import axios from "axios";
 import pathEnum from "../enum/index"
+import { getConfiguration } from '../url.config';
 
-const baseURL = "http://localhost:8080";
+const baseURL = getConfiguration().apiUrl;
+
 axios.defaults.baseURL = baseURL;
 
 class APIService{

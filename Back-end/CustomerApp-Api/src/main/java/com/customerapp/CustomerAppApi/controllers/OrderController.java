@@ -2,10 +2,10 @@ package com.customerapp.CustomerAppApi.controllers;
 
 import com.customerapp.CustomerAppApi.core.interfaces.IOrderService;
 import com.customerapp.CustomerAppApi.core.interfaces.IPDFService;
-import com.customerapp.CustomerAppApi.models.RestaurantOrderDto;
-import edu.fontys.horecarobot.databaselibrary.models.RestaurantOrder;
 import com.customerapp.CustomerAppApi.models.PostOrderDto;
+import com.customerapp.CustomerAppApi.models.RestaurantOrderDto;
 import com.customerapp.CustomerAppApi.models.Result;
+import edu.fontys.horecarobot.databaselibrary.models.RestaurantOrder;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;

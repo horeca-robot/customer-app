@@ -2,7 +2,6 @@ package com.customerapp.CustomerAppApi.core.interfaces;
 
 import edu.fontys.horecarobot.databaselibrary.models.Product;
 
-
 import java.util.List;
 import java.util.UUID;
 

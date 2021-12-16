@@ -5,7 +5,7 @@ import edu.fontys.horecarobot.databaselibrary.models.Tag;
 import edu.fontys.horecarobot.databaselibrary.repositories.TagRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.List;
 
 @Service
 public class TagService implements ITagService {
