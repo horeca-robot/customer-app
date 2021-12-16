@@ -142,7 +142,6 @@ body {
 }
 .heading {
   font-family: "Baskerville";
-  font-size: 20px;
 }
 .heading-2 {
   font-family: "Baskerville";
