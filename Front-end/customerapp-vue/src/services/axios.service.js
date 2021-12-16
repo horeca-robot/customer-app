@@ -1,7 +1,10 @@
 import axios from "axios";
 import pathEnum from "../enum/index"
+import { getConfiguration } from '../url.config';
 
-axios.defaults.baseURL = "http://localhost:8080"
+const baseURL = getConfiguration().apiUrl;
+
+axios.defaults.baseURL = baseURL;
 
 class APIService{
     getRestaurantTables(){
@@ -11,6 +14,10 @@ class APIService{
     getRestaurantTableNumberById(id){
         return this.get(pathEnum.TABLE_NUMBER_BY_ID + id);
     }
+    
+    getRestaurantInfo(){
+        return this.get(pathEnum.RESTAURANT_INFO);
+    }
 
     getCategoryById(id) {
         return this.get(pathEnum.CATEGORY_BY_ID + id)
@@ -18,6 +25,10 @@ class APIService{
 
     getAllCategories() {
         return this.get(pathEnum.CATEGORIES)
+    }
+
+    getAllParentCategories() {
+        return this.get(pathEnum.PARENTCATEGORIES)
     }
 
     getProductById(params) {
@@ -42,6 +53,26 @@ class APIService{
 
     getOrderDetails(params) {
         return this.getWithParams(pathEnum.ORDER_BY_ID, params);
+    }
+
+    getAllTags() {
+        return this.get(pathEnum.TAGS);
+    }
+
+    getDownloadBill(id) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', baseURL + pathEnum.DOWNLOAD_BILL + id, true);
+        xhr.responseType = 'arraybuffer';
+        xhr.onload = function() {
+            if (this.status == 200) {
+              var blob=new Blob([this.response], {type:"application/pdf"});
+              var link=document.createElement('a');
+              link.href=window.URL.createObjectURL(blob);
+              link.download="Rekening"+ new Date(Date.now()) +".pdf";
+              link.click();
+            }
+        };
+        xhr.send();
     }
 
     get(path) {

@@ -1,8 +1,7 @@
 package com.customerapp.CustomerAppApi.core.interfaces;
 
+import com.customerapp.CustomerAppApi.models.PostOrderDto;
 import edu.fontys.horecarobot.databaselibrary.models.RestaurantOrder;
-import com.customerapp.CustomerAppApi.models.OrderDto;
-
 
 import java.util.List;
 import java.util.Optional;
@@ -12,5 +11,5 @@ public interface IOrderService {
      List<RestaurantOrder> getAllOrders();
      Optional<RestaurantOrder> getOrderById(UUID id);
      List<RestaurantOrder> getAllOrdersFromTable(UUID restaurantTable_id);
-     void postOrder(OrderDto order);
+     void postOrder(PostOrderDto order);
 }

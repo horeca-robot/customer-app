@@ -20,7 +20,7 @@ describe("TableQrScanner.vue", () => {
       localVue,
     });
     await wrapper.vm.onDecode("http://localhost:8080/tablevalidator/testCode");
-    expect($router.push).toHaveBeenCalledWith({ name: "menu" });
+    expect($router.push).toHaveBeenCalledWith({ name: "Menu" });
     expect($store.dispatch).toHaveBeenCalledWith(
       "tableModule/setTable",
       "testCode"

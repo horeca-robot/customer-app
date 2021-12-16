@@ -1,7 +1,7 @@
 <template>
     <b-col :cols="col">
         <b-button class="shoppingCartButton justify-content-end" v-on:click="GoToCart">
-            <b-icon icon="cart4" variant="dark" />
+            <b-icon style="color: var(--text-color-secondary)" icon="cart4" />
         </b-button>
     </b-col>
 </template>

@@ -1,7 +1,7 @@
 <template>
     <b-col :cols="col">
         <b-button class="backButton justify-content-end" v-on:click="GoToCategory">
-            <b-icon icon="reply" flip-h variant="dark"/>
+            <b-icon style="color: var(--text-color-secondary)" icon="reply" flip-h/>
         </b-button>
     </b-col>
 </template>

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class OrderDto {
+public class PostOrderDto {
 
     private List<Product> products = new ArrayList<>();
     private UUID tableId;

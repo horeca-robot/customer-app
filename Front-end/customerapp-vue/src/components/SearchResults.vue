@@ -24,7 +24,8 @@ export default {
 #results{
     max-height: 200px;
     overflow: auto;
-    background-color:  #CBE1D9 !important;
+    background-color:  var(--primary-color-light) !important;
+    color: var(--text-color-primary) !important;
     border-radius: 5px;
 }
 </style>

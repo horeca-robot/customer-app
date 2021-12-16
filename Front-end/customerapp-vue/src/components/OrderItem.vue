@@ -2,18 +2,23 @@
   <div>
     <b-card>
       <b-row v-on:click="changeIcon" class="order-item" no-gutters>
-        <b-col cols="7">
+        <b-col cols="2">
           <b-card-text class="heading">
-            {{ product.name }}
+            <slot name="order-status"></slot>
+          </b-card-text>
+        </b-col>
+        <b-col cols="5">
+          <b-card-text class="heading">
+             {{ product.name }}
           </b-card-text>
         </b-col>
         <b-col cols="3">
           <b-card-text class="text price">
-            1x &euro;{{ product.price.toFixed(2) }}
+            {{amount}}x &euro;{{ product.price.toFixed(2) }}
           </b-card-text>
         </b-col>
         <b-col cols="2">
-          <b-icon :icon="sortIcon"></b-icon>
+          <b-icon style="color: var(--text-color-secondary)" :icon="sortIcon"></b-icon>
         </b-col>
       </b-row>
       <b-row class="order-item-info" v-show="hidden">
@@ -42,6 +47,8 @@
 export default {
   props:{
     product: Object,
+    amount: Number,
+    price: Number,
   },
   data() {
     return {
@@ -90,12 +97,14 @@ export default {
 }
 
 .order-item-info {
-  background-color: #cbe1d9;
+  background-color: var(--primary-color-light);
+  color: var(--text-color-primary-light);
   border-bottom: 1pt solid black;
 }
 
 .card-body {
-  background-color: #e0dccc;
+  background-color: var(--secondary-color-light);
+  color: var(--text-color-secondary-light);
   padding: 3% 0 0 0;
 }
 </style>

@@ -3,9 +3,7 @@ package com.customerapp.CustomerAppApi.controllers;
 
 import com.customerapp.CustomerAppApi.core.interfaces.ICategoryService;
 import com.customerapp.CustomerAppApi.models.CategoryDto;
-import com.customerapp.CustomerAppApi.models.ProductDto;
 import edu.fontys.horecarobot.databaselibrary.models.Category;
-import edu.fontys.horecarobot.databaselibrary.models.Product;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +29,20 @@ public class CategoryController {
     @CrossOrigin(origins = "*")
     public List<CategoryDto> getAllCategory(){
         List<Category> categories = categoryService.getAllCategories();
+        return categories.stream().map(this::convertToDTO).collect(Collectors.toList());
+    }
+
+    @GetMapping("all/parent")
+    @CrossOrigin(origins = "*")
+    public List<CategoryDto> getAllParentCategories(){
+        List<Category> categories = categoryService.getAllParentCategories();
+        return categories.stream().map(this::convertToDTO).collect(Collectors.toList());
+    }
+
+    @GetMapping("all/child")
+    @CrossOrigin(origins = "*")
+    public List<CategoryDto> getAllChildCategories(){
+        List<Category> categories = categoryService.getAllParentCategories();
         return categories.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 

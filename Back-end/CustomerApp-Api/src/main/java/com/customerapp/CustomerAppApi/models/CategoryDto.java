@@ -5,7 +5,6 @@ import edu.fontys.horecarobot.databaselibrary.models.Category;
 import edu.fontys.horecarobot.databaselibrary.models.Product;
 import lombok.Data;
 
-
 import java.util.List;
 import java.util.UUID;
 
@@ -15,17 +14,14 @@ public class CategoryDto {
     private String name;
     private String image;
 
-    @JsonIgnoreProperties("product")
+    @JsonIgnoreProperties({"products","childCategories","parentCategories"})
     private List<Category> parentCategories;
 
-    @JsonIgnoreProperties("products")
+    @JsonIgnoreProperties({"products","childCategories","parentCategories"})
     private List<Category> childCategories;
 
     private boolean visible;
 
     @JsonIgnoreProperties("categories")
     private List<Product> products;
-
-
-
 }

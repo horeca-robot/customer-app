@@ -1,32 +1,26 @@
 package com.customerapp.CustomerAppApi.core.services;
 
 import com.customerapp.CustomerAppApi.core.interfaces.IOrderService;
+import com.customerapp.CustomerAppApi.models.PostOrderDto;
 import edu.fontys.horecarobot.databaselibrary.enums.OrderStatus;
-import edu.fontys.horecarobot.databaselibrary.models.Product;
 import edu.fontys.horecarobot.databaselibrary.models.ProductOrder;
 import edu.fontys.horecarobot.databaselibrary.models.RestaurantOrder;
 import edu.fontys.horecarobot.databaselibrary.repositories.RestaurantOrderRepository;
-import edu.fontys.horecarobot.databaselibrary.repositories.ProductOrderRepository;
-import edu.fontys.horecarobot.databaselibrary.repositories.RestaurantOrderRepository;
 import edu.fontys.horecarobot.databaselibrary.repositories.RestaurantTableRepository;
-import com.customerapp.CustomerAppApi.models.OrderDto;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class OrderService implements IOrderService {
 
     private final RestaurantOrderRepository orderRepository;
-    private final ProductOrderRepository productOrderRepository;
     private final RestaurantTableRepository tableRepository;
 
-    public OrderService(RestaurantOrderRepository orderRepository, RestaurantTableRepository tableRepository, ProductOrderRepository productOrderRepository) {
+    public OrderService(RestaurantOrderRepository orderRepository, RestaurantTableRepository tableRepository) {
         this.orderRepository = orderRepository;
         this.tableRepository = tableRepository;
-        this.productOrderRepository = productOrderRepository;
     }
 
     //GET
@@ -40,14 +34,15 @@ public class OrderService implements IOrderService {
 
     @Override
     public List<RestaurantOrder> getAllOrdersFromTable(UUID restaurantTableId) {
-        return orderRepository.findAll().stream().filter(order -> order.getTable().getId().equals(restaurantTableId)).collect(Collectors.toList());
+        return orderRepository.getByTableId(restaurantTableId);
     }
 
     //POST
-    public void postOrder(@NotNull OrderDto order) {
+    public void postOrder(@NotNull PostOrderDto order) {
         var restaurantOrder = new RestaurantOrder();
         restaurantOrder.setTable(tableRepository.findById(order.getTableId()).get());
         restaurantOrder.setPaid(false);
+        restaurantOrder.setNote(order.getNotes());
         restaurantOrder.setCreatedAt(new Date());
         double subTotal = 0;
         for (var product : order.getProducts()) {
@@ -67,5 +62,4 @@ public class OrderService implements IOrderService {
         orderRepository.saveAndFlush(restaurantOrder);
 
     }
-
 }

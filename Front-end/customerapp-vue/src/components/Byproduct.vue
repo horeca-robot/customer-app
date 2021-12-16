@@ -3,7 +3,7 @@
     <div>{{ byproduct.name }}</div>
     <div>
       <span>&euro;2,34</span>
-      <b-icon icon="dash" font-scale="1" v-on:click="RemoveFromAmount"></b-icon>
+      <b-icon style="color: var(--text-color-secondary)" icon="dash" font-scale="1" v-on:click="RemoveFromAmount"></b-icon>
       <b-input
         class="numberSelected"
         type="number"
@@ -12,7 +12,7 @@
         min="0"
         >amount</b-input
       >
-      <b-icon icon="plus" font-scale="1" v-on:click="AddToAmount"></b-icon>
+      <b-icon style="color: var(--text-color-secondary)" icon="plus" font-scale="1" v-on:click="AddToAmount"></b-icon>
     </div>
   </div>
 </template>

@@ -1,14 +1,14 @@
 <template>
-  <b-container class="card-background">
-    <OrderItem v-for="order in orders" :key="order.id" :order="order" :number="orders.indexOf(order) + 1" />
+  <b-container fluid class="card-background">
+    <OrderHistoryItem v-for="order in orders" :key="order.id" :order="order" :number="orders.indexOf(order) + 1" />
   </b-container>
 </template>
 
 <script>
-import OrderItem from "./OrderHistoryItem";
+import OrderHistoryItem from "./OrderHistoryItem";
 export default {
   name: "OrderHistoryCard",
-  components: { OrderItem },
+  components: { OrderHistoryItem },
   props: {
     orders: Array,
   },
@@ -17,6 +17,7 @@ export default {
 
 <style scoped>
 .card-background {
-  background-color: #e0dccc;
+  background-color: var(--secondary-color-light);
+  color: var(--text-color-secondary-light);
 }
 </style>

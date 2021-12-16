@@ -8,14 +8,22 @@ localVue.use(BootstrapVue);
 describe("CategoryCard.vue", () => {
     it("Test Different category names on card.", () => {
       var category = {id: 3, name: "Dessert"};
+      var $APIService = {
+        getCategoryById: ()=> Promise.resolve({data: category}),
+      }
       var wrapper = shallowMount(CategoryCard, {
         propsData: { category },
+        mocks: { $APIService},
         localVue,
       });
       expect(wrapper.text()).toMatch(category.name);
       category = {id: 1, name: "Appetizer"}
+      $APIService = {
+        getCategoryById: ()=> Promise.resolve({ data: category}),
+      }
       wrapper = shallowMount(CategoryCard, {
         propsData: { category },
+        mocks: {$APIService},
         localVue,
       });
       expect(wrapper.text()).toMatch(category.name);
@@ -26,11 +34,15 @@ describe("CategoryCard.vue", () => {
         const $router = {
           push: jest.fn(),
         };
+        const $APIService = {
+          getCategoryById: ()=> Promise.resolve({data: category}),
+        }
         const wrapper = shallowMount(CategoryCard, {
             propsData: { category},
             mocks: {
                 $route: "/menu/"+category.id,
                 $router,
+                $APIService,
             },
             localVue,
         });

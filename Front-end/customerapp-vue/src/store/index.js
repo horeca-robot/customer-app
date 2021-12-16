@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import { v4 as uuid } from "uuid";
 import tableModule from "./tableModule";
+import tagFilterModule from "./tagFilterModule";
 
 Vue.use(Vuex);
 
@@ -29,7 +30,7 @@ export default new Vuex.Store({
     },
     removeFromCart(state, product) {
       let item = state.cart.find((i) => i.guid === product.guid);
-
+      
       if (item) {
         state.cart = state.cart.filter((i) => i.guid !== product.guid);
       }
@@ -52,5 +53,6 @@ export default new Vuex.Store({
   actions: {},
   modules: {
     tableModule: tableModule,
+    tagFilter: tagFilterModule,
   },
 });
