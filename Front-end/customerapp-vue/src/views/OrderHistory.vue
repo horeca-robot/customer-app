@@ -31,7 +31,7 @@ export default {
     };
   },
   methods: {
-    Download(){
+    Download() {
       this.$APIService.getDownloadBill(localStorageHelper.load('table').tableId);
     }
   },

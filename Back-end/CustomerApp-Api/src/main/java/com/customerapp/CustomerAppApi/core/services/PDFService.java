@@ -19,6 +19,9 @@ import org.xhtmlrenderer.pdf.ITextRenderer;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import java.awt.*;
+import java.io.*;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -161,10 +164,6 @@ public class PDFService implements IPDFService {
         int green = (colorRange >>> 8) & 0xFF;
         int blue  = (colorRange) & 0xFF;
 
-//        float luminance = (red * 0.2126f + green * 0.7152f + blue * 0.0722f) / 255;
-//
-//        if (luminance >= 0.5f) return Color.white;
-//        else return Color.black;
         if((red * 0.299 + green * 0.587 + blue * 0.114) > 150) return Color.BLACK;
         else return Color.WHITE;
     }

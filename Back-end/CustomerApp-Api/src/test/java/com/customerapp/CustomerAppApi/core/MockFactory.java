@@ -151,6 +151,24 @@ public class MockFactory {
         return restaurantTableList;
     }
 
+    public List<Tag> getMockTags() {
+        List<Tag> tags = new ArrayList<>();
+        Tag tag1 = new Tag();
+        tag1.setName("Vegetarisch");
+
+        Tag tag2 = new Tag();
+        tag2.setName("Alcohol vrij");
+
+        Tag tag3 = new Tag();
+        tag3.setName("Gluten vrij");
+
+        tags.add(tag1);
+        tags.add(tag2);
+        tags.add(tag3);
+
+        return tags;
+    }
+
     //RestaurantOrders
     public List<RestaurantOrder> getmockRestaurantOrders()
     {

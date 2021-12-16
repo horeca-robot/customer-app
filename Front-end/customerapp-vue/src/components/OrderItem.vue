@@ -2,14 +2,19 @@
   <div>
     <b-card>
       <b-row v-on:click="changeIcon" class="order-item" no-gutters>
-        <b-col cols="7">
+        <b-col cols="2">
           <b-card-text class="heading">
-            {{ product.name }} <slot name="order-status"></slot>
+            <slot name="order-status"></slot>
+          </b-card-text>
+        </b-col>
+        <b-col cols="5">
+          <b-card-text class="heading">
+             {{ product.name }}
           </b-card-text>
         </b-col>
         <b-col cols="3">
           <b-card-text class="text price">
-            {{amount}}x &euro;{{ price.toFixed(2) }}
+            {{amount}}x &euro;{{ product.price.toFixed(2) }}
           </b-card-text>
         </b-col>
         <b-col cols="2">

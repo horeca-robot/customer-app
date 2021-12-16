@@ -146,6 +146,6 @@ export default {
 .searchbar-button {
   background-color: var(--secondary-color) !important;
   border: 2pt solid var(--secondary-color-light) !important;
-  color: var(--text-color-primary) !important;
+  color: var(--text-color-secondary) !important;
 }
 </style>

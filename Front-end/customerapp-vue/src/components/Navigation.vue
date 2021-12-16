@@ -94,7 +94,9 @@ export default {
       this.$router.push({ name: "OrderHistory" });
       this.hide();
     },
-    GoToHelp() {},
+    GoToHelp() {
+      this.$root.$emit("help");
+    },
     ChangeTable() {
       localStorage.removeItem('table');
       this.$router.push("/");
