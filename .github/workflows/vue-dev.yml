@@ -38,7 +38,7 @@ jobs:
           # Name of the Docker image
           image: 435914/customerapp-web
           # Tags override for Docker image
-          tags: latest
+          tags: dev
           # Target Docker registry
           registry: docker.io
           # Location of Dockerfile, if not Dockerfile in root directory
