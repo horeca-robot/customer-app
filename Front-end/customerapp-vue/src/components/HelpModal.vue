@@ -113,19 +113,31 @@ export default {
       this.error.message = "";
     },
     ConnectWebSocket() {
-      socket = new WebSocket("ws://localhost:4444");
+      socket = new WebSocket("ws://ws.guyliangilsing.me/customer");
 
       socket.onopen = () => {
         console.log("[open] Connection established");
       };
 
       socket.onmessage = (message) =>{
+        console.log(message.data);
           var object = JSON.parse(message.data);
           if(object.isSuccessful){
+            console.log("is gelukt!");
               this.messageSend = true;
               this.loading = false;
               this.responseMessage = object.message;
           }
+          else if(object.isSuccessful === undefined){
+            return;
+          }
+          else{
+              this.messageSend = true;
+              this.loading = false;
+              this.responseMessage = object.message;
+          }
+              
+
       }
 
       socket.onclose = (event) => {

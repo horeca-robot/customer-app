@@ -55,12 +55,9 @@ public class Category {
     private List<Category> childCategories = new ArrayList<>();
     
     @Column
-    private boolean visible;
+    private boolean visible = true;
 
-    /**
-     * For adding products to categories, you need to add the category to every product individually.
-     */
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
             name = "category_product",
             joinColumns = { @JoinColumn(name = "category_id") },

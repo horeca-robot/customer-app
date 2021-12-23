@@ -23,5 +23,5 @@ public class CategoryDto {
     private boolean visible;
 
     @JsonIgnoreProperties("categories")
-    private List<Product> products;
+    private List<ProductDto> products;
 }

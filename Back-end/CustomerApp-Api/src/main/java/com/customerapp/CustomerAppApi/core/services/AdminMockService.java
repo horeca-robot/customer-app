@@ -41,14 +41,21 @@ public class AdminMockService implements IMockService {
 
         var info = new RestaurantInfo();
         info.setName("Syan");
-        info.setClosingTime(LocalTime.MIDNIGHT);
-        info.setOpeningTime(LocalTime.NOON);
         info.setContactPersonEmail("info@syan.com");
         info.setContactPersonName("Jan-pieter");
         info.setContactPersonPhone("0612345678");
         info.setPrimaryColor("#82C4B5");
         info.setSecondaryColor("#BDAD89");
         info.setRestaurantLogo("https://e7.pngegg.com/pngimages/332/214/png-clipart-restaurant-name-logo-layout-illustration-logo-restaurant-food-food-logo-design-food-text.png");
+        info.setAccountNumber("ABNA12NL345678910");
+        info.setCountry("Nederland");
+        info.setTaxNumber("1234567890");
+        info.setCity("Eindhoven");
+        info.setAddress("Pizzabakkerlaan 129");
+        info.setPostalCode("8011 HD");
+        info.setProvince("Noord-Brabant");
+        var opening = new ArrayList<OpeningPeriod>();
+        info.setOpeningTimes(opening);
         restaurantInfoRepository.saveAndFlush(info);
 
 

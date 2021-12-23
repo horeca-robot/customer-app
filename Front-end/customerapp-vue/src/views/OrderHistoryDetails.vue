@@ -28,7 +28,7 @@
             variant="success"
           ></b-icon>
           <b-icon
-            v-if="products.orderStatus === 'OPEN_FOR_DELIVERY'"
+            v-if="products.orderStatus === 'READY_FOR_DELIVERY'"
             icon="x"
             variant="danger"
           ></b-icon>

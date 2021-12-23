@@ -54,7 +54,7 @@ public class OrderService implements IOrderService {
         for (var product : order.getProducts()) {
             var productOrder = new ProductOrder();
             productOrder.setProduct(product);
-            productOrder.setOrderStatus(OrderStatus.OPEN_FOR_DELIVERY);
+            productOrder.setOrderStatus(OrderStatus.READY_FOR_DELIVERY);
             productOrders.add(productOrder);
         }
 
