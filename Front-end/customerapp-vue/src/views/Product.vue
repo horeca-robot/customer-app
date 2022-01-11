@@ -123,7 +123,9 @@ export default {
         this.$store.commit("addToCart", this.product);
       }
       for (let i = 0; i < this.$refs.bijproduct.length; i++) {
-        this.$store.commit("addToCart", this.$refs.bijproduct[i].byproduct);
+        for (let x = 0; x < this.$refs.bijproduct[i].amount; x++) {
+          this.$store.commit("addToCart", this.$refs.bijproduct[i].byproduct);
+        }
       }
       this.$bvModal.hide(this.product.id.toString());
       this.showAlert(this.amount);
