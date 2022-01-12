@@ -184,9 +184,9 @@ body {
   border: 2pt solid var(--secondary-color-light) !important;
   color: var(--text-color-secondary) !important;
   height: 30px;
-  width: 120px;
   padding: 1px !important;
   margin-top: 3px;
+  min-width: 120px;
   margin-bottom: 3px;
 }
 .btn-secondary:active,

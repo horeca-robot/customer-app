@@ -113,40 +113,42 @@ export default {
       this.error.message = "";
     },
     ConnectWebSocket() {
-      socket = new WebSocket("ws://ws.guyliangilsing.me/customer");
+      try {
+        socket = new WebSocket("wss://ws.guyliangilsing.me/customer");
 
-      socket.onopen = () => {
-        console.log("[open] Connection established");
-      };
+        socket.onopen = () => {
+          console.log("[open] Connection established");
+        };
 
-      socket.onmessage = (message) =>{
-        console.log(message.data);
+        socket.onmessage = (message) =>{
+          console.log(message.data);
           var object = JSON.parse(message.data);
           if(object.isSuccessful){
             console.log("is gelukt!");
-              this.messageSend = true;
-              this.loading = false;
-              this.responseMessage = object.message;
+            this.messageSend = true;
+            this.loading = false;
+            this.responseMessage = object.message;
           }
           else if(object.isSuccessful === undefined){
             return;
           }
           else{
-              this.messageSend = true;
-              this.loading = false;
-              this.responseMessage = object.message;
+            this.messageSend = true;
+            this.loading = false;
+            this.responseMessage = object.message;
           }
-              
+        }
 
+        socket.onclose = (event) => {
+          console.log("websocket connection closed event" + event + event.code);
+        };
+        socket.onerror = (error) => {
+          console.log("WS ERROR: ", error);
+          setTimeout(() => this.ConnectWebSocket(), 5000);
+        };
+      } catch (e) {
+        console.log(e);
       }
-
-      socket.onclose = (event) => {
-        console.log("websocket connection closed event" + event + event.code);
-      };
-      socket.onerror = (error) => {
-        console.log("WS ERROR: ", error);
-        setTimeout(() => this.ConnectWebSocket(), 5000);
-      };
     },
   },
   mounted() {

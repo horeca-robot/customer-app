@@ -16,14 +16,7 @@
           <h1 v-if="product.ingredients != 0" class="heading">
             <b>Ingrediënten</b>
           </h1>
-          <p
-            class="text"
-            v-for="ingredient in product.ingredients"
-            :key="ingredient.id"
-            style="display: inline"
-          >
-            {{ ingredient.name }},
-          </p>
+          <p class="text">{{ this.ingredients }}</p>
           <br />
           <div>
             <b-icon
@@ -108,6 +101,11 @@ export default {
       rendered: false,
       totalPrice: 0,
     };
+  },
+  computed: {
+    ingredients() {
+      return this.product.ingredients.map(ingredient => ingredient.name).join(", ");
+    }
   },
   methods: {
     AddToAmount() {
