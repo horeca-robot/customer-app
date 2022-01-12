@@ -8,6 +8,8 @@ import com.customerapp.CustomerAppApi.models.ProductOrderDto;
 import com.customerapp.CustomerAppApi.models.RestaurantOrderDto;
 import com.lowagie.text.DocumentException;
 import edu.fontys.horecarobot.databaselibrary.models.RestaurantInfo;
+import org.apache.pdfbox.io.IOUtils;
+import org.apache.pdfbox.util.Charsets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
@@ -24,17 +26,16 @@ import java.awt.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.StringReader;
+import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.UUID;
 
 @Service
@@ -71,14 +72,32 @@ public class PDFService implements IPDFService {
 
     }
 
+    // get a file from the resources folder
+    // works everywhere, IDEA, unit test and JAR file.
+    private InputStream getFileFromResourceAsStream(String fileName) {
+
+        // The class loader that loaded the class
+        ClassLoader classLoader = getClass().getClassLoader();
+        InputStream inputStream = classLoader.getResourceAsStream(fileName);
+
+        // the stream holding the file content
+        if (inputStream == null) {
+            throw new IllegalArgumentException("file not found! " + fileName);
+        } else {
+            return inputStream;
+        }
+
+    }
+
     @Override
     public ResponseEntity<ByteArrayResource> createPDF(List<RestaurantOrderDto> restaurantOrdersDto, UUID restaurantTableId) {
         try {
-//            URL resource = getFileFromResourceAsStream("invoice.html");
-            RestaurantInfo restaurantInfo = infoService.getRestaurantInfo();
-//            Path file = Paths.get(resource.toURI());
+            InputStream inputStream = getFileFromResourceAsStream("invoice.html");
 
-            String data = Files.readString(getFileFromResource("invoice.html").toPath());
+            Scanner s = new Scanner(inputStream).useDelimiter("\\A");
+            String data = s.hasNext() ? s.next() : "";
+
+            RestaurantInfo restaurantInfo = infoService.getRestaurantInfo();
             double subTotal = getSubTotal(restaurantOrdersDto);
             Color color = Color.decode(restaurantInfo.getPrimaryColor());
             Color colorLight = brighten(color, 0.25);
@@ -130,7 +149,7 @@ public class PDFService implements IPDFService {
                     .contentLength(byteArray.length)
                     .contentType(MediaType.APPLICATION_PDF)
                     .body(bar);
-        } catch (IOException | DocumentException | SAXException | ParserConfigurationException | URISyntaxException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
