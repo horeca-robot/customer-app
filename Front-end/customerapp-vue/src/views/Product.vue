@@ -122,7 +122,7 @@ export default {
       for (let i = 0; i < this.amount; i++) {
         this.$store.commit("addToCart", this.product);
       }
-      if (this.$refs.bijproduct != null) {
+      if (this.$refs.bijproduct != undefined) {
         for (let i = 0; i < this.$refs.bijproduct.length; i++) {
           for (let x = 0; x < this.$refs.bijproduct[i].amount; x++) {
             this.$store.commit("addToCart", this.$refs.bijproduct[i].byproduct);
