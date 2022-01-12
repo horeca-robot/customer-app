@@ -114,7 +114,7 @@ export default {
     },
     ConnectWebSocket() {
       try {
-        socket = new WebSocket("ws://ws.guyliangilsing.me/customer");
+        socket = new WebSocket("wss://ws.guyliangilsing.me/customer");
 
         socket.onopen = () => {
           console.log("[open] Connection established");
