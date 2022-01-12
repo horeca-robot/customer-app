@@ -32,7 +32,7 @@
       <p>Aantal items: {{ items.length }}</p>
       <h3>Totaal: € {{ cart_total.toFixed(2) }}</h3>
       <b-container v-if="items.length">
-        <b-card class="note" v-if="note">Uw notitie is: {{note}}</b-card>
+        <b-card class="note" v-if="note"><b>Notitie:</b> <br/> {{note}}</b-card>
         <br/>
         <b-row>
           <b-col>
@@ -212,6 +212,10 @@ export default {
   },
   mounted() {
     this.$store.commit("updateCartFromLocalStorage");
+    this.note = localStorage.getItem("note");
+    if(this.note === null || this.note === undefined){
+      this.note = "";
+    }
   },
 };
 </script>
@@ -245,6 +249,7 @@ html {
 .note{
   background-color: var(--secondary-color-light);
   color: var(--text-color-secondary);
+  text-align: left;
 }
 #noteText{
   max-height: 200px !important;
