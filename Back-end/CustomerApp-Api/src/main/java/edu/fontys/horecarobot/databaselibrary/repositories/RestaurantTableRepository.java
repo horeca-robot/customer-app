@@ -1,9 +1,12 @@
 package edu.fontys.horecarobot.databaselibrary.repositories;
 
+import edu.fontys.horecarobot.databaselibrary.models.RestaurantOrder;
 import edu.fontys.horecarobot.databaselibrary.models.RestaurantTable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 /**

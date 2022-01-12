@@ -93,17 +93,14 @@ public class MockFactory {
         Ingredient ingredient1 = new Ingredient();
         ingredient1.setName("Kaas");
         ingredient1.setId(UUID.randomUUID());
-        ingredient1.setDescription("test");
 
         Ingredient ingredient2 = new Ingredient();
         ingredient2.setName("Melk");
         ingredient2.setId(UUID.randomUUID());
-        ingredient2.setDescription("test");
 
         Ingredient ingredient3 = new Ingredient();
         ingredient3.setName("Yoghurt");
         ingredient3.setId(UUID.randomUUID());
-        ingredient3.setDescription("test");
 
         ingredients.add(ingredient1);
         ingredients.add(ingredient2);
@@ -214,17 +211,17 @@ public class MockFactory {
 
         ProductOrder productOrder1 = new ProductOrder();
         productOrder1.setProduct(getMockProducts().get(0));
-        productOrder1.setOrderStatus(OrderStatus.OPEN_FOR_DELIVERY);
+        productOrder1.setOrderStatus(OrderStatus.READY_FOR_DELIVERY);
         productOrder1.setId(UUID.randomUUID());
 
         ProductOrder productOrder2 = new ProductOrder();
         productOrder2.setProduct(getMockProducts().get(1));
-        productOrder2.setOrderStatus(OrderStatus.OPEN_FOR_DELIVERY);
+        productOrder2.setOrderStatus(OrderStatus.READY_FOR_DELIVERY);
         productOrder2.setId(UUID.randomUUID());
 
         ProductOrder productOrder3 = new ProductOrder();
         productOrder3.setProduct(getMockProducts().get(2));
-        productOrder3.setOrderStatus(OrderStatus.OPEN_FOR_DELIVERY);
+        productOrder3.setOrderStatus(OrderStatus.READY_FOR_DELIVERY);
         productOrder3.setId(UUID.randomUUID());
 
         productOrders.add(productOrder1);
@@ -241,17 +238,17 @@ public class MockFactory {
         ProductOrderDto productOrderDto1 = new ProductOrderDto();
         productOrderDto1.setId(UUID.randomUUID());
         productOrderDto1.setProduct(getProductDtoList().get(0)); //Cola
-        productOrderDto1.setOrderStatus(OrderStatus.OPEN_FOR_DELIVERY);
+        productOrderDto1.setOrderStatus(OrderStatus.READY_FOR_DELIVERY);
 
         ProductOrderDto productOrderDto2 = new ProductOrderDto();
         productOrderDto2.setId(UUID.randomUUID());
         productOrderDto2.setProduct(getProductDtoList().get(1)); //Fanta
-        productOrderDto2.setOrderStatus(OrderStatus.OPEN_FOR_DELIVERY);
+        productOrderDto2.setOrderStatus(OrderStatus.READY_FOR_DELIVERY);
 
         ProductOrderDto productOrderDto3 = new ProductOrderDto();
         productOrderDto3.setId(UUID.randomUUID());
         productOrderDto3.setProduct(getProductDtoList().get(2)); //Sprite
-        productOrderDto3.setOrderStatus(OrderStatus.OPEN_FOR_DELIVERY);
+        productOrderDto3.setOrderStatus(OrderStatus.READY_FOR_DELIVERY);
 
         productOrderDtoList.add(productOrderDto1);
         productOrderDtoList.add(productOrderDto2);
@@ -279,8 +276,6 @@ public class MockFactory {
     {
         var info = new RestaurantInfo();
         info.setName("Syan");
-        info.setClosingTime(LocalTime.MIDNIGHT);
-        info.setOpeningTime(LocalTime.NOON);
         info.setContactPersonEmail("info@syan.com");
         info.setContactPersonName("Jan-pieter");
         info.setContactPersonPhone("0612345678");

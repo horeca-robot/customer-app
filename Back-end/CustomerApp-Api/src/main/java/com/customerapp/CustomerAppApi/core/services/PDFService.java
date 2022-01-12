@@ -69,6 +69,12 @@ public class PDFService implements IPDFService {
             data = data.replace("{{CONTACT_NAME}}", restaurantInfo.getContactPersonName());
             data = data.replace("{{CONTACT_PHONE}}", restaurantInfo.getContactPersonPhone());
             data = data.replace("{{CONTACT_EMAIL}}", restaurantInfo.getContactPersonEmail());
+            data = data.replace("{{ADDRESS}}", restaurantInfo.getAddress());
+            data = data.replace("{{POSTAL_CODE}}", restaurantInfo.getPostalCode());
+            data = data.replace("{{COUNTRY}}", restaurantInfo.getCountry());
+            data = data.replace("{{CITY}}", restaurantInfo.getCity());
+            data = data.replace("{{IBAN}}", restaurantInfo.getAccountNumber());
+            data = data.replace("{{CONTACT_EMAIL}}", restaurantInfo.getContactPersonEmail());
             data = data.replace("{{SUBTOTAL}}", String.format("%.2f", subTotal - (subTotal / 100) * 9));
             data = data.replace("{{BTW_TOTAL}}", String.format("%.2f", (subTotal / 100) * 9));
             data = data.replace("{{TOTAL}}", String.format("%.2f", subTotal));
