@@ -20,13 +20,12 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import java.awt.*;
-import java.io.*;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.awt.*;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 import java.net.URISyntaxException;
@@ -49,13 +48,37 @@ public class PDFService implements IPDFService {
         this.tableService = tableService;
     }
 
+    /*
+    The resource URL is not working in the JAR
+    If we try to access a file that is inside a JAR,
+    It throws NoSuchFileException (linux), InvalidPathException (Windows)
+
+    Resource URL Sample: file:java-io.jar!/json/file1.json
+ */
+    private File getFileFromResource(String fileName) throws URISyntaxException{
+
+        ClassLoader classLoader = getClass().getClassLoader();
+        URL resource = classLoader.getResource(fileName);
+        if (resource == null) {
+            throw new IllegalArgumentException("file not found! " + fileName);
+        } else {
+
+            // failed if files have whitespaces or special characters
+            //return new File(resource.getFile());
+
+            return new File(resource.toURI());
+        }
+
+    }
+
     @Override
     public ResponseEntity<ByteArrayResource> createPDF(List<RestaurantOrderDto> restaurantOrdersDto, UUID restaurantTableId) {
         try {
-            URL resource = PDFService.class.getResource("/invoice.html");
+//            URL resource = getFileFromResourceAsStream("invoice.html");
             RestaurantInfo restaurantInfo = infoService.getRestaurantInfo();
-            Path file = Paths.get(resource.toURI());
-            String data = Files.readString(file);
+//            Path file = Paths.get(resource.toURI());
+
+            String data = Files.readString(getFileFromResource("invoice.html").toPath());
             double subTotal = getSubTotal(restaurantOrdersDto);
             Color color = Color.decode(restaurantInfo.getPrimaryColor());
             Color colorLight = brighten(color, 0.25);
