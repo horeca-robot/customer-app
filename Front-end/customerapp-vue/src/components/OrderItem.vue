@@ -27,13 +27,7 @@
         </b-col>
         <b-col cols="7" v-if="product.ingredients != null">
           <b-card-text class="heading bold"> Ingrediënten </b-card-text>
-          <p
-            v-for="ingredient in product.ingredients"
-            :key="ingredient.id"
-            style="display: inline"
-          >
-            {{ ingredient.name }},
-          </p>
+          <p class="text">{{ this.ingredients }}</p>
         </b-col>
         <b-col>
           <slot name="action-area" v-bind:product="product"></slot>
@@ -62,6 +56,9 @@ export default {
         ? "arrow-down-square-fill"
         : "arrow-up-square-fill";
     },
+    ingredients() {
+      return this.product.ingredients.map(ingredient => ingredient.name).join(", ");
+    }
   },
   methods: {
     changeIcon() {
