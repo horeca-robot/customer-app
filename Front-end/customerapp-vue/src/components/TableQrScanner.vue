@@ -45,7 +45,6 @@ export default {
       return this.isValid === undefined && this.camera === "off";
     },
     validationFailure() {
-      console.log(this.isValid);
       return this.isValid === false;
     },
   },
