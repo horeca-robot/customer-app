@@ -8,6 +8,8 @@ import com.customerapp.CustomerAppApi.models.ProductOrderDto;
 import com.customerapp.CustomerAppApi.models.RestaurantOrderDto;
 import com.lowagie.text.DocumentException;
 import edu.fontys.horecarobot.databaselibrary.models.RestaurantInfo;
+import org.apache.pdfbox.io.IOUtils;
+import org.apache.pdfbox.util.Charsets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
@@ -20,22 +22,20 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import java.awt.*;
-import java.io.*;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.awt.*;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.StringReader;
+import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.UUID;
 
 @Service
@@ -49,13 +49,55 @@ public class PDFService implements IPDFService {
         this.tableService = tableService;
     }
 
+    /*
+    The resource URL is not working in the JAR
+    If we try to access a file that is inside a JAR,
+    It throws NoSuchFileException (linux), InvalidPathException (Windows)
+
+    Resource URL Sample: file:java-io.jar!/json/file1.json
+ */
+    private File getFileFromResource(String fileName) throws URISyntaxException{
+
+        ClassLoader classLoader = getClass().getClassLoader();
+        URL resource = classLoader.getResource(fileName);
+        if (resource == null) {
+            throw new IllegalArgumentException("file not found! " + fileName);
+        } else {
+
+            // failed if files have whitespaces or special characters
+            //return new File(resource.getFile());
+
+            return new File(resource.toURI());
+        }
+
+    }
+
+    // get a file from the resources folder
+    // works everywhere, IDEA, unit test and JAR file.
+    private InputStream getFileFromResourceAsStream(String fileName) {
+
+        // The class loader that loaded the class
+        ClassLoader classLoader = getClass().getClassLoader();
+        InputStream inputStream = classLoader.getResourceAsStream(fileName);
+
+        // the stream holding the file content
+        if (inputStream == null) {
+            throw new IllegalArgumentException("file not found! " + fileName);
+        } else {
+            return inputStream;
+        }
+
+    }
+
     @Override
     public ResponseEntity<ByteArrayResource> createPDF(List<RestaurantOrderDto> restaurantOrdersDto, UUID restaurantTableId) {
         try {
-            URL resource = PDFService.class.getResource("/invoice.html");
+            InputStream inputStream = getFileFromResourceAsStream("invoice.html");
+
+            Scanner s = new Scanner(inputStream).useDelimiter("\\A");
+            String data = s.hasNext() ? s.next() : "";
+
             RestaurantInfo restaurantInfo = infoService.getRestaurantInfo();
-            Path file = Paths.get(resource.toURI());
-            String data = Files.readString(file);
             double subTotal = getSubTotal(restaurantOrdersDto);
             Color color = Color.decode(restaurantInfo.getPrimaryColor());
             Color colorLight = brighten(color, 0.25);
@@ -107,7 +149,7 @@ public class PDFService implements IPDFService {
                     .contentLength(byteArray.length)
                     .contentType(MediaType.APPLICATION_PDF)
                     .body(bar);
-        } catch (IOException | DocumentException | SAXException | ParserConfigurationException | URISyntaxException e) {
+        } catch (IOException | DocumentException | SAXException | ParserConfigurationException e) {
             e.printStackTrace();
         }
         return null;
