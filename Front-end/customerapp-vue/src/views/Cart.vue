@@ -32,8 +32,8 @@
       <p>Aantal items: {{ items.length }}</p>
       <h3>Totaal: € {{ cart_total.toFixed(2) }}</h3>
       <b-container v-if="items.length">
-        <p v-if="!note">Er zijn geen notities toegevoegd...</p>
-        <p v-if="note">U heeft een notitie toegevoegd</p>
+        <b-card class="note" v-if="note"><b>Notitie:</b> <br/> {{note}}</b-card>
+        <br/>
         <b-row>
           <b-col>
             <b-button v-if="!savedNote" v-b-modal.note class="button-style heading">Notitie toevoegen</b-button>
@@ -212,6 +212,10 @@ export default {
   },
   mounted() {
     this.$store.commit("updateCartFromLocalStorage");
+    this.note = localStorage.getItem("note");
+    if(this.note === null || this.note === undefined){
+      this.note = "";
+    }
   },
 };
 </script>
@@ -241,6 +245,11 @@ html {
   border-style: solid;
   padding: 5px;
   overflow: scroll;
+}
+.note{
+  background-color: var(--secondary-color-light);
+  color: var(--text-color-secondary);
+  text-align: left;
 }
 #noteText{
   max-height: 200px !important;

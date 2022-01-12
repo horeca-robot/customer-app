@@ -20,6 +20,7 @@ public class ProductDto {
     private String description;
     private boolean containsAlcohol;
     private List<Tag> tags = new ArrayList<>();
+    private List<ProductDto> byProducts;
 
     @JsonIgnoreProperties("product")
     private List<IngredientProduct> ingredients;

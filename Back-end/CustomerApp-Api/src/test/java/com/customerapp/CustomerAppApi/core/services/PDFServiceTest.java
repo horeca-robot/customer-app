@@ -59,6 +59,11 @@ public class PDFServiceTest {
         when(restaurantInfo.getContactPersonName()).thenReturn("Bob Marley");
         when(restaurantInfo.getContactPersonPhone()).thenReturn("+31 07373784");
         when(restaurantInfo.getContactPersonEmail()).thenReturn("bob.marley@gmail.com");
+        when(restaurantInfo.getAddress()).thenReturn("Dorpsstraat 123");
+        when(restaurantInfo.getCity()).thenReturn("Eindhoven");
+        when(restaurantInfo.getCountry()).thenReturn("Nederland");
+        when(restaurantInfo.getAccountNumber()).thenReturn("NL52ABNA1234567");
+        when(restaurantInfo.getPostalCode()).thenReturn("1234 AA");
 
         // Act
         var actual = sut.createPDF(orderList, uuid);
