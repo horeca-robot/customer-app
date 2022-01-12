@@ -22,7 +22,7 @@ public class CategoryService implements ICategoryService {
 
     public List<Category> getAllParentCategories()
     {
-        return categoryRepository.findAll().stream().filter(i->i.getChildCategories().size() > 0).collect(Collectors.toList());
+        return categoryRepository.findAll().stream().filter(i->i.getParentCategories().size() == 0).collect(Collectors.toList());
     }
 
     public List<Category> getAllChildCategories()
