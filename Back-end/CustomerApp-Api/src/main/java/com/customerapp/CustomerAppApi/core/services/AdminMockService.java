@@ -30,14 +30,44 @@ public class AdminMockService implements IMockService {
         this.restaurantInfoRepository = restaurantInfoRepository;
     }
 
+
+
+    public List<Product>  bijgerechten = new ArrayList<>();
+
+    public List<Product> getBijgerechten() {
+        return bijgerechten;
+    }
+
+    public void setBijgerechten(List<Product> bijgerechten) {
+        this.bijgerechten = bijgerechten;
+    }
+
     public void Initialize() {
 
         setIngredients();
         setTags();
 
+        Product friet = new Product();
+        friet.setName("Frietjes");
+        friet.setImage("https://static-koken.vtm.be/sites/koken.vtm.be/files/recipe/image/frietjes.jpg");
+        friet.setPrice(2.85);
+        friet.setContainsAlcohol(false);
+        Product saladeproduct = new Product();
+        saladeproduct.setName("salade");
+        saladeproduct.setImage("https://www.leukerecepten.nl/wp-content/uploads/2020/07/avocado-salades-1.jpg");
+        saladeproduct.setPrice(1.95);
+        saladeproduct.setContainsAlcohol(false);
+        List<Product> bijProducten = new ArrayList<>();
+        bijProducten.add(friet);
+        bijProducten.add(saladeproduct);
+        setBijgerechten(bijProducten);
+        productRepository.saveAndFlush(friet);
+        productRepository.saveAndFlush(saladeproduct);
+
         List<Category> voorgerecht_child_list = new ArrayList<>();
         List<Category> hoofdgerecht_child_list = new ArrayList<>();
         List<Category> nagerecht_child_list = new ArrayList<>();
+
 
         var info = new RestaurantInfo();
         info.setName("Syan");
@@ -337,6 +367,7 @@ public class AdminMockService implements IMockService {
                 gyros.setDescription("Gesneden varkensvlees met tzatziki, mayonaise, frites en koolsalade");
                 gyros.setContainsAlcohol(false);
                 gyros.setTags(getRandomTags());
+                gyros.setByProducts(getBijgerechten());
                 products.add(gyros);
                 break;
             case "Pizza":
