@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <div class="content">
-      <Navbar :route="this.$route" />
+      <Navbar v-if="disableNavBar()" :route="this.$route" />
       <router-view />
     </div>
-    <b-card-footer class="footer">
+    <b-card-footer class="footer" v-if="disableNavBar()">
       <b-button class="questionButton justify-content-end" v-on:click="GetHelp">
         <b-icon  icon="question-circle" />
       </b-button>
@@ -59,6 +59,9 @@ export default {
     },
     GetHelp() {
       this.$refs.helpmodal.Show();
+    },
+    disableNavBar() {
+      return this.$route.path !== `/`;
     },
     //https://stackoverflow.com/questions/5560248/programmatically-lighten-or-darken-a-hex-color-or-rgb-and-blend-colors
     pSBC(p,c0,c1,l){

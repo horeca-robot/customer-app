@@ -9,21 +9,21 @@
     <b-container class="text-center">
       <b-row>
         <b-col>
-          <b-button class="button-style heading-2" v-on:click="GoToMenu"
+          <b-button class="button-style heading-2" v-on:click="GoToMenu" :disabled="disabledButton('menu')"
             >Menu</b-button
           >
         </b-col>
       </b-row>
       <b-row>
         <b-col>
-          <b-button class="button-style heading-2" v-on:click="GoToCart"
+          <b-button class="button-style heading-2" v-on:click="GoToCart" :disabled="disabledButton('bestelling')"
             >Winkelwagen</b-button
           >
         </b-col>
       </b-row>
       <b-row>
         <b-col>
-          <b-button class="button-style heading-2" v-on:click="GoToYourOrders"
+          <b-button class="button-style heading-2" v-on:click="GoToYourOrders" :disabled="disabledButton('bestellingen')"
             >Jouw bestellingen</b-button
           >
         </b-col>
@@ -47,7 +47,7 @@
       </b-row>
       <b-row>
         <b-col>
-          <b-button class="button-style heading-2" v-on:click="ChangeTable"
+          <b-button  class="button-style heading-2" v-on:click="ChangeTable" :disabled="disabledButton('')"
             >Verander tafel</b-button
           >
         </b-col>
@@ -114,6 +114,9 @@ export default {
       this.$refs.modal1.hide();
       document.documentElement.style.overflow = "auto";
     },
+    disabledButton(path) {
+      return this.$route.path === `/${path}`;
+    }
   },
   created(){
     APIService.getRestaurantInfo().then(response =>{

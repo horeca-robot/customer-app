@@ -122,11 +122,14 @@ export default {
       for (let i = 0; i < this.amount; i++) {
         this.$store.commit("addToCart", this.product);
       }
-      for (let i = 0; i < this.$refs.bijproduct.length; i++) {
-        for (let x = 0; x < this.$refs.bijproduct[i].amount; x++) {
-          this.$store.commit("addToCart", this.$refs.bijproduct[i].byproduct);
+      if (this.$refs.bijproduct != undefined) {
+        for (let i = 0; i < this.$refs.bijproduct.length; i++) {
+          for (let x = 0; x < this.$refs.bijproduct[i].amount; x++) {
+            this.$store.commit("addToCart", this.$refs.bijproduct[i].byproduct);
+          }
         }
       }
+
       this.$bvModal.hide(this.product.id.toString());
       this.showAlert(this.amount);
     },
@@ -149,10 +152,15 @@ export default {
     },
     calcTotalPrice() {
       var byproductPrices = 0;
-      for (let i = 0; i < this.$refs.bijproduct.length; i++) {
-        byproductPrices += this.$refs.bijproduct[i].totalprice();
+      if (this.$refs.bijproduct != undefined) {
+        for (let i = 0; i < this.$refs.bijproduct.length; i++) {
+          byproductPrices += this.$refs.bijproduct[i].totalprice();
+          this.totalPrice = this.amount * this.product.price + byproductPrices;
+        }
       }
-      this.totalPrice = this.amount * this.product.price + byproductPrices;
+      else{
+        this.totalPrice = this.amount * this.product.price;
+      }
     },
   },
   mounted() {
