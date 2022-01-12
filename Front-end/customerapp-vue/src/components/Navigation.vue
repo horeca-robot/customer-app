@@ -85,14 +85,17 @@ export default {
     GoToMenu() {
       this.$router.push({ name: "Menu" });
       this.hide();
+      document.documentElement.style.overflow = "auto";
     },
     GoToCart() {
       this.$router.push({ name: "Cart" });
       this.hide();
+      document.documentElement.style.overflow = "auto";
     },
     GoToYourOrders() {
       this.$router.push({ name: "OrderHistory" });
       this.hide();
+      document.documentElement.style.overflow = "auto";
     },
     GoToHelp() {
       this.$root.$emit("help");
@@ -101,12 +104,15 @@ export default {
       localStorage.removeItem('table');
       this.$router.push("/");
       this.hide();
+      document.documentElement.style.overflow = "auto";
     },
     show() {
       this.$refs.modal1.show();
+      document.documentElement.style.overflow = "hidden";
     },
     hide() {
       this.$refs.modal1.hide();
+      document.documentElement.style.overflow = "auto";
     },
   },
   created(){

@@ -42,7 +42,7 @@
               >amount</b-input
             >
             <b-icon
-            style="color: var(--text-color-secondary)"
+              style="color: var(--text-color-secondary)"
               icon="plus"
               font-scale="3"
               v-on:click="AddToAmount"
@@ -50,16 +50,19 @@
           </div>
         </div>
         <div class="bijgerechten">
-          <h1 class="heading"><b>Bijgerechten</b></h1>
+          <h1 v-if="product.byProducts.length != 0" class="heading">
+            <b>Bijgerechten</b>
+          </h1>
           <Byproduct
-            v-for="byproduct in product.byproduct"
+            v-for="byproduct in product.byProducts"
             :key="byproduct.id"
             :byproduct="byproduct"
+            ref="bijproduct"
           />
         </div>
         <div class="place-order">
           <h3 class="heading">
-            Totale prijs: &euro; {{ (product.price * this.amount).toFixed(2) }}
+            Totale prijs: &euro; {{ totalPrice.toFixed(2) }}
           </h3>
           <b-button class="button-style heading" v-on:click="addToCart"
             >Toevoegen</b-button
@@ -71,7 +74,11 @@
           variant="success"
           @dismiss-count-down="countDownChanged"
         >
-          {{this.orderAmount}}x {{ product.name }} met succes toegevoegd aan de <router-link class="alert-link" :to="{name:'Cart'}">bestelling.</router-link>
+          {{ this.orderAmount }}x {{ product.name }} met succes toegevoegd aan
+          de
+          <router-link class="alert-link" :to="{ name: 'Cart' }"
+            >bestelling.</router-link
+          >
         </b-alert>
       </div>
     </div>
@@ -98,6 +105,8 @@ export default {
       dismissSecs: 4,
       dismissCountDown: 0,
       showDismissibleAlert: false,
+      rendered: false,
+      totalPrice: 0,
     };
   },
   methods: {
@@ -113,8 +122,13 @@ export default {
       for (let i = 0; i < this.amount; i++) {
         this.$store.commit("addToCart", this.product);
       }
+      for (let i = 0; i < this.$refs.bijproduct.length; i++) {
+        for (let x = 0; x < this.$refs.bijproduct[i].amount; x++) {
+          this.$store.commit("addToCart", this.$refs.bijproduct[i].byproduct);
+        }
+      }
       this.$bvModal.hide(this.product.id.toString());
-      this.showAlert(this.amount);      
+      this.showAlert(this.amount);
     },
     checkAmount() {
       if (this.amount < 1) {
@@ -127,26 +141,35 @@ export default {
       this.dismissCountDown = dismissCountDown;
     },
     showAlert(amount) {
-      if(this.dismissCountDown == 0)
-      {
+      if (this.dismissCountDown == 0) {
         this.orderAmount = 0;
       }
       this.dismissCountDown = this.dismissSecs;
       this.orderAmount += amount;
     },
+    calcTotalPrice() {
+      var byproductPrices = 0;
+      for (let i = 0; i < this.$refs.bijproduct.length; i++) {
+        byproductPrices += this.$refs.bijproduct[i].totalprice();
+      }
+      this.totalPrice = this.amount * this.product.price + byproductPrices;
+    },
   },
   mounted() {
-
-    this.$APIService.getProductById({ params: { id: this.productId } })
-    .then((response) => {
-      this.product = response.data;
-    });
-    this.$APIService.getIngredientsByProductId({ params: { id: this.productId } })
-    .then((response) => {
-      this.product.ingredients = response.data;
-      this.product.byproduct = response.data;
-    });
+    this.$APIService
+      .getProductById({ params: { id: this.productId } })
+      .then((response) => {
+        this.product = response.data;
+      });
+    this.$APIService
+      .getIngredientsByProductId({ params: { id: this.productId } })
+      .then((response) => {
+        this.product.ingredients = response.data;
+      });
     this.$store.commit("updateCartFromLocalStorage");
+  },
+  beforeUpdate() {
+    this.calcTotalPrice();
   },
 };
 </script>

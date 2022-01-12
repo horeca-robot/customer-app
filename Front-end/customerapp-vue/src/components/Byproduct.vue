@@ -2,8 +2,13 @@
   <div class="byproduct">
     <div>{{ byproduct.name }}</div>
     <div>
-      <span>&euro;2,34</span>
-      <b-icon style="color: var(--text-color-secondary)" icon="dash" font-scale="1" v-on:click="RemoveFromAmount"></b-icon>
+      <span>&euro;{{ (byproduct.price * amount).toFixed(2) }}</span>
+      <b-icon
+        style="color: var(--text-color-secondary)"
+        icon="dash"
+        font-scale="1"
+        v-on:click="RemoveFromAmount"
+      ></b-icon>
       <b-input
         class="numberSelected"
         type="number"
@@ -12,7 +17,12 @@
         min="0"
         >amount</b-input
       >
-      <b-icon style="color: var(--text-color-secondary)" icon="plus" font-scale="1" v-on:click="AddToAmount"></b-icon>
+      <b-icon
+        style="color: var(--text-color-secondary)"
+        icon="plus"
+        font-scale="1"
+        v-on:click="AddToAmount"
+      ></b-icon>
     </div>
   </div>
 </template>
@@ -28,10 +38,15 @@ export default {
   methods: {
     AddToAmount() {
       this.amount++;
+      this.$parent.calcTotalPrice();
+    },
+    totalprice() {
+      return this.amount * this.byproduct.price;
     },
     RemoveFromAmount() {
       if (this.amount != 0) {
         this.amount--;
+        this.$parent.calcTotalPrice();
       }
     },
   },
