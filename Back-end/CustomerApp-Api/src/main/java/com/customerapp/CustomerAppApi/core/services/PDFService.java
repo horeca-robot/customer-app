@@ -149,7 +149,7 @@ public class PDFService implements IPDFService {
                     .contentLength(byteArray.length)
                     .contentType(MediaType.APPLICATION_PDF)
                     .body(bar);
-        } catch (Exception e) {
+        } catch (IOException | DocumentException | SAXException | ParserConfigurationException e) {
             e.printStackTrace();
         }
         return null;
