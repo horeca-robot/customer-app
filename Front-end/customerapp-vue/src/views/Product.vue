@@ -50,7 +50,7 @@
           </div>
         </div>
         <div class="bijgerechten">
-          <h1 v-if="product.byProducts.length != 0" class="heading">
+          <h1 v-if="product.byProducts && product.byProducts.length" class="heading">
             <b>Bijgerechten</b>
           </h1>
           <Byproduct
