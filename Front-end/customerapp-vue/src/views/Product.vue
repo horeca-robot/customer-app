@@ -104,7 +104,7 @@ export default {
   },
   computed: {
     ingredients() {
-      if (typeof this.product.ingredients !== "undefined") return "";
+      if (typeof this.product.ingredients === "undefined") return "";
 
       return this.product.ingredients
         .map((ingredient) => ingredient.name)
