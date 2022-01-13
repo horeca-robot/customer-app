@@ -104,8 +104,12 @@ export default {
   },
   computed: {
     ingredients() {
-      return this.product.ingredients.map(ingredient => ingredient.name).join(", ");
-    }
+      if (!this.product.ingredients) return "";
+
+      return this.product.ingredients
+        .map((ingredient) => ingredient.name)
+        .join(", ");
+    },
   },
   methods: {
     AddToAmount() {
