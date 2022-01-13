@@ -104,7 +104,7 @@ export default {
   },
   computed: {
     ingredients() {
-      if (!this.product.ingredients) return "";
+      if (typeof this.product.ingredients !== "undefined") return "";
 
       return this.product.ingredients
         .map((ingredient) => ingredient.name)
@@ -159,8 +159,7 @@ export default {
           byproductPrices += this.$refs.bijproduct[i].totalprice();
           this.totalPrice = this.amount * this.product.price + byproductPrices;
         }
-      }
-      else{
+      } else {
         this.totalPrice = this.amount * this.product.price;
       }
     },

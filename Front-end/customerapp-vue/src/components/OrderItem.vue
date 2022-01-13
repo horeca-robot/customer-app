@@ -57,7 +57,7 @@ export default {
         : "arrow-up-square-fill";
     },
     ingredients() {
-      if (!this.product.ingredients) return "";
+      if (typeof this.product.ingredients !== "undefined") return "";
 
       return this.product.ingredients
           .map((ingredient) => ingredient.name)
